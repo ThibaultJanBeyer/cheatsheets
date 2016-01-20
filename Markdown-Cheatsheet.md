@@ -391,4 +391,4 @@ Referencing a bug by #bugID in your git commit links it to the slip. For example
 - [ ] A box to tick
 ```
 
-– [ ] A box to tick
+- [ ] A box to tick
