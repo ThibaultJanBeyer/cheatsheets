@@ -100,33 +100,33 @@ Push your branch up to the remote for review
 **git rm** –– remove file  
 git rm -f –– to remove it when it’s already in the index  
 git rm --cached –– keep on hard drive but remove from being tracked  
-git rm log/\*.log –– removes all files that have the .log extension in the log/ directory  
-git rm \*~ –– removes all files that end with ~  
+git rm log&sol;&bsol;&ast;.log –– removes all files that have the .log extension in the log/ directory  
+git rm &bsol;&ast;~ –– removes all files that end with ~  
 **git mv file-from file-to** –– to rename a file  
 **git branch -d branch-name** –– delete the branch  
 
 ###Ignoring
 Create a .gitignore file and write in that file:  
-*.[oa] –– ignore any files ending in “.o” or “.a”  
-*~ –– ignore all files that end with a tilde (~) which is used by many text editors such as Emacs to mark temporary files  
+&ast;.[oa] –– ignore any files ending in “.o” or “.a”  
+&ast;~ –– ignore all files that end with a tilde (~) which is used by many text editors such as Emacs to mark temporary files  
 ####Rules
 Blank lines or lines starting with # are ignored.  
 Standard glob patterns work.  
 You can start patterns with a forward slash / to avoid recursivity.  
 You can end patterns with a forward slash / to specify a directory.  
 You can negate a pattern by starting it with an exclamation point !.  
-* matches zero or more characters  
+&ast; matches zero or more characters  
 [abc] matches any character inside the brackets (in this case a, b, or c)  
 ? matches a single character   
 [0-9] matches any character between them (in this case 0 through 9)  
-a/**/z would match a/z, a/b/z, a/b/c/z, and so on.  
+a/&ast;&ast;/z would match a/z, a/b/z, a/b/c/z, and so on.  
 Example  
-*.a –– no .a files  
+&ast;.a –– no .a files  
 !lib.a –– but do track lib.a, even though you're ignoring .a files above  
 /TODO –– only ignore the TODO file in the current directory, not subdir/TODO  
 build/ –– ignore all files in the build/ directory  
-doc/*.txt –– ignore doc/notes.txt, but not doc/server/arch.txt  
-doc/**/*.pdf –– ignore all .pdf files in the doc/ directory  
+doc/&ast;.txt –– ignore doc/notes.txt, but not doc/server/arch.txt  
+doc/&ast;&ast;/&ast;.pdf –– ignore all .pdf files in the doc/ directory  
 Templates: https://github.com/github/gitignore
 
 ###Renaming
