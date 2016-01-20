@@ -1,4 +1,4 @@
-[back to overwiev](..)
+[back to overwiev](/../)
 
 # Command Line Cheatsheet
 
