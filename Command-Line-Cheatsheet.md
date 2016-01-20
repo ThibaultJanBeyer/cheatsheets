@@ -1,5 +1,19 @@
 # Command Line Cheatsheet
 
+##### Table of Contents  
+[Basics](#basics)  
+  [Showing & Navigating](##Showing & Navigating)  
+[Lists](#lists)  
+[Links](#links)  
+[Images](#images)  
+[Code and Syntax Highlighting](#code)  
+[Tables](#tables)  
+[Blockquotes](#blockquotes)  
+[Inline HTML](#html)  
+[Horizontal Rule](#hr)  
+[Line Breaks](#lines)  
+[Youtube videos](#videos) 
+
 ## Basics
 
 ### Showing & Navigating
