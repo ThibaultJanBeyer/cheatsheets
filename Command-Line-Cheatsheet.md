@@ -4,8 +4,8 @@
 
 ##### Table of Contents  
 [Basics](#basics)  
-[Showing & Navigating](#Showing)  
-[Copying/Moving/Removing](#Copying/Moving/Removing)  
+[Showing & Navigating](#showing--navigating)  
+[Copying/Moving/Removing](#copyingmovingremoving)  
 
 ## Basics
 

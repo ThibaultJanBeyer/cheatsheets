@@ -3,15 +3,16 @@
 #Git
 
 ##### Table of Contents  
-[Mostly used](#Mostly used)  
-[Getting Help](#Getting Help)  
-[Staging](#Staging)  
-[Commiting](#Commiting)  
-[Branching](#Branching)  
-[Teamwork](#Teamwork)  
-[Removing](#Removing)  
-[Ignoring](#Ignoring)
-[Renaming](#Renaming)  
+[Mostly used](#mostly-used)  
+[Getting Help](#getting-help)  
+[Setup](#setup)  
+[Staging](#staging)  
+[Commiting](#commiting)  
+[Branching](#branching)  
+[Teamwork](#teamwork)  
+[Removing](#removing)  
+[Ignoring](#ignoring)
+[Renaming](#renaming)  
 
 ##Mostly used
 **git init** –– to initialize  
