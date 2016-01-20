@@ -388,7 +388,9 @@ Referencing a bug by #bugID in your git commit links it to the slip. For example
 ## Form Elements
 
 ```no-highligh
-- [ ] A box to tick
+- [x] this is a complete item
+- [ ] this is an incomplete item
 ```
 
-- [ ] A box to tick
+- [x] this is a complete item
+- [ ] this is an incomplete item
