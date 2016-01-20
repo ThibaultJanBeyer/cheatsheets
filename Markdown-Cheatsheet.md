@@ -1,5 +1,7 @@
 [back to overwiev](/../..)
 
+#Git Markdown Cheatsheet
+
 This is intended as a quick reference and showcase. For more complete info, see [John Gruber's original spec](http://daringfireball.net/projects/markdown/) and the [Github-flavored Markdown info page](http://github.github.com/github-flavored-markdown/).
 The base for this Markdown Cheat Sheet is actually a clone of [Adam Pritchards Cheat-Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
@@ -16,6 +18,7 @@ The base for this Markdown Cheat Sheet is actually a clone of [Adam Pritchards C
 [Horizontal Rule](#hr)  
 [Line Breaks](#lines)  
 [Youtube videos](#videos)  
+[Form Elements](#form-elements)  
 
 <a name="headers"/>
 ## Headers
@@ -36,21 +39,6 @@ Alt-H1
 Alt-H2
 ------
 ```
-
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
-
-Alternatively, for H1 and H2, an underline-ish style:
-
-Alt-H1
-======
-
-Alt-H2
-------
 
 <a name="emphasis"/>
 ## Emphasis
@@ -394,4 +382,13 @@ Or, in pure Markdown, but losing the image sizing and border:
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 ```
 
-Referencing a bug by #bugID in your git commit links it to the slip. For example #1. 
+Referencing a bug by #bugID in your git commit links it to the slip. For example #1.
+
+
+## Form Elements
+
+```no-highligh
+- [ ] A box to tick
+```
+
+– [ ] A box to tick
