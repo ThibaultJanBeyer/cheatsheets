@@ -1,5 +1,16 @@
 #Git
 
+##### Table of Contents  
+[Mostly used](#Mostly used)  
+[Getting Help](#Getting Help)  
+[Staging](#Staging)  
+[Commiting](#Commiting)  
+[Branching](#Branching)  
+[Teamwork](#Teamwork)  
+[Removing](#Removing)  
+[Ignoring](#Ignoring)
+[Renaming](#Renaming)  
+
 ###Mostly used
 **git init** –– to initialize  
 **git status** –– to check what’s in the folder  
@@ -87,7 +98,7 @@ git pull --rebase remote-name branch-name –– http://gitready.com/advanced/20
 **git branch -a** –– Show all available branches  
 **git checkout branchname** –– Switch to a branch
 
-###Teamwork Workflow:
+####Teamwork Workflow:
 Fetch and merge changes from the remote  
 Create a branch to work on a new project feature  
 Develop the feature on your branch and commit your work  

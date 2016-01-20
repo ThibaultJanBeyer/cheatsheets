@@ -2,17 +2,8 @@
 
 ##### Table of Contents  
 [Basics](#basics)  
-  [Showing & Navigating](##Showing & Navigating)  
-[Lists](#lists)  
-[Links](#links)  
-[Images](#images)  
-[Code and Syntax Highlighting](#code)  
-[Tables](#tables)  
-[Blockquotes](#blockquotes)  
-[Inline HTML](#html)  
-[Horizontal Rule](#hr)  
-[Line Breaks](#lines)  
-[Youtube videos](#videos) 
+[Showing & Navigating](#Showing & Navigating)  
+[Copying/Moving/Removing](#Copying/Moving/Removing)  
 
 ## Basics
 
@@ -29,7 +20,7 @@ cd .. –– one up – cd folder/folder –– two down
 **mkdir name** –– make directory  
 **touch name** –– creates a new file inside the working directory
 
-### Copying/Moving/Removingm
+### Copying/Moving/Removing
 **cp** file-to-copy place-to-paste –– copies files and paste them somewhere else  
 cp file1 file2 file3 place-to-paste –– you can copy multiple files at once  
 cp * place-to-paste –– copy all files from working directory  (special characters like * are called wildcard, when you combine it with .txt for example would mean any file that ends with .txt)    
