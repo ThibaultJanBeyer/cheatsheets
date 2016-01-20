@@ -18,8 +18,7 @@ cd .. –– one up – cd folder/folder –– two down
 ### Copying/Moving/Removingm
 **cp** file-to-copy place-to-paste –– copies files and paste them somewhere else  
 cp file1 file2 file3 place-to-paste –– you can copy multiple files at once  
-cp * place-to-paste –– copy all files from working directory  (special characters like * are called wildcard)  
-cp a*.txt place-to-paste –– copy all files starting with a ending with .txt  
+cp * place-to-paste –– copy all files from working directory  (special characters like * are called wildcard, when you combine it with .txt for example would mean any file that ends with .txt)    
 **mv** file-to-move-1 place-to-move –– moves a file  
 mv file-to-rename new-filename –– renames a file  
 **rm** file-to-remove –– removes a file or directory !permanently!  
