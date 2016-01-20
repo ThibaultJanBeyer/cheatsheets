@@ -1,3 +1,5 @@
+[back to overwiev](/../..)
+
 #Git
 
 ##### Table of Contents  
@@ -11,7 +13,7 @@
 [Ignoring](#Ignoring)
 [Renaming](#Renaming)  
 
-###Mostly used
+##Mostly used
 **git init** –– to initialize  
 **git status** –– to check what’s in the folder  
 **git add filename1 filename2** –– to add files to git  
@@ -41,7 +43,7 @@ You modify files in your working directory.
 You stage the files, adding snapshots of them to your staging area.  
 You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.  
 
-###Getting Help
+##Getting Help
 ####Within git
 git help &lt;verb&gt;  
 git &lt;verb&gt; --help  
@@ -55,7 +57,7 @@ git diff –– compares staged with not staged
 git diff --staged –– compares staged with commited  
 (--staged and --cached are synonyms)  
 
-###Setup
+##Setup
 ####Global
 git config --global user.name "John Doe"  
 git config --global user.email johndoe@example.com  
@@ -70,23 +72,23 @@ git push -u origin master
 ####Existing
 git clone URL (directory name, optional)  
 
-###Staging
+##Staging
 **git add filename** –– stages the file exactly how it is at this moment, for every change this command has to be run again to stage the new version.
 
-###Commiting
+##Commiting
 **git commit** –– commits with basic info + large message  
 git commit -v –– commits with changes + message  
 git commit -m –– commits basic info + message inline  
 git commit -a –– commits basic info + message & git add all files  
 
-###Branching
+##Branching
 **git branch** –– show’s the branch you’re on  
 git branch branch-name –– create a branch  
 git branch -d branch-name –– delete the branch  
 **git checkout branch-name** –– switches to the specified branch  
 **git merge branch-name** –– merges the actual branch with the branch specified  
 
-###Teamwork
+##Teamwork
 **git clone remote-location clone-name** –– clones a remote git project. Location of original + a name for your directory. The original will get the name origin  
 **git remote -v** –– Lists a Git project's remotes.  
 **git fetch** –– gets any possible changes and stores them into a branch called origin/master  
@@ -107,7 +109,7 @@ Push your branch up to the remote for review
 > Make Pull Request (WIP)  
 > Merge
 
-###Removing
+##Removing
 **git rm** –– remove file  
 git rm -f –– to remove it when it’s already in the index  
 git rm --cached –– keep on hard drive but remove from being tracked  
@@ -116,7 +118,7 @@ git rm &bsol;&ast;~ –– removes all files that end with ~
 **git mv file-from file-to** –– to rename a file  
 **git branch -d branch-name** –– delete the branch  
 
-###Ignoring
+##Ignoring
 Create a .gitignore file and write in that file:  
 &ast;.[oa] –– ignore any files ending in “.o” or “.a”  
 &ast;~ –– ignore all files that end with a tilde (~) which is used by many text editors such as Emacs to mark temporary files  
@@ -140,7 +142,7 @@ doc/&ast;.txt –– ignore doc/notes.txt, but not doc/server/arch.txt
 doc/&ast;&ast;/&ast;.pdf –– ignore all .pdf files in the doc/ directory  
 Templates: https://github.com/github/gitignore
 
-###Renaming
+##Renaming
 **git mv file-from file-to**  
 Is the equivalent to:  
 mv README.md README  

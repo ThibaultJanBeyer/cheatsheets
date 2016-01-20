@@ -9,7 +9,7 @@
 
 ## Basics
 
-### Showing & Navigating
+## Showing & Navigating
 **ls** –– lists all files (folders are called directories. files and directories are structured in a file system)  
 **ls -a** –– lists all files + hidden files (-a is called an option)  
 ls -t –– orders by time last added  
@@ -22,7 +22,7 @@ cd .. –– one up – cd folder/folder –– two down
 **mkdir name** –– make directory  
 **touch name** –– creates a new file inside the working directory
 
-### Copying/Moving/Removing
+## Copying/Moving/Removing
 **cp** file-to-copy place-to-paste –– copies files and paste them somewhere else  
 cp file1 file2 file3 place-to-paste –– you can copy multiple files at once  
 cp * place-to-paste –– copy all files from working directory  (special characters like * are called wildcard, when you combine it with .txt for example would mean any file that ends with .txt)    
