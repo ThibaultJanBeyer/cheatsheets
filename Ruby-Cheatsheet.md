@@ -13,7 +13,7 @@
 
 *$ irb –– to write ruby in the terminal*
 *don't use ' in ruby, use " instead*
-*you can replace most {} with do end and vice versa –– not true vor hashes*
+*you can replace most {} with do end and vice versa –– not true for hashes or #{} escapings*
 
 ##Basics
 ##Vars, Arrays & Hashes
