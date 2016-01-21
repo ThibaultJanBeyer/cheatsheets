@@ -1,4 +1,5 @@
-Just another collection of CheatSheets.
+Just another collection of CheatSheets.  
+**living document – constantly updating**
 
 Covered so far:
 
