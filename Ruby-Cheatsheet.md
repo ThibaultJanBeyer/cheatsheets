@@ -3,28 +3,25 @@
 #Ruby Cheatsheet
 
 ##### Table of Contents  
-[Vars & Arrays](#vars-arrays)  
+[Vars & Arrays](#vars--arrays)  
 [Calculation](#calculation)  
 [Comment](#comment)  
 [Conditions](#conditions)  
 [Printing](#printing)  
 [User Imput](#user-imput)  
 [Loops](#loops)  
-[Removing](#removing)  
-[Ignoring](#ignoring)
-[Renaming](#renaming) 
 
 *$ irb –– to write ruby in the terminal*
 
 ##Basics
-##Vars & Arrays:
+##Vars & Arrays
 my_variable = “Hello”  
 my_variable.capitalize! –– ! changes the value of the var same as my_name = my_name.capitalize  
 my_array = &lsqb;1,2&rsqb;
 ####Functions to create Arrays
 "bla,bla".split(“,”) –– takes sting and returns an array (here  &lsqb;"bla","bla"&rsqb;)
 
-##Calculation:
+##Calculation
 Addition (+)  
 Subtraction (-)  
 Multiplication (*)  
@@ -33,13 +30,13 @@ Exponentiation (**)
 Modulo (%)  
 you can do 1 += 1 –– which gives you 2 but 1++ and 1-- does not exist in ruby
 
-##Comment:
+##Comment
 **=begin**  
 Bla  
 **=end**  
 **&num;** bla
 
-##Conditions:
+##Conditions
 **if** 1 < 2  
 puts “one smaller than two”  
 **elsif** 1 > 2 –– *careful not to mistake with else if. In ruby you write elsif*  
@@ -59,7 +56,7 @@ puts “not here”
 problem = false  
 print "Good to go!" unless problem –– prints out because problem != true  
 
-##Printing:
+##Printing
 **print “bla”**  
 **puts “test”** –– puts the text in a separate line
 
@@ -78,11 +75,13 @@ gets.chomp –– removes extra line created after gets (usually used like this)
 
 ##Loops
 **While loop:**  
+```Ruby
 i = 1  
 **while** i < 11  
   puts i  
   i = i + 1  
 **end**  
+```
 
 **Until loop:**  
 i = 0  
