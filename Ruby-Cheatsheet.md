@@ -3,7 +3,7 @@
 #Ruby Cheatsheet
 
 ##### Table of Contents  
-[Vars & Arrays](#vars--arrays--hashes)  
+[Vars, Arrays & Hashes](#vars-arrays--hashes)  
 [Calculation](#calculation)  
 [Comment](#comment)  
 [Conditions](#conditions)  
