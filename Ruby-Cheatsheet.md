@@ -17,14 +17,21 @@
 
 ##Basics
 ##Vars, Arrays & Hashes
-**my_variable = “Hello”**  
-my_variable.capitalize! –– ! changes the value of the var same as my_name = my_name.capitalize  
-**my_array = &lsqb;a,b&rsqb;**  
+```Ruby
+my_variable = “Hello”  
+my_variable.capitalize! # ! changes the value of the var same as my_name = my_name.capitalize
+```
+```Ruby  
+my_array = [a,b]  
 my_array[1] –– b  
-multi_d = &lsqb;&lsqb;0,1&rsqb;,&lsqb;0,1&rsqb;&rsqb;  
-**hash = &lcub; "key1" => "value1", "key2" => "value2" &rcub;** –– same as objects in JavaScript
-my_hash = Hash.new –– same as my_hash = {} –– set a new key like so: pets["Stevie"] = "cat"
-pets["key1"] –– value1
+multi_d = [[0,1],[0,1]]
+```
+```Ruby  
+hash = { "key1" => "value1", "key2" => "value2" } # same as objects in JavaScript
+my_hash = Hash.new # same as my_hash = {} # set a new key like so: pets["Stevie"] = "cat"
+pets["key1"] # value1
+pets["Stevie"] # cat
+```
 
 
 ####Functions to create Arrays
