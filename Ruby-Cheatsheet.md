@@ -40,25 +40,32 @@ Modulo (%)
 you can do 1 += 1 –– which gives you 2 but 1++ and 1-- does not exist in ruby
 
 ##Comment
-**=begin**  
+```Ruby
+=begin  
 Bla  
-**=end**  
-**&num;** bla
+=end  
+# bla
+```
 
 ##Conditions
-**if** 1 < 2  
+**IF**
+```Ruby
+if 1 < 2  
 puts “one smaller than two”  
-**elsif** 1 > 2 –– *careful not to mistake with else if. In ruby you write elsif*  
+elsif 1 > 2 # *careful not to mistake with else if. In ruby you write elsif*  
 puts “elsif”  
-**else**  
+else  
 puts “false”  
-**end**  
-
-**unless** false –– unless checks if the statement is false (opposite to if).  
+end
+```  
+**unless**
+```Ruby
+unless false # unless checks if the statement is false (opposite to if).  
 puts “I’m here”  
-**else**  
+else 
 puts “not here”  
-**end**  
+end
+```  
 
 **&&** –– and  **||** –– or  **!** –– not  
 **(x && (y || w)) && z** –– use parenthesis to combine arguments  
@@ -66,21 +73,27 @@ problem = false
 print "Good to go!" unless problem –– prints out because problem != true  
 
 ##Printing
-**print “bla”**  
-**puts “test”** –– puts the text in a separate line
+```Ruby
+print “bla”  
+puts “test” # puts the text in a separate line
+```
 
 ##String Methods
-“Hello”**.length** –– 5  
-"Hello”**.reverse** –– “olleH”  
-"Hello”**.upcase** –– “HELLO”  
-"Hello”**.downcase** –– “hello”  
-“hello”**.capitalize** –– “Hello”  
-“Hello”**.include? “i”** –– equals to false because there is no i in Hello  
-“Hello”**.gsub!(/e/, “o”)** –– Hollo  
+```Ruby
+“Hello”.length # 5  
+"Hello”.reverse # “olleH”  
+"Hello”.upcase # “HELLO”  
+"Hello”.downcase # “hello”  
+“hello”.capitalize # “Hello”  
+“Hello”.include? “i” # equals to false because there is no i in Hello  
+“Hello”.gsub!(/e/, “o”) # Hollo
+```  
 
 ##User Imput
-**gets** –– is the Ruby equivalent to prompt in javascript (method that gets input from the user)
-gets.chomp –– removes extra line created after gets (usually used like this)
+```Ruby
+gets # is the Ruby equivalent to prompt in javascript (method that gets input from the user)
+gets.chomp # removes extra line created after gets (usually used like this)
+```
 
 ##Loops
 **While loop:**  
