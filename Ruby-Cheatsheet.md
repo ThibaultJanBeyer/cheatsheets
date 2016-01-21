@@ -3,7 +3,7 @@
 #Ruby Cheatsheet
 
 ##### Table of Contents  
-[Vars & Arrays](#vars--arrays)  
+[Vars & Arrays](#vars--arrays--hashes)  
 [Calculation](#calculation)  
 [Comment](#comment)  
 [Conditions](#conditions)  
@@ -12,12 +12,21 @@
 [Loops](#loops)  
 
 *$ irb –– to write ruby in the terminal*
+*don't use ' in ruby, use " instead*
+*you can replace most {} with do end and vice versa –– not true vor hashes*
 
 ##Basics
-##Vars & Arrays
-my_variable = “Hello”  
+##Vars, Arrays & Hashes
+**my_variable = “Hello”**  
 my_variable.capitalize! –– ! changes the value of the var same as my_name = my_name.capitalize  
-my_array = &lsqb;1,2&rsqb;
+**my_array = &lsqb;a,b&rsqb;**  
+my_array[1] –– b  
+multi_d = &lsqb;&lsqb;0,1&rsqb;,&lsqb;0,1&rsqb;&rsqb;  
+**hash = &lcub; "key1" => "value1", "key2" => "value2" &rcub;** –– same as objects in JavaScript
+my_hash = Hash.new –– same as my_hash = {} –– set a new key like so: pets["Stevie"] = "cat"
+pets["key1"] –– value1
+
+
 ####Functions to create Arrays
 "bla,bla".split(“,”) –– takes sting and returns an array (here  &lsqb;"bla","bla"&rsqb;)
 
@@ -77,45 +86,62 @@ gets.chomp –– removes extra line created after gets (usually used like this)
 **While loop:**  
 ```Ruby
 i = 1  
-**while** i < 11  
+while i < 11  
   puts i  
   i = i + 1  
-**end**  
+end  
 ```
 
 **Until loop:**  
+```Ruby
 i = 0  
-**until** i == 6  
-puts i  
-i += 1  
-**end**  
+until i == 6  
+  puts i  
+  i += 1  
+end
+```  
 
 **For loop**  
-**for** i **in** 1**...**10 – ... tells ruby to exclude the last number (here 10 if we .. only then it includes the last num)  
+```Ruby
+for i in 1...10 # ... tells ruby to exclude the last number (here 10 if we .. only then it includes the last num)  
   puts i  
-**end**  
+end  
+```
 
 **Loop iterator**  
+```Ruby
 i = 0  
-**loop do**   
-i += 1  
-print "I'm currently number #{i}” –– a way to have ruby code in a string   
-**break** if i > 5  
-**end**  
+loop do
+  i += 1  
+  print "I'm currently number #{i}” # a way to have ruby code in a string   
+  break if i > 5  
+end  
+```
 
 **Next**  
-**for** i **in** 1**..**5  
-**next if** i % 2 == 0 –– If the remainder of i / 2 is zero, we go to the next iteration of the loop.  
-print i  
-**end**  
+```Ruby
+for i in 1..5  
+  next if i % 2 == 0 # If the remainder of i / 2 is zero, we go to the next iteration of the loop.  
+  print i  
+end  
+```
 
 **.each**  
-objects**.each do |**item**|** –– for each object in objects do something while storing that object in the variable item  
+```Ruby
+things.each do |item| # for each things in things do something while storing that things in the variable item  
   print “#{item}"  
-**end**  
+end  
+```
+on hashes like so:  
+```Ruby
+hashes.each do |x,y|
+  print "#{x}: #{y}"
+end
+```
 
 **.times**  
-10**.times do**  
+```Ruby
+10.times do  
   print “this text will appear 10 times”  
-**end**  
-
+end  
+```
