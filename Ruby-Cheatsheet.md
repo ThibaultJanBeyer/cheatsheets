@@ -35,7 +35,9 @@ pets["Stevie"] # cat
 
 
 ####Functions to create Arrays
-"bla,bla".split(“,”) –– takes sting and returns an array (here  &lsqb;"bla","bla"&rsqb;)
+```Ruby
+"bla,bla".split(“,”) # takes sting and returns an array (here  ["bla","bla"])
+```
 
 ##Calculation
 Addition (+)  
