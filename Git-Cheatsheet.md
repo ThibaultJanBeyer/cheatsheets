@@ -1,7 +1,9 @@
 [back to overwiev](/../..)
 
 #Git
+```Ruby
 😭
+```
 ##### Table of Contents  
 [Mostly used](#mostly-used)  
 [Getting Help](#getting-help)  
