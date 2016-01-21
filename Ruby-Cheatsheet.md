@@ -42,9 +42,12 @@ you can do 1 += 1 –– which gives you 2 but 1++ and 1-- does not exist in rub
 ##Comment
 ```Ruby
 =begin  
-Bla  
-=end  
-# bla
+Bla
+Multyline comment  
+=end
+```  
+```Ruby
+# single line comment
 ```
 
 ##Conditions
