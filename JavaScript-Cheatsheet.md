@@ -42,10 +42,10 @@ newArray[0]; // equals  ‘hello;
 
 ##Logical Operators
 ```javascript
-if(true){ /* stuff */ } else if (true){ /* stuff */ } else { /* stuff */ }
+if(true){ /* */ } else if (true){ /* */ } else { /* */ }
 ```
 ```javascript
-switch(variable){ case 'option1': /**/ break; case 'option2': /**/ break; default: /**/ }
+switch(variable){ case 'option1': /* */ break; case 'option2': /* */ break; default: /* */ }
 ```
 
 ##User Imput
