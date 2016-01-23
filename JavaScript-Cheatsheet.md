@@ -16,6 +16,8 @@
 0 = false  
 **increments:**  
 i++ , i-- , i += x , i -= x  
+**isNaN('berry');** –– true –– returns true when not a number  
+**isNaN(42);**  –– false   
 ##Random:
 ```javascript
 Math.random() // random Number between 0 and 1 but never 0 nor 1
@@ -34,26 +36,16 @@ do{ }while(true); // does x while a condition is true (runs x at least once)
 ##Arrays:
 ```javascript
 newArray = []; 
-newArray.push('hello’); 
+newArray.push('hello'); 
 newArray[0]; // equals  ‘hello;
-```
-
-**isNaN('berry');** –– true –– returns true when not a number  
-**isNaN(42);**  –– false  
+``` 
 
 ##Logical Operators
 ```javascript
 if(true){ /* stuff */ } else if (true){ /* stuff */ } else { /* stuff */ }
-}
 ```
 ```javascript
-switch(variable){
-	case ‘option1’: //
-	break;
-	case ‘option2’: //
-	break;
-	default: //
-}
+switch(variable){ case 'option1': /**/ break; case 'option2': /**/ break; default: /**/ }
 ```
 
 ##User Imput
