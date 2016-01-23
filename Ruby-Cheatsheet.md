@@ -33,7 +33,6 @@ pets["key1"] # value1
 pets["Stevie"] # cat
 ```
 
-
 ####Functions to create Arrays
 ```Ruby
 "bla,bla".split(“,”) # takes sting and returns an array (here  ["bla","bla"])
