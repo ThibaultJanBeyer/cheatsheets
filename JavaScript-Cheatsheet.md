@@ -23,7 +23,7 @@ i++ , i-- , i += x , i -= x
 Math.random() // random Number between 0 and 1 but never 0 nor 1
 Math.floor(Math.random() * 2) // Random Number between 0-1
 Math.floor(Math.random()*5 + 1) // Random Number between 1-5
-*x sets the width and +y the range of the randomness
+// *x sets the width and +y the range of the randomness
 ```
 
 ##Loops:
