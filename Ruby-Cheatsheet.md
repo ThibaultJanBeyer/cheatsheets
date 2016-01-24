@@ -4,6 +4,7 @@
 
 ##### Table of Contents  
 [Vars, Arrays & Hashes](#vars-arrays--hashes)  
+[Methods](#methods)  
 [Calculation](#calculation)  
 [Comment](#comment)  
 [Conditions](#conditions)  
@@ -11,19 +12,20 @@
 [User Imput](#user-imput)  
 [Loops](#loops)  
 
-*$ irb –– to write ruby in the terminal*
-*don't use ' in ruby, use " instead*
-*you can replace most {} with do end and vice versa –– not true for hashes or #{} escapings*
-
 ##Basics
+*$ irb –– to write ruby in the terminal*  
+*don't use ' in ruby, use " instead*  
+*you can replace most {} with do end and vice versa –– not true for hashes or #{} escapings*  
+*Best Practice: end names that produce booleans with question mark*  
 ##Vars, Arrays & Hashes
 ```Ruby
 my_variable = “Hello”  
 my_variable.capitalize! # ! changes the value of the var same as my_name = my_name.capitalize
 ```
 ```Ruby  
-my_array = [a,b]  
+my_array = [a,b,c,d,e]  
 my_array[1] –– b  
+my_array[2..-1] # c , d , e  
 multi_d = [[0,1],[0,1]]
 ```
 ```Ruby  
@@ -36,6 +38,16 @@ pets["Stevie"] # cat
 ####Functions to create Arrays
 ```Ruby
 "bla,bla".split(“,”) # takes sting and returns an array (here  ["bla","bla"])
+```
+
+##Methods
+```Ruby
+def greeting(hello, *names) # *name is a splat argument, takes several parameters passed in an array
+  return "#{hello}, #{names}"
+end
+
+start = greeting("Hi", "Justin", "Maria", "Herbert") # call a method by name
+puts start
 ```
 
 ##Calculation
