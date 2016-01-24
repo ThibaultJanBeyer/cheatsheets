@@ -10,7 +10,8 @@
 [Conditions](#conditions)  
 [Printing](#printing)  
 [User Imput](#user-imput)  
-[Loops](#loops)  
+[Loops](#loops) 
+[Sorting & Comparing](#sorting--comparing)  
 
 ##Basics
 *$ irb –– to write ruby in the terminal*  
@@ -180,4 +181,11 @@ end
 10.times do  
   print “this text will appear 10 times”  
 end  
+```
+
+#Sorting & Comparing
+```Ruby
+array = [5,4,1,3,2]
+array.sort! # = [1,2,3,4,5] – works with text and other as well.
+"b" <=> "a" # = 1 – combined comparison operator. Returns 0 if first = second, 1 if first > second, -1 if first < second
 ```
