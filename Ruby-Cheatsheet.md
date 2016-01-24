@@ -188,4 +188,5 @@ end
 array = [5,4,1,3,2]
 array.sort! # = [1,2,3,4,5] – works with text and other as well.
 "b" <=> "a" # = 1 – combined comparison operator. Returns 0 if first = second, 1 if first > second, -1 if first < second
+array.sort! { |a, b| b <=> a } # to sort from Z to A instead of A to Z
 ```
