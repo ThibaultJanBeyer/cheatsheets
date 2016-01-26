@@ -48,7 +48,10 @@ def greeting(hello, *names) # *name is a splat argument, takes several parameter
 end
 
 start = greeting("Hi", "Justin", "Maria", "Herbert") # call a method by name
-puts start
+
+def name(variable=default)
+  ### The last line in here get's returned by default
+end
 ```
 
 ##Calculation
