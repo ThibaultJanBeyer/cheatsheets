@@ -101,11 +101,11 @@ var name = prompt("who're you?");
 ```
 
 ##Const, Let
-// these are experimental and not fully supported yet.
-**let** my_var –– creates a variable as VAR would do but limit its "scope" to the respective code block instead of the whole function
-**const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.
+// these are experimental and not fully supported yet.   
+**let** my_var –– creates a variable as VAR would do but limit its "scope" to the respective code block instead of the whole function   
+**const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.   
 
 
 
-http://es6-features.org/ for all ECMAScript 6 suggestions (JavaScript 6+)
-https://kangax.github.io/compat-table/es6/ support Table for 6
+http://es6-features.org/ for all ECMAScript 6 suggestions (JavaScript 6+)   
+https://kangax.github.io/compat-table/es6/ support Table for 6   
