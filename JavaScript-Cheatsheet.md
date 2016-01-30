@@ -40,7 +40,10 @@ myObj["key"] = "value"; // or myObj.key = "value";
 ```javascript
 var newFunction = function(argument,argument) { };
 newFunction(x,y);
+// below are 3 new things for functions in JavaScript 6 (experimental for now)
 argument => argument + 1; // is equal to function(argument){ return argument + 1; };
+function(x = 7, y = 42) { } // to set default values
+function(x, y, ...a) { } // ...a will store all the  
 ```
 **Methods**
 ```javascript
@@ -77,7 +80,6 @@ Math.floor(Math.random()*5 + 1) // Random Number between 1-5
 ```javascript
 for(var i = 0; i < 6; i++){ }; // for a number of time
 for(var v in obj){ } // iterates a specified variable over all the enumerable properties of an object
-for(var v of obj){ } // While for...in iterates over property names, for...of iterates over array elements
 while(true){ }; // while a condition is true
 do{ }while(true); // does x while a condition is true (runs x at least once)
 break; // terminate a loop, switch, or in conjunction with a label statement.
@@ -99,5 +101,6 @@ var name = prompt("who're you?");
 ```
 
 ##Const, Let
+// these are experimental and not fully supported yet.
 **let** my_var –– creates a variable as VAR would do but limit its "scope" to the respective code block instead of the whole function
 **const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.
