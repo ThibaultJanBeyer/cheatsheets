@@ -76,6 +76,7 @@ Math.floor(Math.random()*5 + 1) // Random Number between 1-5
 ```javascript
 for(var i = 0; i < 6; i++){ }; // for a number of time
 for(var v in obj){ } // iterates a specified variable over all the enumerable properties of an object
+for(var v of obj){ } // While for...in iterates over property names, for...of iterates over array elements
 while(true){ }; // while a condition is true
 do{ }while(true); // does x while a condition is true (runs x at least once)
 break; // terminate a loop, switch, or in conjunction with a label statement.
