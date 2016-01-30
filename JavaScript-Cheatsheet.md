@@ -5,6 +5,7 @@
 ##### Table of Contents  
 [Basics](#basics)  
 [Arrays & Objects](#arrays--objects)  
+[Functions, Methods & Custom Constructors](#functions-methods--custom-constructors)  
 [Random](#random)  
 [Loops](#loops)  
 [Logical Operators](#logical operators)  
@@ -29,8 +30,37 @@ var newObject = {
   key: value,
   key: value
 } // object literal notation
+// Each piece of information we include in an object is known as a property. Each Property has a Value
 var myObj = new Object(); // object constructor
 myObj["key"] = "value"; // or myObj.key = "value";
+```
+
+##Functions, Methods & Custom Constructors:
+```javascript
+var newFunction = function(argument,argument) { };
+newFunction(x,y);
+```
+**Methods**
+```javascript
+var bob = new Object();
+bob.age = 17;
+bob.setAge = function (newAge){ bob.age = newAge; };
+bob.setAge(5); // would set the Age Property of bob to 5 using the respective function
+// here we define our method using "this", before we even introduce bob
+var setAge = function (newAge) { this.age = newAge; };
+var bob = { age: 25, setAge: setAge }
+bob.setAge(50);
+// writing an object constructor or object literal notation – both work the same
+```
+**Custom Constructors**
+```javascript
+// new Object(); is a predefined constructor by js that creates an empty object, we can create our own constructors like so:
+function Person(name,age) {
+  this.name = name;
+  this.age = age;
+}
+var bob = new Person("Bob Smith", 30); // creates an object with the keys/properties specified in our constructor
+// here is where a constructor notation makes sence
 ```
  
 ##Random:
