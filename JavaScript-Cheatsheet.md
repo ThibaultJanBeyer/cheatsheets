@@ -10,6 +10,7 @@
 [Loops](#loops)  
 [Logical Operators](#logical operators)  
 [User Imput](#user-imput)  
+[Const, Let](#const-let)  
 
 ##Basics
 **&&** –– and  **||** –– or  **!** –– not  
@@ -19,7 +20,7 @@
 i++ , i-- , i += x , i -= x  
 **isNaN('berry');** –– true –– returns true when not a number  
 **isNaN(42);**  –– false   
-**.length()** –– Returns the length of a string or the amount of items in a variable
+**.length()** –– Returns the length of a string or the amount of items in a variable 
 
 ##Arrays & Objects:
 ```javascript
@@ -74,8 +75,11 @@ Math.floor(Math.random()*5 + 1) // Random Number between 1-5
 ##Loops:
 ```javascript
 for(var i = 0; i < 6; i++){ }; // for a number of time
+for(var v in obj){ } // iterates a specified variable over all the enumerable properties of an object
 while(true){ }; // while a condition is true
 do{ }while(true); // does x while a condition is true (runs x at least once)
+break; // terminate a loop, switch, or in conjunction with a label statement.
+["a", "b", "c"].forEach(function(entry) { console.log(entry); }); //although move convenient, forEach is ~30% slower than a normal for loop
 ```
 
 
@@ -91,3 +95,7 @@ switch(variable){ case 'option1': /* */ break; case 'option2': /* */ break; defa
 ```javascript
 var name = prompt("who're you?");
 ```
+
+##Const, Let
+**let** my_var –– creates a variable as VAR would do but limit its "scope" to the respective code block instead of the whole function
+**const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.
