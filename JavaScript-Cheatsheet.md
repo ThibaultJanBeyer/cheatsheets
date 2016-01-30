@@ -40,6 +40,7 @@ myObj["key"] = "value"; // or myObj.key = "value";
 ```javascript
 var newFunction = function(argument,argument) { };
 newFunction(x,y);
+argument => argument + 1; // is equal to function(argument){ return argument + 1; };
 ```
 **Methods**
 ```javascript
