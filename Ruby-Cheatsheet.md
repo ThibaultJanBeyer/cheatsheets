@@ -3,7 +3,8 @@
 #Ruby Cheatsheet
 
 ##### Table of Contents  
-[Vars, Arrays & Hashes](#vars-arrays--hashes)  
+[Basics](#basics)  
+[Vars, Arrays, Hashes & Symbols](#vars-arrays-hashes--symbols)  
 [Methods](#methods)  
 [Calculation](#calculation)  
 [Comment](#comment)  
@@ -17,23 +18,45 @@
 *$ irb –– to write ruby in the terminal*  
 *don't use ' in ruby, use " instead*  
 *you can replace most {} with do end and vice versa –– not true for hashes or #{} escapings*  
-*Best Practice: end names that produce booleans with question mark*  
-##Vars, Arrays & Hashes
+*Best Practice: end names that produce booleans with question mark*
+*CRUD: create, read, update, delete*  
+##Vars, Arrays, Hashes & Symbols
 ```Ruby
 my_variable = “Hello”  
 my_variable.capitalize! # ! changes the value of the var same as my_name = my_name.capitalize
 ```
+**Arrays**
 ```Ruby  
 my_array = [a,b,c,d,e]  
 my_array[1] –– b  
 my_array[2..-1] # c , d , e  
 multi_d = [[0,1],[0,1]]
 ```
+**Hashes**
 ```Ruby  
 hash = { "key1" => "value1", "key2" => "value2" } # same as objects in JavaScript
-my_hash = Hash.new # same as my_hash = {} # set a new key like so: pets["Stevie"] = "cat"
+hash = { key1: "value1", key2: "value2" } # the same hash using symbols instead of strings
+my_hash = Hash.new # same as my_hash = {} – set a new key like so: pets["Stevie"] = "cat"
 pets["key1"] # value1
 pets["Stevie"] # cat
+my_hash = Hash.new("default value")
+hash.select{ |key, value| value > 3 } # selects all keys in hash that have a value greater than 3
+hash.each_key { |k| print k, " " } # ==> key1 key2
+hash.each_value { |v| print v } # ==> value1value2
+
+my_hash.each_value { |v| print v, " " }
+# ==> 1 2 3
+```
+**Symbols**
+```Ruby
+:symbol # symbol is like an ID in html. :Symbols != "Strings"
+# Symbols are often used as Hash keys or referencing method names.
+# They can not be changed once created. They save memory (only one copy at a given time). Faster.
+:test.to_s # converts to "test"
+"test".to_sym # converts to :test
+"test".intern # :test
+# Symbols can be used like this as well:
+my_hash = { key: "value", key2: "value" } # is equal to { :key => "value", :key2 => "value" }
 ```
 
 ####Functions to create Arrays
@@ -93,6 +116,17 @@ else
 puts “not here”  
 end
 ```  
+**case**
+```Ruby
+case my_var
+when "some value"
+  ###
+when "some other value"
+  ###
+else
+  ###
+end
+```
 
 **&&** –– and  **||** –– or  **!** –– not  
 **(x && (y || w)) && z** –– use parenthesis to combine arguments  
@@ -114,6 +148,10 @@ puts “test” # puts the text in a separate line
 “hello”.capitalize # “Hello”  
 “Hello”.include? “i” # equals to false because there is no i in Hello  
 “Hello”.gsub!(/e/, “o”) # Hollo
+"1".to_i # transform string to integer –– 1
+"test".to_sym # converts to :test
+"test".intern # :test
+:test.to_s # converts to "test"
 ```  
 
 ##User Imput
