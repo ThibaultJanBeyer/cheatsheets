@@ -24,6 +24,7 @@
 ```Ruby
 my_variable = “Hello”  
 my_variable.capitalize! # ! changes the value of the var same as my_name = my_name.capitalize
+my_variable ||= "Hi" # ||= is a conditional assignment only set the variable if it was not set before. 
 ```
 **Arrays**
 ```Ruby  
@@ -31,6 +32,7 @@ my_array = [a,b,c,d,e]
 my_array[1] –– b  
 my_array[2..-1] # c , d , e  
 multi_d = [[0,1],[0,1]]
+[1, 2, 3] << 4 # [1, 2, 3, 4] same as [1, 2, 3].push(4)
 ```
 **Hashes**
 ```Ruby  
@@ -84,7 +86,11 @@ Multiplication (*)
 Division (/)  
 Exponentiation (**)  
 Modulo (%)  
-you can do 1 += 1 –– which gives you 2 but 1++ and 1-- does not exist in ruby
+you can do 1 += 1 –– which gives you 2 but 1++ and 1-- does not exist in ruby  
+The concatenation operator (<<)
+"A " << "B" # "A B" but "A " + "B" would work as well but "A " + 4 + " B" not so rather use 
+string interpolation (#{4})
+"A #{4} B" # "A 4 B"
 
 ##Comment
 ```Ruby
@@ -107,6 +113,9 @@ puts “elsif”
 else  
 puts “false”  
 end
+# or
+puts "be printed" if true
+puts 3 > 4 ? "if true" : "else" # else will be putted
 ```  
 **unless**
 ```Ruby
@@ -115,16 +124,24 @@ puts “I’m here”
 else 
 puts “not here”  
 end
+# or
+puts "not printed" unless true
 ```  
 **case**
 ```Ruby
 case my_var
-when "some value"
-  ###
-when "some other value"
-  ###
-else
-  ###
+  when "some value"
+    ###
+  when "some other value"
+    ###
+  else
+    ###
+end
+# or
+case my_var
+  when "some value" then ###
+  when "some other value" then ###
+  else ###
 end
 ```
 
@@ -222,6 +239,12 @@ end
 10.times do  
   print “this text will appear 10 times”  
 end  
+```
+
+**.upto / .downto**
+```Ruby
+10.upto(15) { |x| print x, " " } # 10 11 12 13 14 15  
+"a".upto("c") { |x| print x, " " } # a b c  
 ```
 
 #Sorting & Comparing
