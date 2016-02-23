@@ -53,8 +53,8 @@ cat text1.txt | wc | cat > text2.txt –– multiple pipes can be combined here 
 cat filename | sort > nameofsortedfile –– outputs the content of filename binds it to the sort function that then redirect that sorted output into a file  
 **uniq** filename –– filters out adjacent, duplicate lines in a file  
 sort file | uniq > anotherfile –– sorts a file "pipes" (|) the sorted content to uniq which filters out all adjacent duplicates and gives the result back to another file
->> sort file | uniq -c > anotherfile -– counting the duplicated lines in file  
->> sort file | uniq -c | sort -nr > anotherfile -– counting the duplicated lines in file and sort it (by frequency)
+sort file | uniq -c > anotherfile -– counting the duplicated lines in file  
+sort file | uniq -c | sort -nr > anotherfile -– counting the duplicated lines in file and sort it (by frequency)
 **grep** keyword filename –– searches a file for lines that have the keyword and output the result (it is case sensitive)  
 grep -i keyword filename –– here grep is case insensitive  
 grep -R keyword folder –– searches all files in a directory and outputs filenames and lines containing matched results  
