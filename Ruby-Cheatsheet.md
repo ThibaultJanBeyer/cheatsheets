@@ -5,14 +5,17 @@
 ##### Table of Contents  
 [Basics](#basics)  
 [Vars, Arrays, Hashes & Symbols](#vars-arrays-hashes--symbols)  
-[Methods](#methods)  
+[Methods](#methods)
+[Blocks & Procs](#blocks--procs)  
+[Lambdas](#lambdas)
 [Calculation](#calculation)  
 [Comment](#comment)  
 [Conditions](#conditions)  
-[Printing](#printing)  
+[Printing & Putting](#printing--putting)  
 [User Imput](#user-imput)  
 [Loops](#loops) 
 [Sorting & Comparing](#sorting--comparing)  
+[Usefull Methods](#usefull-methods)  
 
 ##Basics
 *$ irb –– to write ruby in the terminal*  
@@ -20,6 +23,8 @@
 *you can replace most {} with do end and vice versa –– not true for hashes or #{} escapings*  
 *Best Practice: end names that produce booleans with question mark*
 *CRUD: create, read, update, delete*  
+*[1,2].map(&:to_i)*
+*integer = number without decimal || float = number with decimal*
 ##Vars, Arrays, Hashes & Symbols
 ```Ruby
 my_variable = “Hello”  
@@ -67,6 +72,7 @@ my_hash = { key: "value", key2: "value" } # is equal to { :key => "value", :key2
 ```
 
 ##Methods
+**Methods**
 ```Ruby
 def greeting(hello, *names) # *name is a splat argument, takes several parameters passed in an array
   return "#{hello}, #{names}"
@@ -78,6 +84,37 @@ def name(variable=default)
   ### The last line in here get's returned by default
 end
 ```
+
+#Blocks & Procs
+**Code Blocks**  
+*Blocks are not objects* A block is just a bit of code between do..end or {}. It's not an object on its own, but it can be passed to methods like .each or .select.
+```Ruby
+def yield_name(name)
+  yield("Kim") # print "My name is Kim. "
+  yield(name) # print "My name is Eric. "
+end
+
+yield_name("Eric") { |n| print "My name is #{n}. " } # My name is Kim. My name is Eric. 
+yield_name("Peter") { |n| print "My name is #{n}. " } # My name is Kim. My name is Eric. My name is Kim. My name is Peter. 
+```
+**Proc**
+*saves blocks and are objects* A proc is a saved block we can use over and over.
+```Ruby
+cube = Proc.new { |x| x ** 3 }
+[1, 2, 3].collect!(&cube) # [1, 8, 27] # the & is needed to transform the Proc to a block.
+cube.call # call procs directly
+```
+
+#Lambdas
+```Ruby
+lambda { |param| block }
+multiply = lambda { |x| x * 3 }
+y = [1, 2].collect(&multiply) # 3 , 6
+```
+Diff between blocs and lambdas:  
+- a lambda checks the number of arguments passed to it, while a proc does not (This means that a lambda will throw an error if you pass it the wrong number of arguments, whereas a proc will ignore unexpected arguments and assign nil to any that are missing.)  
+- when a lambda returns, it passes control back to the calling method; when a proc returns, it does so immediately, without going back to the calling method.
+So: A lambda is just like a proc, only it cares about the number of arguments it gets and it returns to its calling method rather than returning immediately.
 
 ##Calculation
 Addition (+)  
@@ -150,9 +187,9 @@ end
 problem = false  
 print "Good to go!" unless problem –– prints out because problem != true  
 
-##Printing
+##Printing & Putting
 ```Ruby
-print “bla”  
+print “bla” 
 puts “test” # puts the text in a separate line
 ```
 
@@ -247,10 +284,21 @@ end
 "a".upto("c") { |x| print x, " " } # a b c  
 ```
 
-#Sorting & Comparing
+##Sorting & Comparing
 ```Ruby
 array = [5,4,1,3,2]
 array.sort! # = [1,2,3,4,5] – works with text and other as well.
 "b" <=> "a" # = 1 – combined comparison operator. Returns 0 if first = second, 1 if first > second, -1 if first < second
 array.sort! { |a, b| b <=> a } # to sort from Z to A instead of A to Z
+```
+
+##Usefull Methods
+```Ruby
+1.is_a? Integer # returns true
+:1.is_a? Symbol # returns true
+"1".is_a? String # returns true
+[1,2,3].collect!() # does something to every element (overwrites original with ! mark)
+.map() # is the same as .collect
+1.2.floor # 1 # rounds a float (a number with a decimal) down to the nearest integer.
+cube.call # implying that cube is a proc, call calls procs directly 
 ```
