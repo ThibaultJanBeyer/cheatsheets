@@ -4,8 +4,10 @@
 
 ##### Table of Contents  
 [Basics](#basics)  
-[Arrays & Objects](#arrays--objects)  
-[Functions, Methods & Custom Constructors](#functions-methods--custom-constructors)  
+[Arrays & Objects](#arrays--objects)    
+[Functions](#functions)
+[Methods](#methods)
+[Custom Constructors / Classes](#custom-constructors--classes)
 [Random](#random)  
 [Loops](#loops)  
 [Logical Operators](#logical operators)  
@@ -20,7 +22,8 @@
 i++ , i-- , i += x , i -= x  
 **isNaN('berry');** –– true –– returns true when not a number  
 **isNaN(42);**  –– false   
-**.length()** –– Returns the length of a string or the amount of items in a variable 
+**.length()** –– Returns the length of a string or the amount of items in a variable
+**typeof** variable –– returns object, number, string  
 
 ##Arrays & Objects:
 ```javascript
@@ -34,9 +37,11 @@ var newObject = {
 // Each piece of information we include in an object is known as a property. Each Property has a Value
 var myObj = new Object(); // object constructor
 myObj["key"] = "value"; // or myObj.key = "value";
+
+myObj.hasOwnProperty('name') // returns true if myObj has a name property
 ```
 
-##Functions, Methods & Custom Constructors:
+##Functions:  
 ```javascript
 var newFunction = function(argument,argument) { };
 newFunction(x,y);
@@ -44,11 +49,14 @@ newFunction(x,y);
 argument => argument + 1; // is equal to function(argument){ return argument + 1; };
 function(x = 7, y = 42) { } // to set default values
 function(x, y, ...a) { } // ...a will store all the  
+var newFunction = function() { return "hi" };
+newFunction // returns the function while newFunction() would return the functions outcome.
 ```
-**Methods**
+
+##Methods:  
 ```javascript
 var bob = new Object();
-bob.age = 17;
+bob.age = 17; // or: bob["age"] = 17; this way you can use variables as well: bob[variable];
 bob.setAge = function (newAge){ bob.age = newAge; };
 bob.setAge(5); // would set the Age Property of bob to 5 using the respective function
 // here we define our method using "this", before we even introduce bob
@@ -56,16 +64,41 @@ var setAge = function (newAge) { this.age = newAge; };
 var bob = { age: 25, setAge: setAge }
 bob.setAge(50);
 // writing an object constructor or object literal notation – both work the same
+function someObject() {
+  this.stuff = "bla"
+  this.someMethod = function() { console.log(this.stuff) };
+}
+
 ```
-**Custom Constructors**
+##Custom Constructors / Classes:  
 ```javascript
-// new Object(); is a predefined constructor by js that creates an empty object, we can create our own constructors like so:
+// new Object(); is a predefined constructor by js that creates an empty object, we can create our own class constructors like so:
 function Person(name,age) {
   this.name = name;
   this.age = age;
 }
-var bob = new Person("Bob Smith", 30); // creates an object with the keys/properties specified in our constructor
+var bob = new Person("Bob Smith", 30); // creates an object/class Person with the keys/properties specified in our constructor
 // here is where a constructor notation makes sence
+
+function Dog (breed) {
+  this.breed = breed;
+};
+
+var buddy = new Dog("golden Retriever");
+Dog.prototype.bark = function() { console.log("Woof"); }; // prototype adds that method to the constructor. Instead of buddy.bark = ... 
+buddy.bark();
+var snoopy = new Dog("Beagle");
+snoopy.bark(); // is also able to bark.
+
+function Penguin(breed) {
+    this.breed = breed;
+    var priv = "Private Variable"; // a variable that is only accessible within the constructor
+    this.getPriv = function() { return priv; }; // to be able to access a private variable from outside
+}
+Penguin.prototype = new Dog(); // Penguins will inherit from Dog and also be able to bark. A Prototype Chain.
+var penguin = new Penguin("penguin"); // create an instance of the Penguin class.
+penguin.bark(); // Woof
+
 ```
  
 ##Random:
@@ -79,7 +112,7 @@ Math.floor(Math.random()*5 + 1) // Random Number between 1-5
 ##Loops:
 ```javascript
 for(var i = 0; i < 6; i++){ }; // for a number of time
-for(var v in obj){ } // iterates a specified variable over all the enumerable properties of an object
+for(var p in obj){ } // iterates a specified variable p over all the enumerable properties of an object
 while(true){ }; // while a condition is true
 do{ }while(true); // does x while a condition is true (runs x at least once)
 break; // terminate a loop, switch, or in conjunction with a label statement.
