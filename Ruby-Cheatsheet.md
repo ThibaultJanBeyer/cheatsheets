@@ -6,6 +6,7 @@
 [Basics](#basics)  
 [Vars, Arrays, Hashes & Symbols](#vars-arrays-hashes--symbols)  
 [Methods](#methods)
+[Classes](#classes)
 [Blocks & Procs](#blocks--procs)  
 [Lambdas](#lambdas)
 [Calculation](#calculation)  
@@ -25,6 +26,7 @@
 *CRUD: create, read, update, delete*  
 *[1,2].map(&:to_i)*
 *integer = number without decimal || float = number with decimal*
+*tag your variables: $ = global, @ = instance, @@ = class variable
 ##Vars, Arrays, Hashes & Symbols
 ```Ruby
 my_variable = “Hello”  
@@ -83,6 +85,22 @@ start = greeting("Hi", "Justin", "Maria", "Herbert") # call a method by name
 def name(variable=default)
   ### The last line in here get's returned by default
 end
+```
+
+##Classes
+*custom objects*
+```Ruby
+class Person
+  def initialize(name)
+    @name = name
+  end
+  def self.show_name
+    @name
+  end
+end
+
+matz = Person.new("Yukihiro")
+matz.show_name # Yukihiro
 ```
 
 #Blocks & Procs
