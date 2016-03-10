@@ -90,17 +90,47 @@ end
 ##Classes
 *custom objects*
 ```Ruby
-class Person
-  def initialize(name)
-    @name = name
+class Classname
+  @@count = 0
+  attr_reader :name # make it readable
+  attr_writer :name # make it writable
+  attr_accessor :name # makes it readable and writable
+
+  def Methodname(parameter) 
+    @classVariable = parameter
+    @@count += 1
   end
-  def self.show_name
-    @name
+
+  def self.show_classVariable
+    @classVariable
   end
+
+  def Person.get_counts # is a class method
+    return @@count
+  end 
+  
+  private
+  
+  def private_method; end # Private methods go here
 end
 
 matz = Person.new("Yukihiro")
 matz.show_name # Yukihiro
+```
+*inheritance*
+```Ruby
+class DerivedClass < BaseClass; end # if you want to end a Ruby statement without going to a new line, you can just type a semicolon.
+
+class DerivedClass < Base
+  def some_method
+    super(optional args) # When you call super from inside a method, that tells Ruby to look in the superclass of the current class and find a method with the same name as the one from which super is called. If it finds it, Ruby will use the superclass' version of the method.
+      # Some stuff
+    end
+  end
+end
+
+# Any given Ruby class can have only one superclass. Use mixins if you want to incorporate data or behavior from several classes into a single class.
+
 ```
 
 #Blocks & Procs
@@ -319,4 +349,5 @@ array.sort! { |a, b| b <=> a } # to sort from Z to A instead of A to Z
 .map() # is the same as .collect
 1.2.floor # 1 # rounds a float (a number with a decimal) down to the nearest integer.
 cube.call # implying that cube is a proc, call calls procs directly 
+Time.now # displays the actual time
 ```
