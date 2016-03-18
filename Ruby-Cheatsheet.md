@@ -4,9 +4,10 @@
 
 ##### Table of Contents  
 [Basics](#basics)  
-[Vars, Arrays, Hashes & Symbols](#vars-arrays-hashes--symbols)  
+[Vars, Constants, Arrays, Hashes & Symbols](#vars-constants-arrays-hashes--symbols)  
 [Methods](#methods)
 [Classes](#classes)
+[Modules](#modules)
 [Blocks & Procs](#blocks--procs)  
 [Lambdas](#lambdas)
 [Calculation](#calculation)  
@@ -27,11 +28,15 @@
 *[1,2].map(&:to_i)*
 *integer = number without decimal || float = number with decimal*
 *tag your variables: $ = global, @ = instance, @@ = class variable
-##Vars, Arrays, Hashes & Symbols
+##Vars, Contants, Arrays, Hashes & Symbols
 ```Ruby
 my_variable = “Hello”  
 my_variable.capitalize! # ! changes the value of the var same as my_name = my_name.capitalize
 my_variable ||= "Hi" # ||= is a conditional assignment only set the variable if it was not set before. 
+```
+**Constants**
+```Ruby
+MY_CONSTANT = # something
 ```
 **Arrays**
 ```Ruby  
@@ -90,7 +95,7 @@ end
 ##Classes
 *custom objects*
 ```Ruby
-class Classname
+class ClassName # class names are rather written in camelcase
   @@count = 0
   attr_reader :name # make it readable
   attr_writer :name # make it writable
@@ -130,10 +135,41 @@ class DerivedClass < Base
 end
 
 # Any given Ruby class can have only one superclass. Use mixins if you want to incorporate data or behavior from several classes into a single class.
-
 ```
 
-#Blocks & Procs
+##Modules
+```Ruby
+module ModuleName # module names are rather written in camelcase
+  # variables in modules doesn't make much sence since modules do not change. Use constants. 
+end
+
+Math::PI # using PI constant from Math module. Double colon = scope resolution operator = tells Ruby where you're looking for a specific bit of code.
+
+require 'date' # to use external modules.
+puts Date.today # 2016-03-18
+
+module Action
+  def jump
+    @distance = rand(4) + 2
+    puts "I jumped forward #{@distance} feet!"
+  end
+end
+
+class Rabbit
+  include Action # Any class that includes a certain module can use those module's methods! This now is called a Mixin.
+  extend Action # extend keyword mixes a module's methods at the class level. This means that class itself can use the methods, as opposed to instances of the class.
+  attr_reader :name
+  def initialize(name)
+    @name = name
+  end
+end
+
+peter = Rabbit.new("Peter")
+peter.jump # include
+Rabbit.jump # extend
+```
+
+##Blocks & Procs
 **Code Blocks**  
 *Blocks are not objects* A block is just a bit of code between do..end or {}. It's not an object on its own, but it can be passed to methods like .each or .select.
 ```Ruby
@@ -153,7 +189,7 @@ cube = Proc.new { |x| x ** 3 }
 cube.call # call procs directly
 ```
 
-#Lambdas
+##Lambdas
 ```Ruby
 lambda { |param| block }
 multiply = lambda { |x| x * 3 }
