@@ -27,7 +27,9 @@
 *CRUD: create, read, update, delete*  
 *[1,2].map(&:to_i)*
 *integer = number without decimal || float = number with decimal*
-*tag your variables: $ = global, @ = instance, @@ = class variable
+*tag your variables: $ = global, @ = instance, @@ = class variable*  
+*1_000_000 = 1000000 –– just easier to read*  
+
 ##Vars, Contants, Arrays, Hashes & Symbols
 ```Ruby
 my_variable = “Hello”  
