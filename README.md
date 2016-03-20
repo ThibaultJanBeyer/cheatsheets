@@ -8,3 +8,4 @@ Covered so far:
 [Git](/Git-Cheatsheet.md)  
 [JavaScript](/JavaScript-Cheatsheet.md)  
 [Ruby](/Ruby-Cheatsheet.md)  
+[Rails](/Ruby-on-Rails-Cheatsheet.md)  
