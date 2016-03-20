@@ -6,19 +6,21 @@ Looking for [Ruby](../Ruby-Cheatsheet.md)?
 [Basics](#basics)   
 [Connect a Database](#connect-a-database)   
 [Rake](#rake)   
+[Troubleshoots](#troubleshoots)
 
 ##Basics
 ####request/response cycle  
 controller > route > view  
+learn request/response cycle: https://www.codecademy.com/articles/request-response-cycle-forms  
 
 ####1. Generate a new Rails app
 ```
 $ rails new MySite
+–– or using Postgress –– $ rails new myapp --database=postgresql
 $ bundle install
 $ rails server
 
-> http://localhost:8000 –– or similar Number
-up and running!
+> http://localhost:8000 –– or similar Number up and running!
 ```
 
 ####2. Generate a controller and add an action
@@ -82,8 +84,16 @@ end
 1) The change method tells Rails what change to make to the database. Here create_table method create a new table in database for storing messages.  
 2) t.text :content. Create text column called content in the messages tables.  
 3) t.timestamps is a Rails command that creates two more columns in the messages table called created_at and updated_at. These columns are automatically set when a message is created and updated.  
+Open: db/seeds.rb
+```Ruby
+m1 = Message.create(content: "We're at the beach so you should meet us here! I make a mean sandcastle. :)")
+m2 = Message.create(content: "Let's meet there!")
+```
+Just to have dummy messages to load with db:seed     
 in Terminal run
 ```
+$ rails db:migrate
+$ rake db:setup
 $ rake db:migrate
 $ rake db:seed
 ```
@@ -196,4 +206,8 @@ rake db:schema:load                     # Load a schema.rb file into the databas
 rake db:seed                            # Load the seed data from db/seeds.rb
 ```
 
-learn request/response cycle: https://www.codecademy.com/articles/request-response-cycle-forms
+##Troubleshoots
+1. When seeing only a blank page after running rails server:  
+http://stackoverflow.com/questions/25951969/rails-4-2-and-vagrant-get-a-blank-page-and-nothing-in-the-logs  
+2. Follow instructions to use postgres:   
+https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres  
