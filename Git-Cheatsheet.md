@@ -26,6 +26,7 @@ git add . –– adds all files
 **git checkout branchname** –– to switch to a branch  
 **git branch branch-name** –– create a branch  
 **git reset 5d69206** –– the 7 first numbers of the commit you want to reset  
+**git remote prune origin** –– Clean-up outdated references to remote branches
 
 In Git, the commit you are on is known as the HEAD commit. In many cases, the most recently made commit is the HEAD commit. To see the HEAD commit, enter: $git show head
 
