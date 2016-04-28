@@ -24,6 +24,7 @@ i++ , i-- , i += x , i -= x
 **isNaN(42);**  –– false   
 **.length()** –– Returns the length of a string or the amount of items in a variable
 **typeof** variable –– returns object, number, string  
+**Z < a** –– true, uppercase < lowercase
 
 ##Arrays & Objects:
 ```javascript
@@ -126,6 +127,13 @@ if(true){ /* */ } else if (true){ /* */ } else { /* */ }
 ```
 ```javascript
 switch(variable){ case 'option1': /* */ break; case 'option2': /* */ break; default: /* */ }
+```
+
+####Conditional Operator
+```javascript
+console.log(true ? 1 : 2); // → 1
+console.log(false ? 1 : 2); // → 2
+// The value before ? “picks” which of the other two values will come out. When true, the first value is chosen, and when false, the value on the right comes out.
 ```
 
 ##User Imput
