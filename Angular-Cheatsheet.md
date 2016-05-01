@@ -4,6 +4,8 @@
 
 ##### Table of Contents  
 [Basics](#basics)  
+[Loop](#loop)  
+[Html](#html)  
 
 ##Basics
 **Setup**  
@@ -45,4 +47,43 @@ pubdate: new Date('2014', '03', '08')
 ```
 ```html
 <p class="date">{{ product.pubdate | date | uppercase }}</p>
+```
+
+##Loop
+```javascript
+$scope.products = [ 
+  { 
+    name: 'The Book of Trees', 
+    price: 19, 
+    pubdate: new Date('2014', '03', '08'), 
+    cover: 'img/the-book-of-trees.jpg' 
+  }, 
+  { 
+    name: 'Program or be Programmed', 
+    price: 8, 
+    pubdate: new Date('2013', '08', '01'), 
+    cover: 'img/program-or-be-programmed.jpg' 
+  }
+]
+```
+```html
+<div ng-repeat="product in products"> 
+  <img ng-src="{{ product.cover }}">
+  <p class="title">{{ product.name }}</p> 
+  <p class="price">{{ product.price | currency }}</p> 
+  <p class="date">{{ product.pubdate | date }}</p> 
+  <p class="likes" ng-click="plusOne($index)">{{ product.likes }}</p>
+</div>
+```
+
+##Html
+```html
+<!-- loops trough every product in products -->
+<div ng-repeat="product in products"> 
+  
+<!-- include the source -->
+<img ng-src="{{ product.cover }}"> 
+
+<!-- ng-click is a directive that adds an onclick event. plusOne is the name of the function. $index passes the product number (in a loop). {{ product.likes }} displays the value -->
+<p ng-click="plusOne($index)">{{ product.likes }}</p>
 ```

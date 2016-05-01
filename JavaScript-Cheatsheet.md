@@ -44,7 +44,7 @@ myObj.hasOwnProperty('name') // returns true if myObj has a name property
 
 ##Functions:  
 ```javascript
-var newFunction = function(argument,argument) { };
+var newFunction = function(argument,argument) { }; // or function newFunction(){} = function declarations = not part of the regular top-to-bottom flow = only use this form in the outermost block of a function or program. 
 newFunction(x,y);
 // below are 3 new things for functions in JavaScript 6 (experimental for now)
 argument => argument + 1; // is equal to function(argument){ return argument + 1; };
