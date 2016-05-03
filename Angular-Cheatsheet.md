@@ -6,6 +6,7 @@
 [Basics](#basics)  
 [Loop](#loop)  
 [Html](#html)  
+[Directives](#directives)
 
 ##Basics
 **Setup**  
@@ -86,4 +87,31 @@ $scope.products = [
 
 <!-- ng-click is a directive that adds an onclick event. plusOne is the name of the function. $index passes the product number (in a loop). {{ product.likes }} displays the value -->
 <p ng-click="plusOne($index)">{{ product.likes }}</p>
+```
+
+##Directives
+in js/directives/appInfo.js
+```javascript
+app.directive('appInfo', function() { 
+  return { 
+    restrict: 'E', // specifies how directive will be used in view. 'E' means it will be used as a new HTML element.
+    scope: { 
+      info: '=' // specifies that we will pass information into this directive through an attribute named info. The = tells the directive to look for an attribute named info in the <app-info> element, like this: <app-info info="shutterbugg"></app-info>
+    },          // The data in info becomes available to use in the template given by templateURL
+    templateUrl: 'js/directives/appInfo.html' // specifies the HTML to use in order to display the data in scope.info. Here we use the HTML in js/directives/appInfo.html.
+  }; 
+});
+```
+in js/directives/appInfo.html
+```html
+<!-- define HTML to display details about app. Use expressions and filters to display data. -->
+<img class="icon" ng-src="{{ info.icon }}"> 
+<h2 class="title">{{ info.title }}</h2> 
+<p class="developer">{{ info.developer }}</p> 
+<p class="price">{{ info.price | currency }}</p>
+```
+in index.html
+```html
+<!-- pass in objects from the controller's scope ($scope.shutterbugg) into the <app-info> element's info attribute so that it displays. -->
+<app-info info="shutterbugg"></app-info>
 ```
