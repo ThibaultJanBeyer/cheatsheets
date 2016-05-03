@@ -23,7 +23,7 @@
 i++ , i-- , i += x , i -= x  
 **isNaN('berry');** –– true –– returns true when not a number  
 **isNaN(42);**  –– false   
-**.length()** –– Returns the length of a string or the amount of items in a variable
+x**.length** –– Returns the length of a string or the amount of items in a variable
 **typeof** variable –– returns object, number, string  
 **Z < a** –– true, uppercase < lowercase
 
@@ -39,6 +39,9 @@ var newObject = {
 // Each piece of information we include in an object is known as a property. Each Property has a Value
 var myObj = new Object(); // object constructor
 myObj["key"] = "value"; // or myObj.key = "value";
+
+delete newObject.key; // removes the key (very uncommon)
+console.log("key" in anObject); // "in" returns a Boolean value that indicates whether that object has that property
 
 myObj.hasOwnProperty('name') // returns true if myObj has a name property
 ```
@@ -84,8 +87,21 @@ function someObject() {
   this.stuff = "bla"
   this.someMethod = function() { console.log(this.stuff) };
 }
-
 ```
+**Predefined**
+```javscript
+var mack = [];
+mack.push("Mack");
+mack.push("the", "Knife");
+console.log(mack); // → ["Mack", "the", "Knife"]
+console.log(mack.join(" ")); // → Mack the Knife
+console.log(mack.pop()); // → Knife
+console.log(mack); // → ["Mack", "the"]
+
+"Doh".toUpperCase() // → "DOH"
+"Doh".toLowerCase() // → "doh"
+```
+
 ##Custom Constructors / Classes:  
 ```javascript
 // new Object(); is a predefined constructor by js that creates an empty object, we can create our own class constructors like so:
