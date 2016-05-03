@@ -5,7 +5,8 @@
 ##### Table of Contents  
 [Basics](#basics)  
 [Arrays & Objects](#arrays--objects)    
-[Functions](#functions)
+[Functions](#functions)  
+[Recursive Functions](#recursive-functions)
 [Methods](#methods)
 [Custom Constructors / Classes](#custom-constructors--classes)
 [Random](#random)  
@@ -52,6 +53,20 @@ function(x = 7, y = 42) { } // to set default values
 function(x, y, ...a) { } // ...a will store all the  
 var newFunction = function() { return "hi" };
 newFunction // returns the function while newFunction() would return the functions outcome.
+```
+
+##Recursive Functions
+```javascript
+// Functions calling themselves (create a kindof finite loop)
+function power(base, exponent) {
+  if (exponent == 0)
+    return 1;
+  else
+    return base * power(base, exponent - 1);
+}
+
+console.log(power(2, 3));
+// → 8
 ```
 
 ##Methods:  
