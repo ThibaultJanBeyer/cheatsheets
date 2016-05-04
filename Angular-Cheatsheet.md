@@ -98,17 +98,37 @@ app.directive('appInfo', function() {
     scope: { 
       info: '=' // specifies that we will pass information into this directive through an attribute named info. The = tells the directive to look for an attribute named info in the <app-info> element, like this: <app-info info="shutterbugg"></app-info>
     },          // The data in info becomes available to use in the template given by templateURL
-    templateUrl: 'js/directives/appInfo.html' // specifies the HTML to use in order to display the data in scope.info. Here we use the HTML in js/directives/appInfo.html.
+    templateUrl: 'js/directives/appInfo.html', // specifies the HTML to use in order to display the data in scope.info. Here we use the HTML in js/directives/appInfo.html.
+    link: function(scope, element, attrs) { // scope refers to the directive's scope. Any new properties attached to $scope will become available to use in the directive's template. element refers to the directive's HTML element. attrs contains the element's attributes. 
+            scope.buttonText = "Install", // property buttonText
+            scope.installed = false, // property installed
+
+            scope.download = function() { // function download() 
+              element.toggleClass('btn-active'); 
+              if(scope.installed) { 
+                scope.buttonText = "Install"; 
+                scope.installed = false; 
+              } else { 
+                scope.buttonText = "Uninstall"; 
+                scope.installed = true; 
+              } 
+            } 
+          }
+
   }; 
 });
 ```
 in js/directives/appInfo.html
 ```html
 <!-- define HTML to display details about app. Use expressions and filters to display data. -->
-<img class="icon" ng-src="{{ info.icon }}"> 
-<h2 class="title">{{ info.title }}</h2> 
-<p class="developer">{{ info.developer }}</p> 
-<p class="price">{{ info.price | currency }}</p>
+<img ng-src="{{ info.icon }}"> 
+<h2>{{ info.title }}</h2> 
+<p>{{ info.developer }}</p> 
+<p>{{ info.price | currency }}</p>
+<!-- part of link: function -->
+<button ng-click="download()"> 
+  {{ buttonText }} 
+</button>
 ```
 in index.html
 ```html
