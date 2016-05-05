@@ -89,17 +89,39 @@ function someObject() {
 }
 ```
 **Predefined**
-```javscript
+```javascript
+/*
+ * toUpperCase, toLowerCase
+ */
+"Doh".toUpperCase() // → "DOH"
+"Doh".toLowerCase() // → "doh"
+
+/*
+ * Push, Pop, shift and unshift
+ */
 var mack = [];
 mack.push("Mack");
 mack.push("the", "Knife");
-console.log(mack); // → ["Mack", "the", "Knife"]
-console.log(mack.join(" ")); // → Mack the Knife
-console.log(mack.pop()); // → Knife
-console.log(mack); // → ["Mack", "the"]
+mack; // → ["Mack", "the", "Knife"]
+mack.join(" "); // → Mack the Knife
+mack.pop(); // → Knife
+mack; // → ["Mack", "the"]
 
-"Doh".toUpperCase() // → "DOH"
-"Doh".toLowerCase() // → "doh"
+// push and pop add or remove elements at the end of an array
+// shift and unshift add or remove elements at the start of an array
+
+/*
+ * indexOf, lastIndexOf
+ */
+[1, 2, 3, 2, 1].indexOf(2); // → 1
+[1, 2, 3, 2, 1].lastIndexOf(2); // → 3
+
+/*
+ * slice & concat
+ */
+[0, 1, 2, 3, 4].slice(2, 4); // → [2, 3]
+[0, 1, 2, 3, 4].slice(2); // → [2, 3, 4]
+["a", "b"].concat("c", 1, "d") // → ["a", "b", "c", 1, "d"]
 ```
 
 ##Custom Constructors / Classes:  
