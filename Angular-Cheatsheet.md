@@ -7,6 +7,7 @@
 [Loop](#loop)  
 [Html](#html)  
 [Directives](#directives)
+[Services](#services)
 
 ##Basics
 **Setup**  
@@ -135,3 +136,31 @@ in index.html
 <!-- pass in objects from the controller's scope ($scope.shutterbugg) into the <app-info> element's info attribute so that it displays. -->
 <app-info info="shutterbugg"></app-info>
 ```
+
+##Services
+**js > services > forecast.js**
+```javascript
+app.factory('forecast', ['$http', function($http) { // app.factory to create a new service named forecast + AngularJS's built-in $http to fetch JSON from the server
+  return $http.get('https://s3.amazonaws.com/codecademy-content/courses/ltp4/forecast-api/forecast.json') // $http construct an HTTP GET request for the weather data (a json list from codecademy).
+            .success(function(data) { // If the request succeeds, the weather data is returned; 
+              return data; 
+            }) 
+            .error(function(err) { // otherwise the error info is returned.
+              return err; 
+            }); 
+}]);
+```
+**js > controllers > MainController.js**
+```javascript
+app.controller('MainController', ['$scope', 'forecast', function($scope, forecast) { // add forecast into MainController as dependency so that it's available to use.
+  forecast.success(function(data) { // to asynchronously fetch the weather data from server
+    $scope.fiveDay = data; // store it into $scope.fiveDay 
+  }); 
+}]);
+// any properties attached to $scope become available to use in the view
+```
+**index.html**
+```html
+<div class="main" ng-controller="MainController">
+  <h1>{{ fiveDay.city_name }}</h1>
+</div>
