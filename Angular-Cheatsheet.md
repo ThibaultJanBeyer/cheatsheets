@@ -8,6 +8,7 @@
 [Html](#html)  
 [Directives](#directives)
 [Services](#services)
+[Routing](#routing)
 
 ##Basics
 **Setup**  
@@ -164,3 +165,72 @@ app.controller('MainController', ['$scope', 'forecast', function($scope, forecas
 <div class="main" ng-controller="MainController">
   <h1>{{ fiveDay.city_name }}</h1>
 </div>
+```
+
+##Routing
+**js > app.js**
+```javascript
+app.config(function ($routeProvider) { 
+  $routeProvider // to define the application routes
+    .when('/', { // to map the URL / to
+      controller: 'HomeController', // to the controller HomeController 
+      templateUrl: 'views/home.html' // and the template home.html
+    })
+    .when('/photos/:id', { // mapp URL to PhotoController and photo.html. + variable part named id to the URL
+  		controller: 'PhotoController',
+    	templateUrl: 'views/photo.html'
+  	})
+    .otherwise({ // Otherwise if a user accidentally visits a URL other than /
+      redirectTo: '/' // we just redirect to /
+    }); 
+});
+```
+**js > controllers > HomeController**
+```javascript
+app.controller('HomeController', ['$scope', 'photos', function($scope, photos) { // use photos service
+  photos.success(function(data) {
+    $scope.photos = data;
+  });
+}]);
+```
+**js > controllers > PhotoController**
+```javascript
+// $routeParams to retrieve id from the URL by using $routeParams.id
+// Notice injected both $routeParams and the photos service into the dependency array to make them available to use inside the controller.
+app.controller('PhotoController', ['$scope', 'photos', '$routeParams', function($scope, photos, $routeParams) {
+  photos.success(function(data) { // photos service to fetch the array of photos from the server
+    $scope.detail = data[$routeParams.id]; // $routeParams.id to access the specific photo by its index
+  });
+}]);
+```
+**js > services > photos**
+```javascript
+// fetch the array of all photos and stores it into $scope.photos
+app.factory('photos', ['$http', function($http) {
+  return $http.get('https://s3.amazonaws.com/codecademy-content/courses/ltp4/photos-api/photos.json')
+         .success(function(data) {
+           return data;
+         })
+         .error(function(data) {
+           return data;
+         });
+}]);
+```
+**views > home.html**
+```html
+<div class="item col-md-4" ng-repeat="photo in photos">
+  <a href="#/photos/{{$index}}">
+    <img class="img-responsive" ng-src="{{ photo.url }}">
+    <p class="author">by {{ photo.author }}</p>
+  </a>
+</div>
+```
+**views > photo.html**
+```html
+<img ng-src="{{ detail.url }}">
+```
+**index.html**
+```html
+<!-- ow when a user visits /, a view will be constructed by injecting home.html into the <div ng-view></div> -->
+<div ng-view></div>
+```
