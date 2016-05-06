@@ -25,7 +25,13 @@ i++ , i-- , i += x , i -= x
 **isNaN(42);**  –– false   
 x**.length** –– Returns the length of a string or the amount of items in a variable
 **typeof** variable –– returns object, number, string  
-**Z < a** –– true, uppercase < lowercase
+**Z < a** –– true, uppercase < lowercase  
+```javascript
+// In browsers, the global scope object is stored in the window variable:
+var myVar = 10; // global variable
+console.log("myVar" in window); // true
+console.log(window.myVar); // 10
+```
 
 ##Arrays & Objects:
 ```javascript
@@ -70,6 +76,13 @@ function power(base, exponent) {
 
 console.log(power(2, 3));
 // → 8
+/*
+ * Whenever a function is called, a special variable named arguments is added to the environment in which the function body runs.
+ */
+function argumentCounter() {
+  console.log("You gave me", arguments.length, "arguments.");
+}
+argumentCounter("Straw man", "Tautology", "Ad hominem"); // You gave me 3 arguments.
 ```
 
 ##Methods:  
@@ -91,10 +104,12 @@ function someObject() {
 **Predefined**
 ```javascript
 /*
- * toUpperCase, toLowerCase
+ * toUpperCase, toLowerCase, trim, charAt
  */
-"Doh".toUpperCase() // → "DOH"
-"Doh".toLowerCase() // → "doh"
+"Doh".toUpperCase() // "DOH"
+"Doh".toLowerCase() // "doh"
+"  okay \n ".trim() // "okay"
+"bla".charAt(0) // b –– identical to "bla"[0]
 
 /*
  * Push, Pop, shift and unshift
