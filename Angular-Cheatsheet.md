@@ -9,6 +9,7 @@
 [Directives](#directives)
 [Services](#services)
 [Routing](#routing)
+[Filters](#filters)
 
 ##Basics
 **Setup**  
@@ -233,4 +234,11 @@ app.factory('photos', ['$http', function($http) {
 ```html
 <!-- ow when a user visits /, a view will be constructed by injecting home.html into the <div ng-view></div> -->
 <div ng-view></div>
+```
+
+##Filters
+```javascript
+detail.upvotes | number // 1,266
+detail.pubdate | date // Oct 18, 2014 
+
 ```
