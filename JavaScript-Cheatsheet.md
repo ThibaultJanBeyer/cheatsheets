@@ -71,7 +71,7 @@ function power(base, exponent) {
   if (exponent == 0)
     return 1;
   else
-    return base * power(base, exponent - 1);
+    return base * power(base, exponent - 1); // don’t forget to return your recursion else, you’ll get an undefined.
 }
 
 console.log(power(2, 3));
