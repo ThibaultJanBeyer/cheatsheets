@@ -8,12 +8,17 @@
 [Functions](#functions)  
 [Recursive Functions](#recursive-functions)  
 [Methods](#methods)  
+[Predefined Functions/Methods](#predefined-functions-methods)  
+  [On Strings](##on-strings)
+  [On Arrays](##on-arrays)  
+[Predefined Functions/Methods](#predefined-functions-methods)  
 [Custom Constructors / Classes](#custom-constructors--classes)  
 [Random](#random)  
 [Loops](#loops)  
 [Logical Operators](#logical operators)  
 [User Imput](#user-imput)  
 [Const, Let](#const-let)  
+[JSON](#json)  
 
 ##Basics
 **&&** –– and  **||** –– or  **!** –– not  
@@ -101,7 +106,9 @@ function someObject() {
   this.someMethod = function() { console.log(this.stuff) };
 }
 ```
-**Predefined**
+
+##Predefined Functions/Methods
+###On Strings
 ```javascript
 /*
  * toUpperCase, toLowerCase, trim, charAt
@@ -110,7 +117,9 @@ function someObject() {
 "Doh".toLowerCase() // "doh"
 "  okay \n ".trim() // "okay"
 "bla".charAt(0) // b –– identical to "bla"[0]
-
+```
+###On Arrays
+```javascript
 /*
  * Push, Pop, shift and unshift
  */
@@ -137,6 +146,19 @@ mack; // → ["Mack", "the"]
 [0, 1, 2, 3, 4].slice(2, 4); // → [2, 3]
 [0, 1, 2, 3, 4].slice(2); // → [2, 3, 4]
 ["a", "b"].concat("c", 1, "d") // → ["a", "b", "c", 1, "d"]
+
+/*
+ * filter
+ */
+function isBigEnough(value) { return value >= 10; }
+var filtered = [12, 5, 8, 130, 44].filter(isBigEnough); // → filtered is [12, 130, 44]
+
+/*
+ * forEach
+ */
+function logArrayElements(element, index, array) { console.log('a[' + index + '] = ' + element); }
+[2, 5, , 9].forEach(logArrayElements); // → a[0] = 2 // → a[1] = 5 // → a[3] = 9
+// Notice that index 2 is skipped since there is no item at that position in the array.
 ```
 
 ##Custom Constructors / Classes:  
@@ -181,7 +203,7 @@ Math.floor(Math.random()*5 + 1) // Random Number between 1-5
 ##Loops:
 ```javascript
 for(var i = 0; i < 6; i++){ }; // for a number of time
-for(var p in obj){ } // iterates a specified variable p over all the enumerable properties of an object
+for(var p in obj){ } // for in iterates a specified variable p over all the enumerable properties of an object
 while(true){ }; // while a condition is true
 do{ }while(true); // does x while a condition is true (runs x at least once)
 break; // terminate a loop, switch, or in conjunction with a label statement.
@@ -218,3 +240,13 @@ var name = prompt("who're you?");
 
 http://es6-features.org/ for all ECMAScript 6 suggestions (JavaScript 6+)   
 https://kangax.github.io/compat-table/es6/ support Table for 6   
+
+
+##JSON
+```javascript
+// JSON.stringify takes a JavaScript value and returns a JSON-encoded string
+var string = JSON.stringify({name: "X", born: 1980});
+console.log(string); // → {"name":"X","born":1980}
+// JSON.parse takes such a string and converts it to the value it encodes
+console.log(JSON.parse(string).born); // → 1980
+```
