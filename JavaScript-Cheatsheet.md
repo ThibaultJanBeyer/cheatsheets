@@ -154,6 +154,17 @@ function isBigEnough(value) { return value >= 10; }
 var filtered = [12, 5, 8, 130, 44].filter(isBigEnough); // → filtered is [12, 130, 44]
 
 /*
+ * map
+ */
+var numbers = [1, 4, 9];
+var roots = numbers.map(Math.sqrt); // roots is now [1, 2, 3], numbers is still [1, 4, 9]
+
+/*
+ * reduce
+ */
+var total = [0, 1, 2, 3].reduce(function(a, b) { return a + b; }); // total == 6
+
+/*
  * forEach
  */
 function logArrayElements(element, index, array) { console.log('a[' + index + '] = ' + element); }
