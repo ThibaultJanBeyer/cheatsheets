@@ -143,7 +143,7 @@ mack; // → ["Mack", "the"]
 /*
  * slice & concat
  */
-[0, 1, 2, 3, 4].slice(2, 4); // → [2, 3]
+[0, 1, 2, 3, 4].slice(2, 4); // → [2, 3] (positions 2,4 – 2 included 4 excluded)
 [0, 1, 2, 3, 4].slice(2); // → [2, 3, 4]
 ["a", "b"].concat("c", 1, "d") // → ["a", "b", "c", 1, "d"]
 
@@ -157,7 +157,7 @@ var filtered = [12, 5, 8, 130, 44].filter(isBigEnough); // → filtered is [12, 
  * map
  */
 var numbers = [1, 4, 9];
-var roots = numbers.map(Math.sqrt); // roots is now [1, 2, 3], numbers is still [1, 4, 9]
+var roots = numbers.map(Math.sqrt); // roots is now [1, 2, 3] (1*1=1, 2*2=4, 3*3=9), numbers is still [1, 4, 9]
 
 /*
  * reduce
@@ -170,6 +170,14 @@ var total = [0, 1, 2, 3].reduce(function(a, b) { return a + b; }); // total == 6
 function logArrayElements(element, index, array) { console.log('a[' + index + '] = ' + element); }
 [2, 5, , 9].forEach(logArrayElements); // → a[0] = 2 // → a[1] = 5 // → a[3] = 9
 // Notice that index 2 is skipped since there is no item at that position in the array.
+
+/*
+ * every & some
+ */
+function isBigEnough(element, index, array) { return element >= 10; }
+[12, 5, 8, 130, 44].every(isBigEnough);   // false
+[12, 5, 8, 130, 44].some(isBigEnough);   // true
+
 ```
 
 ##Custom Constructors / Classes:  
