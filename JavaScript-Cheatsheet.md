@@ -209,6 +209,22 @@ Penguin.prototype = new Dog(); // Penguins will inherit from Dog and also be abl
 var penguin = new Penguin("penguin"); // create an instance of the Penguin class.
 penguin.bark(); // Woof
 
+/*
+ * defineProperty & hasOwnProperty
+ */
+Object.prototype.nonsense = "hi"; // hi will be an enumerable property, hence show up in any for .. in .. loop on any object. To prevent that use defineProperty 
+for (var name in map) console.log(name); // → pizza // → touched tree // → nonsense
+delete Object.prototype.nonsense;
+Object.defineProperty(Object.prototype, "hiddenNonsense", {enumerable: false, value: "hi"});
+for (var name in map) console.log(name); // → pizza // → touched tree
+console.log(map.hiddenNonsense); // → hi
+// alternatively:
+for (var name in map) {
+  if (map.hasOwnProperty(name)) {
+    // ... this is an own property
+  }
+}
+
 ```
  
 ##Random:
