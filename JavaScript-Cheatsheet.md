@@ -11,6 +11,7 @@
 [Predefined Functions/Methods](#predefined-functionsmethods)  
 - [On Strings](#on-strings)  
 - [On Arrays](#on-arrays)  
+- [Nodes](#nodes)  
 [Custom Constructors / Classes](#custom-constructors--classes)  
 [Random](#random)  
 [Loops](#loops)  
