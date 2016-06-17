@@ -179,6 +179,26 @@ function isBigEnough(element, index, array) { return element >= 10; }
 [12, 5, 8, 130, 44].some(isBigEnough);   // true
 
 ```
+##Nodes
+```javascript
+/*
+ * Select children of an element with content
+ * given: table > tr > td + td
+ */ 
+var t = document.querySelector('#table');
+var td = t.content.querySelectorAll("td"); // nodelist [td, td]
+// note: without .content it would not be possible to select the childs.
+
+/*
+ * clone nodes with importNode
+ * see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template for a good example
+ */
+var clone = document.importNode(externalNode, deep);
+
+var tb = document.getElementsByTagName("tbody");
+var clone = document.importNode(t.content, true); // import/clone the content of the table
+tb[0].appendChild(clone); // append it to tbody
+```
 
 ##Custom Constructors / Classes:  
 ```javascript
