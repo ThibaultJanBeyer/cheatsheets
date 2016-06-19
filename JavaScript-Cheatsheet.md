@@ -18,8 +18,8 @@
 [Logical Operators](#logical-operators)
 - [Conditional Operator](#conditional-operator)  
 [User Imput](#user-imput)  
-[Const, Let](#const-let)  
 [JSON](#json)  
+[ES6](#es6)  
 
 ##Basics
 **&&** –– and  **||** –– or  **!** –– not  
@@ -287,16 +287,7 @@ console.log(false ? 1 : 2); // → 2
 var name = prompt("who're you?");
 ```
 
-##Const, Let
-// these are experimental and not fully supported yet.   
-**let** my_var –– creates a variable as VAR would do but limit its "scope" to the respective code block instead of the whole function   
-**const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.   
-
-
-
-http://es6-features.org/ for all ECMAScript 6 suggestions (JavaScript 6+)   
-https://kangax.github.io/compat-table/es6/ support Table for 6   
-
+**const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.    
 
 ##JSON
 ```javascript
@@ -305,4 +296,169 @@ var string = JSON.stringify({name: "X", born: 1980});
 console.log(string); // → {"name":"X","born":1980}
 // JSON.parse takes such a string and converts it to the value it encodes
 console.log(JSON.parse(string).born); // → 1980
+```
+
+##ES6
+```javascript
+/*
+ * Using glob variables in new objects 
+ */
+var foo = 2;
+var obj = { bar: 1, foo } //-> obj.bar = 1 -> obj.foo = 2
+```
+
+###Destructuring
+```javascript
+var foo = {
+  bar: 1,
+  baz: 2
+};
+var { bar, baz } = foo;
+console.log(bar); //-> 1
+console.log(baz); //-> 2 // instead of foo.bar / foo.baz
+// also with arrays:
+var array = [1, 2];
+var [ a, b ] = array;
+console.log(a,b) //-> 1 2
+// very nice on functions:
+// usually you would have an opts value but now
+// you can destructure the incoming object directly in the function
+// also note how we changed the name of weight to just w
+function calcBmi({ weight: w, height, max, callback }){
+  var bmi = w / Math.pow(height, 2);
+  if(bmi > max) { console.log('sorry you are obese') }
+  if(callback) { callback(bmi) } // instead of if objs.callback
+}
+// by passing objects
+calcBmi({ weight, height, max: 25 });
+// you can now omit a data and it will just be passed as 'undefined', here we leave out max.
+// also the order does not matter anymore!
+calcBmi({ callback: function() {}, weight, height });
+```
+
+###Default Arguments
+```javascript
+function someThing(value = 12){
+  // stuff
+}
+```
+
+###Template Strings
+```javascript
+var name = "will";
+var thing = "party";
+// old way
+var greet = "hi, my name is" + name + "\n and I like to" + thing + "!";
+// new way. Note the inline variables and how to break lines.
+var greet = `hi, my name is ${name} 
+             and I like to ${thing} !`;
+```
+
+###Scoping
+```javascript
+// let is the new var
+// define block variables (only used within blocks)
+if () { let b = 2; }
+console.log(b); // undefined
+
+// use const as default and change it to let only when you have to change the value
+// const is also block scoped but unchangable
+const a = 1;
+a = 2; //-> error
+```
+
+###Classes
+```javascript
+// old:
+function Parent() { /*constructor*/ }
+Parent.prototype.foo = function() {}; // to add a function to the constructor
+var parent = new Parent();
+parent.foo();
+// new
+class Parent {
+  // in ES7 I could also add static properties here, like this:
+  age = 30;
+
+  constructor() {
+
+  }
+
+  foo() {
+
+  }
+
+  static bar() {
+
+  }
+}
+var parent = new Parent();
+parent.foo();
+parent.age; //-> 30
+Parent.bar();
+
+class Child extents Parent {
+  constructor() {
+    super() // will call the constructor of Parent
+  }
+  baz() {
+
+  }
+}
+var child = new Child();
+child.baz(); // works
+child.foo(); // works
+```
+
+###Arrow Functions
+```javascript
+// basics
+// old
+var foo = function(a, b) { return a + b; }
+// new
+var foo = (a, b) => { return a + b; }
+
+// implicit returns (only on one liners):
+do.something((a, b) => a + b);
+
+// also without parenthesis when you only have one argument
+do.something(a => a + 1);
+[0,1,2].map(val => val+1); //-> [1,2,3]
+
+// it also binds the this
+var module = {
+  age: 30,
+  foo: function() {
+    setTimeout(() => { // automatically bind the previous this to the function
+      console.log(this.age); // still works
+    }, 100);
+  }
+};
+// note that it will overwrite i.e. jQuerys this value.
+```
+
+###Modules
+```javascript
+// old
+module.exports.foo = function () {};
+module.exports.bar = function () {};
+// another file:
+var myModule = require("myModule");
+var foo = myModule.foo;
+// new
+export function foo() { };
+export function bar() { };
+export var x = 3;
+import { foo, bar, x as test } from "myModule";
+console.log(test) //-> 3
+// or whole modules
+export default {};
+import myModule from "myModule";
+```
+
+###Generator Functions
+```javascript
+async function() {
+  var friends = await $.get("http://bla.com/friends")
+  console.log(friends);
+} // returns one promise that is denible
 ```
