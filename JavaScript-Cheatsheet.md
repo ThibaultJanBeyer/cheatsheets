@@ -13,7 +13,7 @@
 - [On Arrays](#on-arrays)  
 - [Nodes](#nodes)  
 [Custom Constructors / Classes](#custom-constructors--classes)  
-[Random](#random)  
+[Math](#math)  
 [Loops](#loops)  
 [Logical Operators](#logical-operators)
 - [Conditional Operator](#conditional-operator)  
@@ -31,7 +31,8 @@ i++ , i-- , i += x , i -= x
 **isNaN(42);**  –– false   
 x**.length** –– Returns the length of a string or the amount of items in a variable
 **typeof** variable –– returns object, number, string  
-**Z < a** –– true, uppercase < lowercase  
+**Z < a** –– true, uppercase < lowercase    
+
 ```javascript
 // In browsers, the global scope object is stored in the window variable:
 var myVar = 10; // global variable
@@ -106,6 +107,33 @@ function someObject() {
   this.stuff = "bla"
   this.someMethod = function() { console.log(this.stuff) };
 }
+
+// Associate methods to properties
+var pile = {
+  elements: ["eggshell", "orange peel", "worm"],
+  get height() {
+    return this.elements.length;
+  },
+  set height(value) {
+    console.log("Ignoring attempt to set height to", value);
+  }
+};
+// the get and set notation for properties allows you to specify a function to be run when the property is read or written
+console.log(pile.height); // → 3
+pile.height = 100; // → Ignoring attempt to set height to 100
+
+// You can also add such a property to an existing object, for example a prototype, using the Object.defineProperty function
+function Pile() {
+  this.elements = ["eggshell", "orange peel", "worm"];
+}
+
+Object.defineProperty(Pile.prototype, "height", {
+  get: function() { return this.elements.length; }
+});
+
+var test = new Pile();
+console.log(test.height); //-> 3
+
 ```
 
 ##Predefined Functions/Methods
@@ -118,6 +146,11 @@ function someObject() {
 "Doh".toLowerCase() // "doh"
 "  okay \n ".trim() // "okay"
 "bla".charAt(0) // b –– identical to "bla"[0]
+
+/*
+ * Repeat
+ */
+'-'.repeat(2); //-> '--' (not supported by IE and Opera)
 ```
 ###On Arrays
 ```javascript
@@ -245,15 +278,35 @@ for (var name in map) {
     // ... this is an own property
   }
 }
-
 ```
- 
-##Random:
+
+##Math:
 ```javascript
-Math.random() // random Number between 0 and 1 but never 0 nor 1
-Math.floor(Math.random() * 2) // Random Number between 0-1
-Math.floor(Math.random()*5 + 1) // Random Number between 1-5
+// returns the largest of 2 numbers
+Math.max(10, 20) //-> 20
+
+// returns the largest integer less than or equal to a given number
+Math.floor( 45.95); //-> 45
+
+/*
+ * Randoms
+ */
+// random Number between 0 and 1 but never 0 nor 1
+Math.random() //-> i.e. 0.73452221
 // *x sets the width and +y the range of the randomness
+Math.floor(Math.random() * 5 + 1) // Random Number between 1-5
+// Returns a random integer between min (included) and max (included)
+// Using Math.round() will give you a non-uniform distribution!
+function getRandomIntInclusive(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/*
+ * .sqrt to calculate distances
+ */
+// Pythagorean theorem says that the square of the distance we are looking for is equal to the square of the x-coordinate plus the square of the y-coordinate thus **√(a2 + b2)** to calculate the distance to a point c:
+Math.sqrt(a * a + b * b);
+// or less chic: Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)); 
 ```
 
 ##Loops:
@@ -285,9 +338,7 @@ console.log(false ? 1 : 2); // → 2
 ##User Imput
 ```javascript
 var name = prompt("who're you?");
-```
-
-**const** my_var = xy –– creates a variable as with VAR but make it a constant, you can not change its value later. However, you're still able to add attributes to objects.    
+```    
 
 ##JSON
 ```javascript
