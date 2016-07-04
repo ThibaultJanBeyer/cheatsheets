@@ -102,7 +102,7 @@ git pull --rebase remote-name branch-name –– http://gitready.com/advanced/20
 **git branch -a** –– Show all available branches  
 **git checkout branchname** –– Switch to a branch  
 Configure a remote for a fork: https://help.github.com/articles/configuring-a-remote-for-a-fork/  
-Sync your fork: https://help.github.com/articles/syncing-a-fork/
+Sync your fork: https://help.github.com/articles/syncing-a-fork/  
 
 ####Teamwork Workflow:
 Fetch and merge changes from the remote  
