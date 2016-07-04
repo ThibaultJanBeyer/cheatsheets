@@ -100,7 +100,9 @@ git branch -d branch-name –– delete the branch
 **git pull** –– Get latest Data from the actual branch  
 git pull --rebase remote-name branch-name –– http://gitready.com/advanced/2009/02/11/pull-with-rebase.html  
 **git branch -a** –– Show all available branches  
-**git checkout branchname** –– Switch to a branch
+**git checkout branchname** –– Switch to a branch  
+Configure a remote for a fork: https://help.github.com/articles/configuring-a-remote-for-a-fork/  
+Sync your fork: https://help.github.com/articles/syncing-a-fork/
 
 ####Teamwork Workflow:
 Fetch and merge changes from the remote  
@@ -150,3 +152,15 @@ Is the equivalent to:
 mv README.md README  
 git rm README.md  
 git add README
+
+
+
+
+
+// Deploying a subfolder to GitHub Pages  
+Use subtree push to send it to the gh-pages branch on GitHub.  
+
+$ git subtree push --prefix dist origin gh-pages  
+
+Boom. If your folder isn’t called dist, then you’ll need to change that in each of the commands above.  
+
