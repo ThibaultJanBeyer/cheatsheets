@@ -6,23 +6,27 @@
 [Basics](#basics)  
 [Loop](#loop)  
 [Html](#html)  
-[Directives](#directives)
-[Services](#services)
-[Routing](#routing)
-[Filters](#filters)
+[Directives](#directives)  
+[Services](#services)  
+[Routing](#routing)  
+[Filters](#filters)  
 
 ##Basics
 **Setup**  
+0. You can use the official [Angular Seed Project](https://github.com/angular/angular-seed) for quick startup.  
 1. Create a new module named myApp
 ```javascript
 // ja > App.js
 var app = angular.module("myApp", []);
 ```
-2. add a directive: tt tells AngularJS that the myApp module will live within the <body> scope  
+2. add a directive: it tells AngularJS that the myApp module will live within the `<body>` scope (or the whole page, `<head>`) 
 ```html
 <!-- index.html -->
+<head ng-app="myApp"> <!-- or -->
 <body ng-app="myApp">
 ```
+See: [more info on ng-app](https://docs.angularjs.org/api/ng/directive/ngApp)  
+This is called “Bootstrapping”. Sometimes you want to [do it manually](https://docs.angularjs.org/guide/bootstrap#manual-initialization) (if you have multiple Angular apps for instance).
 3. Create a new controller: manages the app's data.
 ```javascript
 // js > controllers > MainController.js
@@ -36,9 +40,20 @@ app.controller('MainController', ['$scope', function($scope) {
   <h1>{{ title }}</h1>
 </div>
 ```
-We access $scope.title using {{ title }}. That’s an expression: used to display values on the page.  
+We access $scope.title using {{ title }}. That’s an expression: used to display values on the page.
 
-####misc
+###Namings
+**Binding** –– {{ ... }}  
+**Expressions** –– something + '!'  
+**Directives** ––  
+**Template** –– (the part of the view containing the bindings and presentation logic) acts as a blueprint for how our data should be organized and presented to the user.  
+**Controller** –– provides the context in which the bindings are evaluated and applies behavior and logic to our template.  
+**Model** –– What the user sees after the page is fully rendered  
+**Module** –– Child on Angular (usually it is the App in an Angular point of view)  
+**Components** –– A combination of template + controller with an isolated scope (= no prototypal inheritance and no risk of our component affecting other parts of the application or vice versa) ([Docs](https://docs.angularjs.org/guide/component))  
+
+
+###misc  
 **Price**
 ```html
 <p class="price">{{ product.price | currency }}</p>
