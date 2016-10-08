@@ -11,23 +11,24 @@
 [Branching](#branching)  
 [Teamwork](#teamwork)  
 [Removing](#removing)  
-[Ignoring](#ignoring)
+[Ignoring](#ignoring)  
 [Renaming](#renaming)  
 
 ##Mostly used
-**git init** –– to initialize  
-**git status** –– to check what’s in the folder  
-**git add filename1 filename2** –– to add files to git  
-git add . –– adds all files  
-**git diff filename** –– to see the differences –– q to quit  
-**git commit -m “text”** –– to commit the changes  
-**git log** –– to see all commits  
-**git branch -a** –– show’s all branches and highlight the one you’re on  
-**git checkout branchname** –– to switch to a branch  
-**git branch branch-name** –– create a branch  
-**git reset 5d69206** –– the 7 first numbers of the commit you want to reset  
-**git remote prune origin** –– Clean-up outdated references to remote branches
-
+```javascript
+$ git init // to initialize  
+$ git status // to check what’s in the folder  
+$ git add filename1 filename2 // to add files to git  
+git add . // adds all files  
+$ git diff filename // to see the differences // q to quit  
+$ git commit -m “text” // to commit the changes  
+$ git log // to see all commits  
+$ git branch -a // show’s all branches and highlight the one you’re on  
+$ git checkout branchname // to switch to a branch  
+$ git branch branch-name // create a branch  
+$ git reset 5d69206 // the 7 first numbers of the commit you want to reset  
+$ git remote prune origin // Clean-up outdated references to remote branches
+```
 In Git, the commit you are on is known as the HEAD commit. In many cases, the most recently made commit is the HEAD commit. To see the HEAD commit, enter: $git show head
 
 Git has three main states that your files can be in: committed, modified, and staged
@@ -53,54 +54,81 @@ man git-&lt;verb&gt;
 ####outside of git
 in the #git or #github channel on the Freenode IRC server (irc.freenode.net)
 
-git status –– full status  
-git status -s –– simplified status (?? = new files not tracked yet A = staged M = modified MM = modified, staged and then modified again so both staged and unstaged)  
-git diff –– compares staged with not staged  
-git diff --staged –– compares staged with commited  
-(--staged and --cached are synonyms)  
+```javascript
+$ git status // full status  
+$ git status -s // simplified status (?? = new files not tracked yet A = staged M = modified MM = modified, staged and then modified again so both staged and unstaged)  
+$ git diff // compares staged with not staged  
+$ git diff --staged // compares staged with commited  
+(--staged and --cached are synonyms)
+```
 
-##Setup
-####Global
-git config --global user.name "John Doe"  
-git config --global user.email johndoe@example.com  
-git config --list –– to show all settings  
+##Setup  
+####Global  
+```javascript
+$ git config --global user.name "John Doe"  
+$ git config --global user.email johndoe@example.com  
+$ git config --list // to show all settings
+```
 ####Project
-git init –– adds git  
+```javascript
+$ git init // adds git
+```
 ####New
-git add .  
-git commit -m 'initial project version'  
-git remote add origin URL  
-git push -u origin master  
+```javascript
+$ git add .  
+$ git commit -m 'initial project version'  
+$ git remote add origin URL  
+$ git push -u origin master
+```
 ####Existing
-git clone URL (directory name, optional)  
+```javascript
+$ git clone URL (directory name, optional)  
+$ git clone --depth=16 URL // only take the last 16 commits (faster download)
+```
 
 ##Staging
-**git add filename** –– stages the file exactly how it is at this moment, for every change this command has to be run again to stage the new version.
+```javascript
+$ git add filename // stages the file exactly how it is at this moment, for every change this command has to be run again to stage the new version.
+```
 
 ##Commiting
-**git commit** –– commits with basic info + large message  
-git commit -v –– commits with changes + message  
-git commit -m –– commits basic info + message inline  
-git commit -a –– commits basic info + message & git add all files  
+```javascript
+$ git commit // commits with basic info + large message  
+$ git commit -v // commits with changes + message  
+$ git commit -m // commits basic info + message inline  
+$ git commit -a // commits basic info + message & git add all files  
+```
 
 ##Branching
-**git branch** –– show’s the branch you’re on  
-git branch branch-name –– create a branch  
-git branch -d branch-name –– delete the branch  
-**git checkout branch-name** –– switches to the specified branch  
-**git merge branch-name** –– merges the actual branch with the branch specified  
+```javascript
+$ git branch // show’s the branch you’re on  
+$ git branch branch-name // create a branch  
+$ git branch -d branch-name // delete the branch  
+
+$ git checkout branch-name // switches to the specified branch  
+$ git merge branch-name // merges the actual branch with the branch specified
+```
 
 ##Teamwork
-**git clone remote-location clone-name** –– clones a remote git project. Location of original + a name for your directory. The original will get the name origin  
-**git remote -v** –– Lists a Git project's remotes.  
-**git fetch** –– gets any possible changes and stores them into a branch called origin/master  
-**git merge origin/master** –– merges the fetched stuff with your local stuff  
-**git push origin your-branch-name** –– pushes your branch to the origin where it can be reviewed and added.  
-**git rebase develop** –– merge the develop branch with your branch  
-**git pull** –– Get latest Data from the actual branch  
-git pull --rebase remote-name branch-name –– http://gitready.com/advanced/2009/02/11/pull-with-rebase.html  
-**git branch -a** –– Show all available branches  
-**git checkout branchname** –– Switch to a branch  
+```javascript
+$ git clone remote-location clone-name // clones a remote git project. Location of original + a name for your directory. The original will get the name origin  
+
+$ git remote -v // Lists a Git project's remotes.  
+
+$ git fetch // gets any possible changes and stores them into a branch called origin/master  
+
+$ git merge origin/master // merges the fetched stuff with your local stuff  
+
+$ git push origin your-branch-name // pushes your branch to the origin where it can be reviewed and added.  
+
+$ git rebase develop // merge the develop branch with your branch  
+
+$ git pull // Get latest Data from the actual branch  
+$ git pull --rebase remote-name branch-name // http://gitready.com/advanced/2009/02/11/pull-with-rebase.html  
+
+$ git branch -a // Show all available branches  
+$ git checkout branchname // Switch to a branch  
+```
 Configure a remote for a fork: https://help.github.com/articles/configuring-a-remote-for-a-fork/  
 Sync your fork: https://help.github.com/articles/syncing-a-fork/  
 
@@ -114,18 +142,21 @@ Push your branch up to the remote for review
 > Merge
 
 ##Removing
-**git rm** –– remove file  
-git rm -f –– to remove it when it’s already in the index  
-git rm --cached –– keep on hard drive but remove from being tracked  
-git rm log&sol;&bsol;&ast;.log –– removes all files that have the .log extension in the log/ directory  
-git rm &bsol;&ast;~ –– removes all files that end with ~  
-**git mv file-from file-to** –– to rename a file  
-**git branch -d branch-name** –– delete the branch  
+```javascript
+$ git rm // remove file  
+$ git rm -f // to remove it when it’s already in the index  
+$ git rm --cached // keep on hard drive but remove from being tracked  
+$ git rm log&sol;&bsol;&ast;.log // removes all files that have the .log extension in the log/ directory  
+$ git rm &bsol;&ast;~ // removes all files that end with ~  
+$ git mv file-from file-to // to rename a file  
+$ git branch -d branch-name // delete the branch  
+```
 
 ##Ignoring
 Create a .gitignore file and write in that file:  
 &ast;.[oa] –– ignore any files ending in “.o” or “.a”  
-&ast;~ –– ignore all files that end with a tilde (~) which is used by many text editors such as Emacs to mark temporary files  
+&ast;~ –– ignore all files that end with a tilde (~) which is used by many text editors such as Emacs to mark temporary files
+
 ####Rules
 Blank lines or lines starting with # are ignored.  
 Standard glob patterns work.  
@@ -147,20 +178,19 @@ doc/&ast;&ast;/&ast;.pdf –– ignore all .pdf files in the doc/ directory
 Templates: https://github.com/github/gitignore
 
 ##Renaming
-**git mv file-from file-to**  
-Is the equivalent to:  
-mv README.md README  
-git rm README.md  
-git add README
+```javascript
+$ git mv file-from file-to  
+// Is the equivalent to:  
+// mv README.md README  
+$ git rm README.md  
+$ git add README
+```
 
 
 
-
-
-// Deploying a subfolder to GitHub Pages  
+##Deploying a subfolder to GitHub Pages  
 Use subtree push to send it to the gh-pages branch on GitHub.  
-
-$ git subtree push --prefix dist origin gh-pages  
-
+```javascript
+$ git subtree push --prefix dist origin gh-pages
+```
 Boom. If your folder isn’t called dist, then you’ll need to change that in each of the commands above.  
-
