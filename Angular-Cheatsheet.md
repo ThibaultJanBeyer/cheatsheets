@@ -257,3 +257,32 @@ detail.upvotes | number // 1,266
 detail.pubdate | date // Oct 18, 2014 
 
 ```
+**Filter an Array**  
+```html
+Search: <input type="text" data-ng-model="$ctrl.query">
+Search by Name: <input type="text" data-ng-model="$ctrl.query.name"> <!-- save input in $ctrl.query -->
+<p>Total number of phones: {{$ctrl.phones.length}}</p>
+<ul class="phones">
+  <li data-ng-repeat="phone in $ctrl.phones | filter:$ctrl.query"> <!-- use $ctrl.query as filter to only show matching elements -->
+    <span>{{phone.name}}</span>
+    <p>{{phone.snippet}}</p>
+  </li>
+</ul>
+```
+```html
+<p>
+  Sort by:
+  <select ng-model="$ctrl.orderProp"> <!-- save selection in $ctrl.orderProp -->
+    <option value="name">Alphabetical</option> <!-- save selection in $ctrl.orderProp.name -->
+    <option value="age">Newest</option> <!-- save selection in $ctrl.orderProp.age -->
+    <option value="-age">Oldest</option> <!-- place - in front to reverse -->
+  </select>
+</p>
+<ul class="phones">
+  <li data-ng-repeat="phone in $ctrl.phones | orderBy:$ctrl.orderProp"> <!-- use $ctrl.orderProp as filter to order the list -->
+    <!-- if a value is not available it will return to the default -->
+    <span>{{phone.name}}</span>
+    <p>{{phone.snippet}}</p>
+  </li>
+</ul>
+```
