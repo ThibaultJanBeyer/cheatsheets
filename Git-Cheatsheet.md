@@ -13,6 +13,7 @@
 [Removing](#removing)  
 [Ignoring](#ignoring)  
 [Renaming](#renaming)  
+[Stashing](#stashing)  
 
 ##Mostly used
 ```javascript
@@ -194,3 +195,18 @@ Use subtree push to send it to the gh-pages branch on GitHub.
 $ git subtree push --prefix dist origin gh-pages
 ```
 Boom. If your folder isn’t called dist, then you’ll need to change that in each of the commands above.  
+
+
+
+##Stashing  
+If you want to put your changes temporarely aside and pull new stuff use stash:
+```javascript
+$ git stash
+$ git pull
+$ git stash pop
+```
+
+to remove a stash completely:  
+```javascript
+$ git stash drop
+```

@@ -50,7 +50,8 @@ We access $scope.title using {{ title }}. That’s an expression: used to displa
 **Controller** –– provides the context in which the bindings are evaluated and applies behavior and logic to our template.  
 **Model** –– What the user sees after the page is fully rendered  
 **Module** –– Child on Angular (usually it is the App in an Angular point of view)  
-**Components** –– A combination of template + controller with an isolated scope (= no prototypal inheritance and no risk of our component affecting other parts of the application or vice versa) ([Docs](https://docs.angularjs.org/guide/component))  
+**Components** –– A combination of template + controller with an isolated scope (= no prototypal inheritance and no risk of our component affecting other parts of the application or vice versa) ([Docs](https://docs.angularjs.org/guide/component))
+**DI / dependency injection** –– https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection  
 
 
 ###misc  
@@ -184,15 +185,57 @@ app.controller('MainController', ['$scope', 'forecast', function($scope, forecas
 ```
 
 ##Routing
+**app.config.js**
+```javascript
+// new
+angular.
+  module('phonecatApp').
+  config(['$locationProvider', '$routeProvider', // the services we use
+    function config($locationProvider, $routeProvider) {
+      $locationProvider.hashPrefix('!');
+
+      $routeProvider. // to define the application routes
+        when('/phones', { // to map the URL /phones to
+          template: '<phone-list></phone-list>'
+        }).
+        when('/phones/:phoneId', { // mapp URL to phones + variable part named id to the URL
+          template: '<phone-detail></phone-detail>'
+        }).
+        otherwise('/phones');
+    }
+  ]);
+```
+**phone-detail/phone-detail.module.js**
+```javascript
+// new
+angular.module('phoneDetail', [
+  'ngRoute'
+]);
+```
+**phone-detail/phone-detail.component.js**
+```javascript
+// new
+angular.
+  module('phoneDetail').
+  component('phoneDetail', {
+    template: 'TBD: Detail view for <span>{{$ctrl.phoneId}}</span>',
+    controller: ['$routeParams',
+      function PhoneDetailController($routeParams) {
+        this.phoneId = $routeParams.phoneId;
+      }
+    ]
+  });
+```
 **js > app.js**
 ```javascript
+// old
 app.config(function ($routeProvider) { 
-  $routeProvider // to define the application routes
-    .when('/', { // to map the URL / to
+  $routeProvider 
+    .when('/', { 
       controller: 'HomeController', // to the controller HomeController 
       templateUrl: 'views/home.html' // and the template home.html
     })
-    .when('/photos/:id', { // mapp URL to PhotoController and photo.html. + variable part named id to the URL
+    .when('/photos/:id', { 
   		controller: 'PhotoController',
     	templateUrl: 'views/photo.html'
   	})
@@ -203,6 +246,7 @@ app.config(function ($routeProvider) {
 ```
 **js > controllers > HomeController**
 ```javascript
+// old
 app.controller('HomeController', ['$scope', 'photos', function($scope, photos) { // use photos service
   photos.success(function(data) {
     $scope.photos = data;
@@ -211,6 +255,7 @@ app.controller('HomeController', ['$scope', 'photos', function($scope, photos) {
 ```
 **js > controllers > PhotoController**
 ```javascript
+// old
 // $routeParams to retrieve id from the URL by using $routeParams.id
 // Notice injected both $routeParams and the photos service into the dependency array to make them available to use inside the controller.
 app.controller('PhotoController', ['$scope', 'photos', '$routeParams', function($scope, photos, $routeParams) {
@@ -221,6 +266,7 @@ app.controller('PhotoController', ['$scope', 'photos', '$routeParams', function(
 ```
 **js > services > photos**
 ```javascript
+// old
 // fetch the array of all photos and stores it into $scope.photos
 app.factory('photos', ['$http', function($http) {
   return $http.get('https://s3.amazonaws.com/codecademy-content/courses/ltp4/photos-api/photos.json')
