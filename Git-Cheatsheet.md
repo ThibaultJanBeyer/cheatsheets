@@ -147,6 +147,7 @@ Push your branch up to the remote for review
 $ git rm // remove file  
 $ git rm -f // to remove it when it’s already in the index  
 $ git rm --cached // keep on hard drive but remove from being tracked  
+$ git rm --cached -r // remove a folder keep on hard drive but remove from being tracked  
 $ git rm log&sol;&bsol;&ast;.log // removes all files that have the .log extension in the log/ directory  
 $ git rm &bsol;&ast;~ // removes all files that end with ~  
 $ git mv file-from file-to // to rename a file  
