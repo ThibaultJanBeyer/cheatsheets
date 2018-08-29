@@ -48,7 +48,7 @@ cat < file.txt –– takes the output from the right and inputs it into the lef
 cat file.txt | wc –– **|** is a "pipe". The | takes the standard output of the command on the left, and pipes it as standard input to the command on the right. You can think of this as "command to command" redirection.  
 cat text1.txt | wc | cat > text2.txt –– multiple pipes can be combined here the output of text1.txt is given to wc whose output is given to cat which places it into text.txt
 
-##Sorting & Filtering
+## Sorting & Filtering
 **sort** filename –– outputs the sortet content of the file  
 cat filename | sort > nameofsortedfile –– outputs the content of filename binds it to the sort function that then redirect that sorted output into a file  
 **uniq** filename –– filters out adjacent, duplicate lines in a file  
@@ -62,7 +62,7 @@ grep -Rl keyword folder –– searches all files in a directory and outputs onl
 **sed** 's/keyword/replacement' filename –– find in file and replace s = substitution. So sed 's/find/replace' in_this_file (only replace the first finding)  
 sed 's/keyword/replacement/**g**' filename –– same as above but replaces all instances not only the first finding  
 
-##Environment
+## Environment
 **nano** ~/.bash_profile –– creates a file to store environment settings. Whenever a session starts it will load it's content.
 (within bash_profile) **alias** pd="pwd" –– create keyboard shortcuts, for commonly used commands.
 (within bash_profile) **export** USER="username" –– create a variable that can be accessed by $USER
