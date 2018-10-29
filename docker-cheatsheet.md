@@ -2,7 +2,7 @@
 
 # Docker Cheatsheet
 
-##### Table of Contents
+## Table of Contents
 
 [Install](#install)
 [Basics](#basics)
@@ -49,6 +49,8 @@ lists all docker nodes in a swarm
 
 ## Containers
 
+### Run
+
 ```
 docker run hello-world
 ```
@@ -73,6 +75,8 @@ docker run -it --name temp ubuntu:latest /bin/bash
 You usually don’t do that.  
 Inside, you can run `ctrl+P+Q` to quit without exiting the process.
 
+### start / stop / rm
+
 ```
 docker start <container>
 docker stop <container>
@@ -86,9 +90,26 @@ docker stop $(docker ps -aq)
 ```
 
 runs docker stop against the output of `docker ps -aq`:  
-`-aq`: all containers in quiet mode (q = just the IDs).
+`-aq`: all containers in quiet mode (q = just the IDs).  
 
-### Container Volumes
+### exec
+
+```
+docker exec <id> <command>
+docker exec d63 node foo.js
+```
+
+Executes a command inside a running docker container
+
+### logs
+
+```
+docker logs <id>
+```
+
+Outputs the logs of that container
+
+## Container Volumes
 
 ```
 docker run -p 80:8080 -v $(pwd):/var/www node
@@ -117,6 +138,71 @@ docker rm -v <container>
 ```
 
 `-v`: also removes the container that was created/managed by docker (outside of the container). *Note: It will not remove your source code if you specified any.*  
+
+## Container Communication
+
+Options:  
+Use Legacy Linking  
+Add containers to Bridge Network (preffered)  
+
+### Legacy Linking
+
+Linking containers by name:  
+1. run container by name  
+2. link to running container by name  
+3. repeat for additional containers  
+
+1. run container by name  
+```
+docker run -d --name <name> <image>
+# Example
+docker run -d --name my-postgres postgres
+```
+`-d`: run in background  
+`<name>`: give container a name  
+
+2. link to running container by name  
+```
+docker run -d -p <h-port>:<c-port> --link <c-name>:<alias> <username>/<imagename>
+# Example
+docker run -d -p 80:8080 --link my-postgres:postgres johndoe/foobar
+```
+`--link`: links the container to a running container where `<c-name>` is the container name and `<alias>` an alias we give the container-link internally.  
+
+Like that containers can speak to each other.  
+For example: when you give the link an alias as we did in the example above. Inside that second container you can call that first container by calling the alias. Instead of for example `localhost:5000`, you would do `postgres:5000`.  
+
+### Container Networks
+
+Allows to isolate containers in groups.  
+1. Create a bridge network  
+2. Add containers to that network  
+
+1. Create a bridge network  
+```
+docker network create --driver <drivername> <network-name>
+docker network create --driver bridge my_isolated_network
+```
+`--driver`: a network driver type. It can even be cross host. Common is `bridge`.  
+
+2. Add containers to that network  
+```
+docker run -d --net=<network-name> --name <name> <image>
+docker run -d --net=my_isolated_network --name myMongo mongo
+```
+`--net=<network-name>`: run container into that specific network  
+`--name`: give it a name to link to ("link" to this container by name / = server name to reference)  
+*Note: linking === communicating*  
+
+Official name of this technique: `Container networking With Bridge Driver`.  
+Is used similarely as legacy linking when it comes to code.  
+
+#### Inspecting
+
+```
+docker network inspect my_isolated_network
+```
+will list information about the network, including linked containers  
 
 ## Processes
 
