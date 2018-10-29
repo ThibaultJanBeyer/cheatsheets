@@ -68,8 +68,8 @@ docker run -d --name web -p 80:8080 foo/bar
 docker run -it --name temp ubuntu:latest /bin/bash
 ```
 
-`-it`: in terminal (ssh inside the container)  
-`/bin/bash`: run bash process  
+`-it`: in interactive terminal mode (ssh inside the container)  
+`/bin/bash`: run bash process (give me a terminal that allows me to interact with that container)  
 You usually don’t do that.  
 Inside, you can run `ctrl+P+Q` to quit without exiting the process.
 
@@ -87,6 +87,36 @@ docker stop $(docker ps -aq)
 
 runs docker stop against the output of `docker ps -aq`:  
 `-aq`: all containers in quiet mode (q = just the IDs).
+
+### Container Volumes
+
+```
+docker run -p 80:8080 -v $(pwd):/var/www node
+```
+
+`-v <host-location>:<location>`: create a volume. `<location>` is the container volume (alias inside the container). `<host-location>` is the location on your computer.  
+`$(pwd)`: current working directory.  
+
+```
+docker inspect <container>
+```
+
+Will display the source/target location of mounted volumes. (in the `Mounts:` area)
+
+```
+docker run -p <h-port>:<c-port> -v <h-location>:<c-location> -w "<location>" <image> <command>
+# Example: 
+docker run -p 80:8080 -v $(pwd):/var/www -w "/var/www" node npm start
+```
+
+`-w "<location>"`: specifies the working directory inside the container (where the command will be run).  
+`<command>`: will be run after container creation. Example `npm start`.  
+
+```
+docker rm -v <container>
+```
+
+`-v`: also removes the container that was created/managed by docker (outside of the container). *Note: It will not remove your source code if you specified any.*  
 
 ## Processes
 
