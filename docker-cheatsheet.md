@@ -250,9 +250,9 @@ docker rmi $(docker images -q)
 
 removes all images (rocker rmi => docker images -q (= all image ids))
 
-### Custom Images
+## Custom Images
 
-#### Dockerfile
+### Dockerfile
 
 Example Dockerfile:
 ```dockerfile
@@ -283,7 +283,7 @@ ENTRYPOINT  ["node", "server.js"]
 `EXPOSE`: ports to expose. `$PORT` is the environment variable set earlier.  
 `ENTRYPOINT`: code to run when starting  
 
-#### Build an image
+### Build an image
 
 ```
 docker build -f <dockerfile> -t <username>/<imagetag> <context>
@@ -299,7 +299,7 @@ rm -r node_modules
 docker build -f Dockerfile -t johndoe/mynode .
 ```
 
-#### Publish image to docker hub
+### Publish image to docker hub
 
 ```
 docker push <username>/<imagetag>
@@ -311,6 +311,120 @@ docker login
 docker push <username>/<imagetag>
 ```
 Pushes to a public repo on your dockerhub
+
+## Docker Compose
+
+Usefull to manage automatically different lifecycles of services.  
+
+### File
+
+docker-compose.yml
+
+```yml
+version: '2'
+
+services:
+    nginx:
+        container_name: nginx
+        build:
+            context: .
+            dockerfile: .docker/docker-nginx.dockerfile
+        links:
+            - node1:node1
+            - node2:node2
+        ports:
+            - "80:80"
+            - "443:443"
+        env_file:
+            - ././docker/env/app.${APP_ENV}.env
+        network:
+            - foo-network
+
+    node:
+        build:
+            context: .
+            dockerfile: node.dockerfile
+        environment:
+            P_PASSWORD: password
+        networks:
+            - nodeapp-network
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./foo:/var/foo
+    mongodb:
+        image: mongo
+        networks:
+            - nodeapp-network
+
+networks:
+    nodeapp-network:
+        driver: bridge
+```
+
+### Commands
+
+```
+docker-compose build
+docker-compose up
+docker-compose down
+docker-compose logs
+docker-compose ps
+docker-compose stop
+docker-compose rm
+```
+
+`build`: builds the images  
+`up/down`: starts/stops the built images as containers (down also removes the containers `docker-compose down --rmi all --volumes` will remove all containers, all their images and the docker managed volumes)  
+`logs`: shows the output of the containers  
+`ps`: lists the services  
+`stop/start/rm`: stops/starts/removes the services  
+
+*Note: you can also run all commands on a single service by adding the name. I.e. `docker-compose up --no-deps node`. Latter will run the node container without any service dependencies.*  
+
+### Example structure
+
+```
+.docker/
+    config/
+    env/
+        app.development.env
+        mongo.development.env
+    mongo_scripts/
+    node_scripts/
+    redis_scripts/
+    docker-mongo.dockerfile
+    docker-nginx.dockerfile
+    docker-node.dockerfile
+    docker-redis.dockerfile
+```
+
+#### Dockerfile Examples
+
+##### nginx
+
+```dockerfile
+FROM nginx:latest
+MAINTAINER foo
+# copy custom nginx config
+COPY ./.docker/config/nginx.conf /etc/nginx/nginx.conf
+# copy public resources to nginx path
+COPY ./public /var/www/public
+EXPOSE 80 443
+ENTRYPOINT ["nginx"]
+```
+
+##### node
+
+```dockerfile
+FROM node:latest
+MAINTAINER foo
+WORKDIR /var/www/foo
+RUN npm i -g pm2@latest
+RUN mkdir -p /var/log/pm2
+EXPOSE 8080
+ENTRYPOINT ["pm2", "start", "server.js", "--name", "foo", "--log", "/var/log/pm2/pm2.log", "etc…"]
+```
 
 ## Swarm
 
