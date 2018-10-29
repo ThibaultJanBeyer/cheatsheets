@@ -164,6 +164,68 @@ docker rmi $(docker images -q)
 
 removes all images (rocker rmi => docker images -q (= all image ids))
 
+### Custom Images
+
+#### Dockerfile
+
+Example Dockerfile:
+```dockerfile
+FROM        node
+MAINTAINER  John Doe
+
+ENV         NODE_ENV=production
+ENV         PORT=3000
+
+COPY        . /var/www
+WORKDIR     /var/www
+VOLUME      ["/foo/bar", "/logs"]
+
+RUN         npm install
+
+EXPOSE      $PORT
+
+ENTRYPOINT  ["node", "server.js"]
+```
+
+`FROM`: a base image where it will be build ontop  
+`MAINTAINER`: name of the person maintaining that file  
+`ENV`: set environment variables for the container  
+`COPY`: will bake the code inside the volume layer of that image  
+`WORKDIR`: where does it run the code?  
+`VOLUME`: attach one or more volumes from the docker host (the one environment that will run the image)  
+`RUN`: code to run when building  
+`EXPOSE`: ports to expose. `$PORT` is the environment variable set earlier.  
+`ENTRYPOINT`: code to run when starting  
+
+#### Build an image
+
+```
+docker build -f <dockerfile> -t <username>/<imagetag> <context>
+```
+
+`-t`/`--t`: tag the build (to be found on dockerhost)  
+`context`: what context it will be build from (i.e. where the dockerfile is)  
+`-f`: where the dockerfile is located (and how it is named)  
+
+Usual flow for node:
+```
+rm -r node_modules
+docker build -f Dockerfile -t johndoe/mynode .
+```
+
+#### Publish image to docker hub
+
+```
+docker push <username>/<imagetag>
+```
+
+Typical flow:
+```
+docker login
+docker push <username>/<imagetag>
+```
+Pushes to a public repo on your dockerhub
+
 ## Swarm
 
 ```
