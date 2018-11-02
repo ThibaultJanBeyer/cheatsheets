@@ -9,10 +9,21 @@
 
 ## Install
 
+Docker: https://www.docker.com/products  
+Docker Compose: https://docs.docker.com/compose/install/  
+                https://github.com/docker/compose/releases  
+
 ### Linux
 
+Docker
 ```
 wget -qO- https://get.docker.com/ | sh
+```
+
+Docker-Compose
+```
+curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 ```
 
 ## Basics
@@ -340,22 +351,51 @@ services:
         network:
             - foo-network
 
-    node:
+    node1:
+        container_name: node-foo-1
         build:
             context: .
-            dockerfile: node.dockerfile
-        environment:
-            P_PASSWORD: password
+            dockerfile: .docker/node.dockerfile
+        # environment:
+            # NODE_ENV: development
+            # v--- use env_file to group several env variables inside (see below) 
+        env_file:
+            - ././docker/env/app.${APP_ENV}.env
         networks:
-            - nodeapp-network
+            - foo-network
         ports:
-            - "3000:3000"
+            - "8080"
+        working_dir: /var/www/foo
         volumes:
-            - ./foo:/var/foo
-    mongodb:
-        image: mongo
+            - .:/var/www/foo
+    node2:
+        container_name: node-foo-2
+        build:
+            context: .
+            dockerfile: .docker/node.dockerfile
+        env_file:
+            - ././docker/env/app.${APP_ENV}.env
         networks:
-            - nodeapp-network
+            - foo-network
+        ports:
+            - "8080"
+        working_dir: /var/www/foo
+        volumes:
+            - .:/var/www/foo
+
+    mongo:
+        container_name: mongo
+        image: mongo
+        build:
+            context: .
+            dockerfile: .docker/docker-mongo.dockerfile
+        ports:
+            - "27017:27017"
+        networks:
+            - foo-network
+        env_file:
+            - ././docker/env/app.${APP_ENV}.env
+            - ././docker/env/mongo.${APP_ENV}.env
 
 networks:
     nodeapp-network:
@@ -387,16 +427,45 @@ docker-compose rm
 ```
 .docker/
     config/
+        …
     env/
         app.development.env
+            > NODE_ENV=development
+            > Env2=foo
         mongo.development.env
+            > MONGODB_ROOT_USERNAME=dbadmin
+            > MONGODB_ROOT_PASSWORD=password
+            > MONGODB_ROOT_ROLE=root
+            > MONGODB_USERNAME=webrole
+            > MONGODB_PASSWORD=password
+            > MONGODB_DBNAME=foo
+            > MONGODB_ROLE=readWrite
+            > NODE_ENV=development
     mongo_scripts/
+        backup_job.sh
+        entrypoint.sh
+        first_run.sh
+            > applies env variables to mongodb
+            > ROOT_USER=${MONGODB_ROOT_USERNAME}
+            > ROOT_PASS=${MONGODB_ROOT_PASSWORD}
+            > ROOT_DB="admin"
+            > ROOT_ROLE=${MONGODB_ROOT_ROLE=root}
+            > …
+        run.sh
+            > scedule cron jobs for backup with backup_job.sh
+            > run first_run.sh
     node_scripts/
+        …
     redis_scripts/
+        …
     docker-mongo.dockerfile
     docker-nginx.dockerfile
     docker-node.dockerfile
     docker-redis.dockerfile
+```
+```
+Example of setup on pluralsight:
+https://app.pluralsight.com/player?course=docker-web-development&author=dan-wahlin&name=docker-web-development-m7&clip=5&mode=live
 ```
 
 #### Dockerfile Examples
