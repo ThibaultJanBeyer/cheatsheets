@@ -1,8 +1,8 @@
 [back to overwiev](/../..)
 
-#JavaScript Cheatsheet
+# JavaScript Cheatsheet
 
-##### Table of Contents  
+## Table of Contents  
 [Basics](#basics)  
 [Arrays & Objects](#arrays--objects)    
 [Functions](#functions)  
@@ -20,11 +20,15 @@
 [User Imput](#user-imput)  
 [JSON](#json)  
 [ES6](#es6)  
+[Tricks](#tricks)
+- [Get Password Combinations](#get-password-combinations)
 
-##Basics
-**&&** –– and  **||** –– or  **!** –– not  
-1 = true  
-0 = false  
+## Basics
+`&&`: and  
+`||`: or  
+`!`: not  
+`1`: true  
+`0`: false  
 **increments:**  
 i++ , i-- , i += x , i -= x  
 **isNaN('berry');** –– true –– returns true when not a number  
@@ -40,7 +44,7 @@ console.log("myVar" in window); // true
 console.log(window.myVar); // 10
 ```
 
-##Arrays & Objects:
+## Arrays & Objects:
 ```javascript
 var newArray = []; // could do variable = [1,2,3] as well 
 newArray.push('hello'); 
@@ -59,7 +63,7 @@ console.log("key" in anObject); // "in" returns a Boolean value that indicates w
 myObj.hasOwnProperty('name') // returns true if myObj has a name property
 ```
 
-##Functions:  
+## Functions:  
 ```javascript
 var newFunction = function(argument,argument) { }; // or function newFunction(){} = function declarations = not part of the regular top-to-bottom flow = only use this form in the outermost block of a function or program. 
 newFunction(x,y);
@@ -71,7 +75,7 @@ var newFunction = function() { return "hi" };
 newFunction // returns the function while newFunction() would return the functions outcome.
 ```
 
-##Recursive Functions
+## Recursive Functions
 ```javascript
 // Functions calling themselves (create a kindof finite loop)
 function power(base, exponent) {
@@ -83,6 +87,15 @@ function power(base, exponent) {
 
 console.log(power(2, 3));
 // → 8
+```
+Simplest example:
+```javascript
+(function loop(base, i){
+  // do something
+  if(i>0) return loop(base, i-1);  // loop
+})(["a", "b"], length)
+```
+```javascript
 /*
  * Whenever a function is called, a special variable named arguments is added to the environment in which the function body runs.
  */
@@ -92,7 +105,7 @@ function argumentCounter() {
 argumentCounter("Straw man", "Tautology", "Ad hominem"); // You gave me 3 arguments.
 ```
 
-##Methods:  
+## Methods:  
 ```javascript
 var bob = new Object();
 bob.age = 17; // or: bob["age"] = 17; this way you can use variables as well: bob[variable];
@@ -136,8 +149,8 @@ console.log(test.height); //-> 3
 
 ```
 
-##Predefined Functions/Methods
-###On Strings
+## Predefined Functions/Methods
+### On Strings
 ```javascript
 /*
  * toUpperCase, toLowerCase, trim, charAt
@@ -152,7 +165,7 @@ console.log(test.height); //-> 3
  */
 '-'.repeat(2); //-> '--' (not supported by IE and Opera)
 ```
-###On Arrays
+### On Arrays
 ```javascript
 /*
  * Push, Pop, shift and unshift
@@ -213,7 +226,7 @@ function isBigEnough(element, index, array) { return element >= 10; }
 [12, 5, 8, 130, 44].some(isBigEnough);   // true
 
 ```
-##Nodes
+## Nodes
 ```javascript
 /*
  * Select children of an element with content
@@ -234,7 +247,7 @@ var clone = document.importNode(t.content, true); // import/clone the content of
 tb[0].appendChild(clone); // append it to tbody
 ```
 
-##Custom Constructors / Classes:  
+## Custom Constructors / Classes:  
 ```javascript
 // new Object(); is a predefined constructor by js that creates an empty object, we can create our own class constructors like so:
 function Person(name,age) {
@@ -280,7 +293,7 @@ for (var name in map) {
 }
 ```
 
-##Math:
+## Math:
 ```javascript
 // returns the largest of 2 numbers
 Math.max(10, 20) //-> 20
@@ -309,7 +322,7 @@ Math.sqrt(a * a + b * b);
 // or less chic: Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)); 
 ```
 
-##Loops:
+## Loops:
 ```javascript
 for(var i = 0; i < 6; i++){ }; // for a number of time
 for(var p in obj){ } // for in iterates a specified variable p over all the enumerable properties of an object
@@ -320,7 +333,7 @@ break; // terminate a loop, switch, or in conjunction with a label statement.
 ```
 
 
-##Logical Operators
+## Logical Operators
 ```javascript
 if(true){ /* */ } else if (true){ /* */ } else { /* */ }
 ```
@@ -328,19 +341,19 @@ if(true){ /* */ } else if (true){ /* */ } else { /* */ }
 switch(variable){ case 'option1': /* */ break; case 'option2': /* */ break; default: /* */ }
 ```
 
-####Conditional Operator
+### Conditional Operator
 ```javascript
 console.log(true ? 1 : 2); // → 1
 console.log(false ? 1 : 2); // → 2
 // The value before ? “picks” which of the other two values will come out. When true, the first value is chosen, and when false, the value on the right comes out.
 ```
 
-##User Imput
+## User Imput
 ```javascript
 var name = prompt("who're you?");
 ```    
 
-##JSON
+## JSON
 ```javascript
 // JSON.stringify takes a JavaScript value and returns a JSON-encoded string
 var string = JSON.stringify({name: "X", born: 1980});
@@ -349,7 +362,7 @@ console.log(string); // → {"name":"X","born":1980}
 console.log(JSON.parse(string).born); // → 1980
 ```
 
-##ES6
+## ES6
 ```javascript
 /*
  * Using glob variables in new objects 
@@ -358,7 +371,7 @@ var foo = 2;
 var obj = { bar: 1, foo } //-> obj.bar = 1 -> obj.foo = 2
 ```
 
-###Destructuring
+### Destructuring
 ```javascript
 var foo = {
   bar: 1,
@@ -387,14 +400,14 @@ calcBmi({ weight, height, max: 25 });
 calcBmi({ callback: function() {}, weight, height });
 ```
 
-###Default Arguments
+### Default Arguments
 ```javascript
 function someThing(value = 12){
   // stuff
 }
 ```
 
-###Template Strings
+### Template Strings
 ```javascript
 var name = "will";
 var thing = "party";
@@ -405,7 +418,7 @@ var greet = `hi, my name is ${name}
              and I like to ${thing} !`;
 ```
 
-###Scoping
+### Scoping
 ```javascript
 // let is the new var
 // define block variables (only used within blocks)
@@ -418,7 +431,7 @@ const a = 1;
 a = 2; //-> error
 ```
 
-###Classes
+### Classes
 ```javascript
 // old:
 function Parent() { /*constructor*/ }
@@ -460,7 +473,7 @@ child.baz(); // works
 child.foo(); // works
 ```
 
-###Arrow Functions
+### Arrow Functions
 ```javascript
 // basics
 // old
@@ -487,7 +500,7 @@ var module = {
 // note that it will overwrite i.e. jQuerys this value.
 ```
 
-###Modules
+### Modules
 ```javascript
 // old
 module.exports.foo = function () {};
@@ -506,10 +519,43 @@ export default {};
 import myModule from "myModule";
 ```
 
-###Generator Functions
+### Generator Functions
 ```javascript
 async function() {
   var friends = await $.get("http://bla.com/friends")
   console.log(friends);
 } // returns one promise that is denible
+```
+
+## Tricks
+
+### Get password combinations
+
+```javascript
+var passwords = function(chars, length){
+    var chars = chars.split("");
+    var index=[];
+
+    (function loop(base, i){
+        for(var k=0; k< chars.length; k++) {
+            if(i>1) loop(base+chars[k], i-1);
+            else index.push(base+chars[k]);
+        }
+    })("", length)
+
+    return index;
+}
+
+var possible = "0123456789";
+var length = 4
+var possibilities = passwords(possible, length);
+```
+Use them
+```javascript
+var length = possibilities.length;
+(function loop(base, i){
+    if(i < 0) return;
+    let n = base[i]; i -= 1;
+    setTimeout(() => { return loop(base, i) });
+})(possibilities, length);
 ```
