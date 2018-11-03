@@ -11,3 +11,5 @@ So far:
 [Ruby](/Ruby-Cheatsheet.md)  
 [Rails](/Ruby-on-Rails-Cheatsheet.md)  
 [Docker](/docker-cheatsheet.md)
+[Django](/django-cheatsheet.md)
+[Ubuntu](/ubuntu-cheatsheet.md)
