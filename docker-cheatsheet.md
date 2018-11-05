@@ -6,6 +6,16 @@
 
 [Install](#install)
 [Basics](#basics)
+[Containers](#containers)
+[Container Volumes](#container-columes)
+[Container Communication](#container-communication)
+[Processes](#processes)
+[Images](#images)
+[Custom Images](#custom-images)
+[Docker Compose](#docker-compose)
+[Swarm](#swarm)
+[Services](#services)
+[Rolling updates](#rolling-updates)
 
 ## Install
 
@@ -120,6 +130,16 @@ docker logs <id>
 
 Outputs the logs of that container
 
+### "SSH" (Bash) into a container
+
+1. Use docker ps to get the name of the existing container.
+2. Get a bash shell in the container.
+```bash
+docker exec -it <container name> /bin/bash
+```
+
+*Note: Generically, use `docker exec -it <container name> <command>` to execute whatever command you specify in the container.*
+
 ## Container Volumes
 
 ```
@@ -135,10 +155,9 @@ docker inspect <container>
 
 Will display the source/target location of mounted volumes. (in the `Mounts:` area)
 
-```
+```bash
 docker run -p <h-port>:<c-port> -v <h-location>:<c-location> -w "<location>" <image> <command>
-# Example: 
-docker run -p 80:8080 -v $(pwd):/var/www -w "/var/www" node npm start
+# Example: docker run -p 80:8080 -v $(pwd):/var/www -w "/var/www" node npm start
 ```
 
 `-w "<location>"`: specifies the working directory inside the container (where the command will be run).  

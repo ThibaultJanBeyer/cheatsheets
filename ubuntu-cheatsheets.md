@@ -3,6 +3,7 @@
 ## TOC
 
 - [Install a simple VPN](#install-a-simple-vpn)
+- [Show available disk space](#show-available-disk-space)
 
 ## Install a simple VPN
 
@@ -13,3 +14,7 @@ vncserver
 ```
 
 Choose Password, That’s it
+
+
+## Show available disk space
+
