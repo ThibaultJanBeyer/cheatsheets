@@ -4,18 +4,28 @@
 
 ## Table of Contents
 
-[Install](#install)
-[Basics](#basics)
-[Containers](#containers)
-[Container Volumes](#container-columes)
-[Container Communication](#container-communication)
-[Processes](#processes)
-[Images](#images)
-[Custom Images](#custom-images)
-[Docker Compose](#docker-compose)
-[Swarm](#swarm)
-[Services](#services)
-[Rolling updates](#rolling-updates)
+- [Install](#install)
+- - …
+- [Basics](#basics)
+- - …
+- [Containers](#containers)
+- - …
+- [Container Volumes](#container-columes)
+- [Container Communication](#container-communication)
+- - …
+- [Processes](#processes)
+- [Images](#images)
+- [Custom Images](#custom-images)
+- - …
+- [Docker Compose](#docker-compose)
+- - …
+- [Swarm](#swarm)
+- - …
+- [Services](#services)
+- - …
+- [Rolling updates](#rolling-updates)
+- [Useful](#useful)
+- - [Create an ubuntu dev-environement in seconds](#create-an-ubuntu-dev-environement-in-seconds)
 
 ## Install
 
@@ -344,7 +354,7 @@ Pushes to a public repo on your dockerhub
 
 ## Docker Compose
 
-Usefull to manage automatically different lifecycles of services.  
+Useful to manage automatically different lifecycles of services.  
 
 ### File
 
@@ -628,3 +638,18 @@ Same as `docker-compose up -d`
 docker stack rm
 ```
 Same as `docker-compose down`
+
+## Useful
+
+### Create an ubuntu dev-environement in seconds:
+
+```
+docker run \
+  --name ubuntu \
+  -e HOST_IP=$(ifconfig en0 | awk '/ *inet /{print $2}') \
+  -v /Users/hudson/Workspaces:/src \
+  -t -i \
+  ubuntu /bin/bash
+```
+
+Will start a docker ubuntu machine and bind some volume to `src` into the machine. Now you can play around from within the terminal.
