@@ -10,7 +10,8 @@
 ## Install
 
 Python: https://www.python.org/  
-Django: `pip install Django`
+Django: `pip install Django`  
+No pip? `sudo apt-get install python3-pip`
 
 ### VSCode
 

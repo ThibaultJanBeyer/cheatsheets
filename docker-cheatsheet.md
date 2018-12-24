@@ -4,18 +4,28 @@
 
 ## Table of Contents
 
-[Install](#install)
-[Basics](#basics)
-[Containers](#containers)
-[Container Volumes](#container-columes)
-[Container Communication](#container-communication)
-[Processes](#processes)
-[Images](#images)
-[Custom Images](#custom-images)
-[Docker Compose](#docker-compose)
-[Swarm](#swarm)
-[Services](#services)
-[Rolling updates](#rolling-updates)
+- [Install](#install)
+- - …
+- [Basics](#basics)
+- - …
+- [Containers](#containers)
+- - …
+- [Container Volumes](#container-columes)
+- [Container Communication](#container-communication)
+- - …
+- [Processes](#processes)
+- [Images](#images)
+- [Custom Images](#custom-images)
+- - …
+- [Docker Compose](#docker-compose)
+- - …
+- [Swarm](#swarm)
+- - …
+- [Services](#services)
+- - …
+- [Rolling updates](#rolling-updates)
+- [Useful](#useful)
+- - [Create an ubuntu dev-environement in seconds](#create-an-ubuntu-dev-environement-in-seconds)
 
 ## Install
 
@@ -344,7 +354,7 @@ Pushes to a public repo on your dockerhub
 
 ## Docker Compose
 
-Usefull to manage automatically different lifecycles of services.  
+Useful to manage automatically different lifecycles of services.  
 
 ### File
 
@@ -431,6 +441,7 @@ docker-compose logs
 docker-compose ps
 docker-compose stop
 docker-compose rm
+docker-compose scale <servicename>=<amount>
 ```
 
 `build`: builds the images  
@@ -516,15 +527,17 @@ ENTRYPOINT ["pm2", "start", "server.js", "--name", "foo", "--log", "/var/log/pm2
 
 ## Swarm
 
-```
+```bash
 docker swarm init --advertise-addr <ip>:<port> --listen-addr <ip>:<port>
+# Example: docker swarm init --advertise-addr 213.244.192.13:2377 --listen-addr 213.244.192.13:2377
 ```
 `--advertise-addr <ip>:<port>`: no matter how many NICs and IPs, this is the one to use for swarm related stuff as using the API  
 `--listen-addr <ip>:<port>`: what the node listens on for swarm manager traffic  
+
 All nodes will have to be able to reach this IP.  
-Any Port will work but native engine port is `2375`, secure engine `2376`, `2377` is the unofficial swarm port.  
-Also add these 2 commands to each manager and each worker.
-**Important: there IPs are the Worker/Managers OWN IPs (not the lear manager ip)**
+Any Port will work but native engine port is `2375`, secure engine is `2376`, so `2377` is the unofficial swarm port.  
+Also add these 2 commands to each manager and each worker.  
+**Important: these IPs are the Worker/Managers OWN IPs (not the lead manager ip)**  
 
 ### List nodes
 
@@ -539,7 +552,8 @@ lists all docker nodes in a swarm. Can only be run by managers
 docker swarm join-token manager
 ```
 Gives the exact command to add managers to the swarm.  
-Managers are also acting as workers.
+Managers are also acting as workers.  
+Add `--advertise-addr <server-ip>:2377 --listen-addr <server-ip>:2377` at the end of the command. Make sure, that `server-ip` is the IP of the server you’re currently on.  
 
 ### Add workers
 
@@ -582,7 +596,6 @@ docker service rm <name>
 ```
 removes the service
 
-
 ### Scaling
 
 ```
@@ -594,7 +607,7 @@ Is an alias for: `docker service update --replicas <amount> <name>`
 
 Keep in mind. Adding new nodes to the deck does not automatically rescale the cluster.
 
-## Rolling updates
+### Rolling updates
 
 ```
 docker service update --image <image>:<version> --update-parallelism <number> --update-delay <time>s <service-name>
@@ -602,3 +615,41 @@ docker service update --image <image>:<version> --update-parallelism <number> --
 `--update-parallelism 3`: update *3* tasks at a time
 `--update-delay 10s`: update *3* tasks every *10* seconds
 
+Get service name -
+
+```bash
+$ docker service ls
+```
+
+Force-update/recreate it -
+
+```bash
+$ docker service update --force MY-APP_nginx
+```
+
+### Stack (docker-compose service)
+
+```bash
+docker stack deploy --compose-file=docker-compose.yml 
+```
+Same as `docker-compose up -d`
+
+```bash
+docker stack rm
+```
+Same as `docker-compose down`
+
+## Useful
+
+### Create an ubuntu dev-environement in seconds:
+
+```
+docker run \
+  --name ubuntu \
+  -e HOST_IP=$(ifconfig en0 | awk '/ *inet /{print $2}') \
+  -v /Users/hudson/Workspaces:/src \
+  -t -i \
+  ubuntu /bin/bash
+```
+
+Will start a docker ubuntu machine and bind some volume to `src` into the machine. Now you can play around from within the terminal.
