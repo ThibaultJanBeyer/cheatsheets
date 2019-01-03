@@ -653,3 +653,9 @@ docker run \
 ```
 
 Will start a docker ubuntu machine and bind some volume to `src` into the machine. Now you can play around from within the terminal.
+
+### SSH into a running container
+
+```
+docker exec -it <container name> /bin/bash
+```
