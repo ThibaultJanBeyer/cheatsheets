@@ -26,6 +26,9 @@
 - [Rolling updates](#rolling-updates)
 - [Useful](#useful)
 - - [Create an ubuntu dev-environement in seconds](#create-an-ubuntu-dev-environement-in-seconds)
+- - [SSH into a running container](#ssh-into-a-running-container)
+- [Troubleshooting]
+- - [Permission denied](#permission-denied)
 
 ## Install
 
@@ -660,7 +663,7 @@ Same as `docker-compose down`
 
 ### Create an ubuntu dev-environement in seconds:
 
-```
+```bash
 docker run \
   --name ubuntu \
   -e HOST_IP=$(ifconfig en0 | awk '/ *inet /{print $2}') \
@@ -673,6 +676,23 @@ Will start a docker ubuntu machine and bind some volume to `src` into the machin
 
 ### SSH into a running container
 
-```
+```bash
 docker exec -it <container name> /bin/bash
 ```
+
+## Troubleshooting
+
+### Permission denied
+
+If you get following error:
+```bash
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.26/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+```
+
+You’ll have to add your user to the `docker` group:
+```bash
+sudo usermod -a -G docker <user>
+```
+
+Replace `<user>` with your user account. (You can find your user account name by typing `whoami` in the console)
