@@ -106,6 +106,17 @@ docker run -it --name temp ubuntu:latest /bin/bash
 You usually don’t do that.  
 Inside, you can run `ctrl+P+Q` to quit without exiting the process.
 
+### list
+
+```bash
+docker ps
+docker ps -a
+docker ps -aq
+```
+
+- `-a`: list all containers running and not running
+- `-aq`: list all containers running and not running but only their IDs
+
 ### start / stop / rm
 
 ```
