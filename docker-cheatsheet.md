@@ -695,4 +695,6 @@ You’ll have to add your user to the `docker` group:
 sudo usermod -a -G docker <user>
 ```
 
-Replace `<user>` with your user account. (You can find your user account name by typing `whoami` in the console)
+Replace `<user>` with your user account. (You can find your user account name by typing `whoami` in the console)  
+And then restart your console (or open a new one) for the changes to take effect.
+
