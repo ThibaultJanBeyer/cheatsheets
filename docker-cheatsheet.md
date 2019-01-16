@@ -112,10 +112,10 @@ Inside, you can run `ctrl+P+Q` to quit without exiting the process.
 docker ps
 docker ps -a
 docker ps -aq
+...
 ```
 
-- `-a`: list all containers running and not running
-- `-aq`: list all containers running and not running but only their IDs
+see [Processes](#processes)
 
 ### start / stop / rm
 
@@ -268,6 +268,12 @@ docker ps -a
 ```
 
 shows all processes, running or not, active or exited.
+
+```
+docker ps -aq
+```
+
+List all processes running and not running but only their IDs (quiet)
 
 ## Images
 
