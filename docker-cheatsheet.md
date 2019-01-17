@@ -27,6 +27,7 @@
 - [Useful](#useful)
 - - [Create an ubuntu dev-environement in seconds](#create-an-ubuntu-dev-environement-in-seconds)
 - - [SSH into a running container](#ssh-into-a-running-container)
+- - [Copy files from Docker container to host](#copy-files-from-Docker-container-to-host)
 - [Troubleshooting](#troubleshooting)
 - - [Permission denied](#permission-denied)
 
@@ -678,6 +679,12 @@ Will start a docker ubuntu machine and bind some volume to `src` into the machin
 
 ```bash
 docker exec -it <container name> /bin/bash
+```
+
+### Copy files from Docker container to host
+
+```bash
+docker cp <containerId>:/file/path/within/container /host/path/target
 ```
 
 ## Troubleshooting
