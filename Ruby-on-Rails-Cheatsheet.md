@@ -1,4 +1,4 @@
-Looking for [Ruby](../Ruby-Cheatsheet.md)?
+Looking for [Ruby](../master/Ruby-Cheatsheet.md)?
 
 #Ruby on Rails Cheatsheet
 
