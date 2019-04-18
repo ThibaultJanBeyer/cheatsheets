@@ -24,7 +24,7 @@
 brew install kubectl
 ```
 
-## Minikube
+## Minikube (local testing)
 
 ### Mac
 
@@ -67,6 +67,8 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 ```
 
 see: https://kubernetes.io/docs/setup/independent/install-kubeadm/
+
+-
 
 # Kubectl
 
@@ -117,6 +119,8 @@ kubectl config current-context
 kubectl get nodes
 ```
 
+-
+
 # Minikube
 
 ## Install
@@ -157,6 +161,8 @@ minikube delete
 minikube dashboard
 ```
 
+-
+
 # Kubeadm
 
 see [install section](#install)  
@@ -192,6 +198,8 @@ Have a look at https://kubernetes.io/docs/setup/independent/create-cluster-kubea
 
 - If you want the master to also be a worker, follow https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#control-plane-node-isolation
 - Paste the join code inside the other nodes
+
+-
 
 # Pods
 
