@@ -26,6 +26,10 @@
 - [Rolling updates](#rolling-updates)
 - [Useful](#useful)
 - - [Create an ubuntu dev-environement in seconds](#create-an-ubuntu-dev-environement-in-seconds)
+- - [SSH into a running container](#ssh-into-a-running-container)
+- - [Copy files from Docker container to host](#copy-files-from-Docker-container-to-host)
+- [Troubleshooting](#troubleshooting)
+- - [Permission denied](#permission-denied)
 
 ## Install
 
@@ -109,6 +113,17 @@ docker run -it --name temp ubuntu:latest /bin/bash
 `/bin/bash`: run bash process (give me a terminal that allows me to interact with that container)  
 You usually don’t do that.  
 Inside, you can run `ctrl+P+Q` to quit without exiting the process.
+
+### list
+
+```bash
+docker ps
+docker ps -a
+docker ps -aq
+...
+```
+
+see [Processes](#processes)
 
 ### start / stop / rm
 
@@ -273,6 +288,12 @@ docker ps -a
 ```
 
 shows all processes, running or not, active or exited.
+
+```
+docker ps -aq
+```
+
+List all processes running and not running but only their IDs (quiet)
 
 ## Images
 
@@ -675,7 +696,7 @@ Same as `docker-compose down`
 
 ### Create an ubuntu dev-environement in seconds:
 
-```
+```bash
 docker run \
   -e HOST_IP=$(ifconfig en0 | awk '/ *inet /{print $2}') \
   -v $(pwd):/src \
@@ -687,6 +708,31 @@ Will start a docker ubuntu machine and bind some volume to `src` into the machin
 
 ### SSH into a running container
 
-```
+```bash
 docker exec -it <container name> /bin/bash
 ```
+
+### Copy files from Docker container to host
+
+```bash
+docker cp <containerId>:/file/path/within/container /host/path/target
+```
+
+## Troubleshooting
+
+### Permission denied
+
+If you get following error:
+```bash
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.26/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+```
+
+You’ll have to add your user to the `docker` group:
+```bash
+sudo usermod -a -G docker <user>
+```
+
+Replace `<user>` with your user account. (You can find your user account name by typing `whoami` in the console)  
+And then restart your console (or open a new one) for the changes to take effect.
+
