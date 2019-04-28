@@ -1,6 +1,6 @@
 Looking for [Ruby](../Ruby-Cheatsheet.md)?
 
-#Ruby on Rails Cheatsheet
+# Ruby on Rails Cheatsheet
 
 ##### Table of Contents
 

@@ -1,6 +1,6 @@
 [back to overwiev](/../..)
 
-#Git
+# Git
 
 ##### Table of Contents  
 [Mostly used](#mostly-used)  
@@ -15,7 +15,7 @@
 [Renaming](#renaming)  
 [Stashing](#stashing)  
 
-##Mostly used
+## Mostly used
 ```javascript
 $ git init // to initialize  
 $ git status // to check what’s in the folder  
@@ -47,12 +47,12 @@ You modify files in your working directory.
 You stage the files, adding snapshots of them to your staging area.  
 You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.  
 
-##Getting Help
-####Within git
+## Getting Help
+#### Within git
 git help &lt;verb&gt;  
 git &lt;verb&gt; --help  
 man git-&lt;verb&gt;  
-####outside of git
+#### outside of git
 in the #git or #github channel on the Freenode IRC server (irc.freenode.net)
 
 ```javascript
@@ -63,36 +63,36 @@ $ git diff --staged // compares staged with commited
 (--staged and --cached are synonyms)
 ```
 
-##Setup  
-####Global  
+## Setup  
+#### Global  
 ```javascript
 $ git config --global user.name "John Doe"  
 $ git config --global user.email johndoe@example.com  
 $ git config --list // to show all settings
 ```
-####Project
+#### Project
 ```javascript
 $ git init // adds git
 ```
-####New
+#### New
 ```javascript
 $ git add .  
 $ git commit -m 'initial project version'  
 $ git remote add origin URL  
 $ git push -u origin master
 ```
-####Existing
+#### Existing
 ```javascript
 $ git clone URL (directory name, optional)  
 $ git clone --depth=16 URL // only take the last 16 commits (faster download)
 ```
 
-##Staging
+## Staging
 ```javascript
 $ git add filename // stages the file exactly how it is at this moment, for every change this command has to be run again to stage the new version.
 ```
 
-##Commiting
+## Commiting
 ```javascript
 $ git commit // commits with basic info + large message  
 $ git commit -v // commits with changes + message  
@@ -100,7 +100,7 @@ $ git commit -m // commits basic info + message inline
 $ git commit -a // commits basic info + message & git add all files  
 ```
 
-##Branching
+## Branching
 ```javascript
 $ git branch // show’s the branch you’re on  
 $ git branch branch-name // create a branch  
@@ -110,7 +110,7 @@ $ git checkout branch-name // switches to the specified branch
 $ git merge branch-name // merges the actual branch with the branch specified
 ```
 
-##Teamwork
+## Teamwork
 ```javascript
 $ git clone remote-location clone-name // clones a remote git project. Location of original + a name for your directory. The original will get the name origin  
 
@@ -133,7 +133,7 @@ $ git checkout branchname // Switch to a branch
 Configure a remote for a fork: https://help.github.com/articles/configuring-a-remote-for-a-fork/  
 Sync your fork: https://help.github.com/articles/syncing-a-fork/  
 
-####Teamwork Workflow:
+#### Teamwork Workflow:
 Fetch and merge changes from the remote  
 Create a branch to work on a new project feature  
 Develop the feature on your branch and commit your work  
@@ -142,7 +142,7 @@ Push your branch up to the remote for review
 > Make Pull Request (WIP)  
 > Merge
 
-##Removing
+## Removing
 ```javascript
 $ git rm // remove file  
 $ git rm -f // to remove it when it’s already in the index  
@@ -154,12 +154,12 @@ $ git mv file-from file-to // to rename a file
 $ git branch -d branch-name // delete the branch  
 ```
 
-##Ignoring
+## Ignoring
 Create a .gitignore file and write in that file:  
 &ast;.[oa] –– ignore any files ending in “.o” or “.a”  
 &ast;~ –– ignore all files that end with a tilde (~) which is used by many text editors such as Emacs to mark temporary files
 
-####Rules
+#### Rules
 Blank lines or lines starting with # are ignored.  
 Standard glob patterns work.  
 You can start patterns with a forward slash / to avoid recursivity.  
@@ -179,7 +179,7 @@ doc/&ast;.txt –– ignore doc/notes.txt, but not doc/server/arch.txt
 doc/&ast;&ast;/&ast;.pdf –– ignore all .pdf files in the doc/ directory  
 Templates: https://github.com/github/gitignore
 
-##Renaming
+## Renaming
 ```javascript
 $ git mv file-from file-to  
 // Is the equivalent to:  
@@ -190,7 +190,7 @@ $ git add README
 
 
 
-##Deploying a subfolder to GitHub Pages  
+## Deploying a subfolder to GitHub Pages  
 Use subtree push to send it to the gh-pages branch on GitHub.  
 ```javascript
 $ git subtree push --prefix dist origin gh-pages
@@ -199,7 +199,7 @@ Boom. If your folder isn’t called dist, then you’ll need to change that in e
 
 
 
-##Stashing  
+## Stashing  
 If you want to put your changes temporarely aside and pull new stuff use stash:
 ```javascript
 $ git stash
