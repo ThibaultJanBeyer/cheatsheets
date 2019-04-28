@@ -1,6 +1,6 @@
 [back to overwiev](/../..)
 
-#Angular Cheatsheet
+# Angular Cheatsheet
 
 ##### Table of Contents
 
@@ -384,7 +384,7 @@ app.factory("photos", [
 <div ng-view></div>
 ```
 
-##Filters
+## Filters
 
 ```javascript
 detail.upvotes | number; // 1,266
