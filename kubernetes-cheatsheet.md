@@ -194,7 +194,7 @@ kind: Pod
 metadata:
   name: hello-pod
   labels:
-    zone: pros
+    zone: prod
     version: v1
 spec:
   containers:
@@ -240,7 +240,7 @@ spec:
         app: hello-world
     spec:
       containers:
-        - name: hello-ctr
+        - name: hello-pod
           image: nigelpoulton/pluralsight-docker-ci:latest
           ports:
             containerPort: 8080
