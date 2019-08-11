@@ -6,6 +6,7 @@ Just another collection of CheatSheets.
 So far:
 
 - [Docker](/docker-cheatsheet.md)
+- [Kubernetes](/kubernetes-cheatsheet.md)
 - [Markdown](/Markdown-Cheatsheet.md)
 - [JavaScript](/JavaScript-Cheatsheet.md)
 - - [Angular](/Angular-Cheatsheet.md)
@@ -16,6 +17,7 @@ So far:
 - - [Git](/Git-Cheatsheet.md)
 - [Python](/python-cheatsheet.md)
 - - [Django](/django-cheatsheet.md)
+- [Firebase](/firebase-cheatsheet.md)
 
 # Helpers
 
