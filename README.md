@@ -33,3 +33,11 @@ So far:
     Adds `NODE_PATH=src/js/` to be able to cross-import files.
 - - [.eslintrc](/meta-files/react/.eslintrc.json)
 - - [.prettierrc](/meta-files/react/.prettierrc)
+
+## Common
+
+### OSX Bash script not executed "command not found".
+
+```
+sudo chmod a+x ./app/build.sh
+```
