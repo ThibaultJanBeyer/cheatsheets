@@ -7,6 +7,7 @@ So far:
 
 - [Docker](/docker-cheatsheet.md)
 - [Kubernetes](/kubernetes-cheatsheet.md)
+- [Nginx](/nginx-cheatsheet.md)
 - [Markdown](/Markdown-Cheatsheet.md)
 - [JavaScript](/JavaScript-Cheatsheet.md)
 - - [Angular](/Angular-Cheatsheet.md)
