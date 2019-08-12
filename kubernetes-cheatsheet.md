@@ -25,7 +25,8 @@
 - [Useful](#useful)
   - [image from private registry](#image-from-private-registry)
 - [Troubleshooting](#troubleshooting)
-
+  - [Use local docker image](#use-local-docker-image)
+  - [Docker Logging](#docker-logging)
 
 ## Overview
 
@@ -102,10 +103,10 @@ minikube start --vm-driver=<driver> --kubernetes-version=<version>
 ```bash
 minikube stop
 minikube delete
+minikube status
 minikube dashboard
 # Opens a dashboard GUI for minikube
 ```
-
 
 ## Kubeadm
 
@@ -133,6 +134,7 @@ Now join other nodes (servers) with the join token you received from `kubeadm in
 
 ### Startup – Singlenode
 
+…
 
 ## Kubectl
 
@@ -178,6 +180,10 @@ kubectl get rc/<rc-name>
 kubectl describe rc
 # Displays more information on the rcs
 ```
+
+### logs
+
+https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/#docker-logs
 
 ## POD
 
@@ -467,3 +473,7 @@ spec:
 ### Use local docker image
 
 Minikube runs in a VM hence it will not see the images you've built locally on a host machine, but... as stated in https://github.com/kubernetes/minikube/blob/master/docs/reusing_the_docker_daemon.md you can use `eval $(minikube docker-env)` to actually utilise docker daemon running on minikube, and henceforth build your image on the minikubes docker and thus expect it to be available to the minikubes k8s engine without pulling from external registry
+
+### Docker Logging
+
+https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/#docker-logs
