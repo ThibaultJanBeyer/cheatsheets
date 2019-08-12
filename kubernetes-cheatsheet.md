@@ -20,6 +20,11 @@
   - …
 - [Deployments](#deployments)
   - …
+- [Secrets](#secrets)
+  - …
+- [Useful](#useful)
+  - [image from private registry](#image-from-private-registry)
+- [Troubleshooting](#troubleshooting)
 
 
 ## Overview
@@ -94,16 +99,13 @@ minikube start --vm-driver=<driver> --kubernetes-version=<version>
 - `--vm-driver`: which driver to use (default is a virtual machine)
 - `--kubernetes-version`: default is latest
 
-```
+```bash
 minikube stop
 minikube delete
-```
-
-```
 minikube dashboard
+# Opens a dashboard GUI for minikube
 ```
 
-Opens a dashboard GUI for minikube
 
 ## Kubeadm
 
@@ -136,11 +138,12 @@ Now join other nodes (servers) with the join token you received from `kubeadm in
 
 ### Basics
 
-```
+```bash
 kubectl config current-context
+# Displays the current working context. For example `minikube`
+kubectl cluster-info
+# Information about your cluster. For example the IP
 ```
-
-Displays the current working context. For example `minikube`
 
 ### Nodes
 
@@ -334,6 +337,9 @@ kind: Deployment
 metadata:
   name: hello-deploy
 spec:
+  selector:
+    matchLabels:
+      app: hello-world
   replicas: 10
   minReadySeconds: 10
   strategy:
@@ -348,9 +354,10 @@ spec:
     spec:
       containers:
         - name: hello-pod
+          imagePullPolicy: IfNotPresent
           image: nigelpoulton/pluralsight-docker-ci:latest
           ports:
-            containerPort: 8080
+            - containerPort: 8080
 ```
 
 - `minReadySeconds`: let the pod run for 10 second before marking it as ready
@@ -376,3 +383,87 @@ kubectl describe deploy hello-deploy
 
 - `kubectl rollout undo deployment <name-of-deployment> --to-revision=<number>` (you can see revisions via `kubectl rollout history deployment <name-of-deployment>`)
 - does the same as for the update but in reverse to match the desired state of the specified revision number.
+
+## Secrets
+
+https://kubernetes.io/docs/concepts/configuration/secret/
+
+### Example
+
+```yml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+```
+
+- `data`: is a key-value store with the value set as a BASE64 encoded sring.
+
+```
+kubectl apply -f ./secret.yaml
+```
+
+*Note: secrets can also be created from files:*
+
+```bash
+kubectl create secret generic <name> --from-file=<path>
+```
+
+- `name`: the name of the secret
+
+And then retrieved with:
+
+```bash
+kubectl get secret <name> -o yaml
+```
+
+## Useful
+
+### Image from private registry
+
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+
+```
+docker login <registry uri>
+```
+```
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+    --type=kubernetes.io/dockerconfigjson
+```
+
+- `<path/to/.docker/config.json>`: is usually in the users folder `Users/<username>/.docker/config.json`
+
+OR
+
+```bash
+kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+# Example: kubectl create secret docker-registry regcred --docker-server=https://example.com/ --docker-username=docker --docker-password=password --docker-email=example@mail.com
+```
+
+You can get the secret:
+```
+kubectl get secret regcred --output=yaml
+```
+
+Now you can add it to your pods:
+
+```yml
+…
+spec:
+  containers:
+  …
+  imagePullSecrets:
+  - name: regcred
+```
+
+
+## Troubleshooting
+
+### Use local docker image
+
+Minikube runs in a VM hence it will not see the images you've built locally on a host machine, but... as stated in https://github.com/kubernetes/minikube/blob/master/docs/reusing_the_docker_daemon.md you can use `eval $(minikube docker-env)` to actually utilise docker daemon running on minikube, and henceforth build your image on the minikubes docker and thus expect it to be available to the minikubes k8s engine without pulling from external registry
