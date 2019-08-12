@@ -28,6 +28,7 @@
 - - [Create an ubuntu dev-environement in seconds](#create-an-ubuntu-dev-environement-in-seconds)
 - - [SSH into a running container](#ssh-into-a-running-container)
 - - [Copy files from Docker container to host](#copy-files-from-Docker-container-to-host)
+- - [Own Private Docker-Registry](#own-private-docker-registry)
 - [Troubleshooting](#troubleshooting)
 - - [Permission denied](#permission-denied)
 
@@ -393,6 +394,22 @@ docker push <username>/<imagetag>
 
 Pushes to a public repo on your dockerhub
 
+### Publish image to private docker repository
+
+Instead of username use the repository location:
+
+```bash
+docker build -f <dockerfile> -t <location>/<imagetag> <context>
+# Example: docker build -f dockerfile -t example.com/mynode .
+```
+
+```bash
+docker login <uri>
+# Example: docker login https://example.com
+docker push <location>/<imagetag>
+# Example: docker push example.com/mynode
+```
+
 ## Docker Compose
 
 Useful to manage automatically different lifecycles of services.
@@ -716,6 +733,126 @@ docker exec -it <container name> /bin/bash
 
 ```bash
 docker cp <containerId>:/file/path/within/container /host/path/target
+```
+
+### Own Private Docker-Registry
+
+#### Create Docker Registry
+
+```bash
+mkdir ~/docker-registry && cd $_
+mkdir data
+vim docker-compose.yml
+```
+
+```yml
+version: '3'
+services:
+  registry:
+    image: registry:2
+    ports:
+    - "5000:5000"
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+    volumes:
+      - ./data:/data
+```
+
+#### Setup Nginx port forwarding
+
+You should have your domain setup. Follow the [nginx-cheatsheet](../../nginx-cheatsheet.md) for this. In there I explain how to setup and secure `/etc/nginx/sites-available/example.com`.
+
+```
+sudo vim /etc/nginx/sites-available/example.com
+```
+
+Find the existing location line.
+You need to forward traffic to port 5000, where your registry will be running. You also want to append headers to the request to the registry, which provide additional information from the server with each request and response. Delete the contents of the location section, and add the following content into that section:
+
+```nginx
+location / {
+  # Do not allow connections from docker 1.5 and earlier
+  # docker pre-1.6.0 did not properly set the user agent on ping, catch "Go *" user agents
+  if ($http_user_agent ~ "^(docker\/1\.(3|4|5(?!\.[0-9]-dev))|Go ).*$" ) {
+    return 404;
+  }
+
+  proxy_pass                          http://localhost:5000;
+  proxy_set_header  Host              $http_host;   # required for docker client's sake
+  proxy_set_header  X-Real-IP         $remote_addr; # pass on real client's IP
+  proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+  proxy_set_header  X-Forwarded-Proto $scheme;
+  proxy_read_timeout                  900;
+}
+```
+
+```bash
+sudo service nginx restart
+cd ~/docker-registry
+docker-compose up
+```
+
+#### Adding Authentification
+
+```bash
+sudo apt install apache2-utils -y
+mkdir ~/docker-registry/auth && cd $_
+```
+
+Add a user:
+
+```bash
+htpasswd -Bc registry.password username
+```
+
+For any following user just do `htpasswd registry.password username`
+
+Now edit the `docker-compose.yml`:
+
+```yml
+  ...
+    environment:
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/registry.password
+      ...
+    volumes:
+      - ./auth:/auth
+      ...
+```
+
+#### Starting Docker Registry as a Service
+
+edit `docker-compose.yml`
+
+```yml
+...
+  registry:
+    restart: always
+...
+```
+
+```
+docker-compose up -d
+```
+
+#### Increasing File Upload Size for Nginx
+
+```bash
+sudo vim /etc/nginx/nginx.conf
+```
+
+```nginx
+...
+http {
+        client_max_body_size 2000M;
+        ...
+}
+...
+```
+
+```
+sudo service nginx restart
 ```
 
 ## Troubleshooting
