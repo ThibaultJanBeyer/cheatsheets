@@ -855,6 +855,28 @@ http {
 sudo service nginx restart
 ```
 
+#### Commands
+
+- List all repositories (effectively images):
+
+```bash
+curl -X GET https://example.com/v2/_catalog
+# {"repositories":["redis","ubuntu"]}
+```
+
+- List all tags for a repository:
+
+```bash
+curl -X GET https://example.com/v2/ubuntu/tags/list
+# {"name":"ubuntu","tags":["14.04"]}
+```
+
+- Delete an Image
+
+https://medium.com/better-programming/cleanup-your-docker-registry-ef0527673e3a
+
+Remove the files locally (stored in the `/data` folder). Then run `docker exec registry bin/registry garbage-collect --dry-run /etc/docker/registry/config.yml`
+
 ## Troubleshooting
 
 ### Permission denied

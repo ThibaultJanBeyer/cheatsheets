@@ -456,6 +456,11 @@ You can get the secret:
 kubectl get secret regcred --output=yaml
 ```
 
+Or create it on the spot (don’t forget to add `https://` and `/v2/` to the docker server variable):
+```
+kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+```
+
 Now you can add it to your pods:
 
 ```yml
