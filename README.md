@@ -50,3 +50,10 @@ https://github.com/nodesource/distributions/blob/master/README.md#debinstall
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
+
+### Kill open port in OSX
+
+```bash
+sudo lsof -i :<port>
+sudo kill -9 <port PID>
+```

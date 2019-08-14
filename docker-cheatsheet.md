@@ -875,7 +875,12 @@ curl -X GET https://example.com/v2/ubuntu/tags/list
 
 https://medium.com/better-programming/cleanup-your-docker-registry-ef0527673e3a
 
-Remove the files locally (stored in the `/data` folder). Then run `docker exec registry bin/registry garbage-collect --dry-run /etc/docker/registry/config.yml`
+Remove the files locally (stored in the `/data` folder). 
+Then run:
+
+```bash
+docker exec registry bin/registry garbage-collect --dry-run /etc/docker/registry/config.yml
+```
 
 ## Troubleshooting
 

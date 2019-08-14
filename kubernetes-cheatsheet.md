@@ -134,7 +134,24 @@ Now join other nodes (servers) with the join token you received from `kubeadm in
 
 ### Startup – Singlenode
 
-…
+See: https://medium.com/@vivek_syngh/setup-a-single-node-kubernetes-cluster-on-ubuntu-16-04-6412373d837a
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
+touch /etc/apt/sources.list.d/kubernetes.list
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >> /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+sysctl net.bridge.bridge-nf-call-iptables=1
+kubeadm init --pod-network-cidr=10.244.0.0/16
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+kubectl taint nodes --all node-role.kubernetes.io/master-
+```
 
 ## Kubectl
 

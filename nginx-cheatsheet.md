@@ -47,7 +47,66 @@ sudo nginx -t
 - `/var/log/nginx/access.log`: Every request to your web server is recorded in this log file unless Nginx is configured to do otherwise.
 - `/var/log/nginx/error.log`: Any Nginx errors will be recorded in this log.
 
-## Server Blocks
+## Proxy
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+    server_name your-domain-name.com;
+    location / {
+        proxy_pass http://127.0.0.1:2368;
+    }
+
+    location /blog {
+        rewrite ^/blog(.*) /$1 break;
+        proxy_pass http://127.0.0.1:8181;
+    }
+}
+```
+
+- `rewrite` is effectively sending traffic to the blog app as if it was coming from `/` instead of `/blog`.
+
+## Add a Server Block
+
+```bash
+sudo mkdir -p /var/www/neomatcha.com/html
+sudo chown -R $USER:$USER /var/www/neomatcha.com/html
+sudo chmod -R 755 /var/www/neomatcha.com
+vim /var/www/neomatcha.com/html/index.html
+```
+```html
+<html>
+    <head>
+        <title>Welcome to neomatcha.com!</title>
+    </head>
+    <body>
+        <h1>Success!  The neomatcha.com server block is working!</h1>
+    </body>
+</html>
+```
+```bash
+sudo vim /etc/nginx/sites-available/neomatcha.com
+```
+```nginx
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/neomatcha.com/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name neomatcha.com www.neomatcha.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+sudo ln -s /etc/nginx/sites-available/neomatcha.com /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+```
+
+### Full
 
 ```
 sudo mkdir -p /var/www/example.com/html
@@ -116,6 +175,10 @@ http {
     ...
 }
 ...
+```
+
+```
+sudo systemctl restart nginx
 ```
 
 ## HTTPS
