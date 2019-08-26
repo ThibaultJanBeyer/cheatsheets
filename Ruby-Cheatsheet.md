@@ -16,7 +16,7 @@ Looking for [Rails](../Ruby-on-Rails-Cheatsheet.md)?
 [Comment](#comment)  
 [Conditions](#conditions)  
 [Printing & Putting](#printing--putting)  
-[User Imput](#user-imput)  
+[User Input](#user-input)  
 [Loops](#loops)
 [Sorting & Comparing](#sorting--comparing)  
 [Usefull Methods](#usefull-methods)
@@ -339,7 +339,7 @@ puts "test" # puts the text in a separate line
 :test.to_s # converts to "test"
 ```
 
-## User Imput
+## User Input
 
 ```Ruby
 gets # is the Ruby equivalent to prompt in javascript (method that gets input from the user)

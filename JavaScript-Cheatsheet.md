@@ -17,7 +17,7 @@
 [Loops](#loops)  
 [Logical Operators](#logical-operators)
 - [Conditional Operator](#conditional-operator)  
-[User Imput](#user-imput)  
+[User Input](#user-input)  
 [JSON](#json)  
 [ES6](#es6)  
 [Tricks](#tricks)
@@ -348,7 +348,7 @@ console.log(false ? 1 : 2); // → 2
 // The value before ? “picks” which of the other two values will come out. When true, the first value is chosen, and when false, the value on the right comes out.
 ```
 
-## User Imput
+## User Input
 ```javascript
 var name = prompt("who're you?");
 ```    
