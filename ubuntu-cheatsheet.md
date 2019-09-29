@@ -18,3 +18,12 @@ Choose Password, That’s it
 
 ## Show available disk space
 
+```
+df -H
+```
+
+a single folder:
+
+```
+df -H /
+```

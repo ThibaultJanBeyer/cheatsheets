@@ -67,45 +67,6 @@ server {
 
 - `rewrite` is effectively sending traffic to the blog app as if it was coming from `/` instead of `/blog`.
 
-## Add a Server Block
-
-```bash
-sudo mkdir -p /var/www/neomatcha.com/html
-sudo chown -R $USER:$USER /var/www/neomatcha.com/html
-sudo chmod -R 755 /var/www/neomatcha.com
-vim /var/www/neomatcha.com/html/index.html
-```
-```html
-<html>
-    <head>
-        <title>Welcome to neomatcha.com!</title>
-    </head>
-    <body>
-        <h1>Success!  The neomatcha.com server block is working!</h1>
-    </body>
-</html>
-```
-```bash
-sudo vim /etc/nginx/sites-available/neomatcha.com
-```
-```nginx
-server {
-        listen 80;
-        listen [::]:80;
-
-        root /var/www/neomatcha.com/html;
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name neomatcha.com www.neomatcha.com;
-
-        location / {
-                try_files $uri $uri/ =404;
-        }
-}
-sudo ln -s /etc/nginx/sites-available/neomatcha.com /etc/nginx/sites-enabled/
-sudo systemctl restart nginx
-```
-
 ### Full
 
 ```
@@ -209,3 +170,45 @@ sudo certbot renew --dry-run
 ```
 
 If no errors ari seyou’re all set.
+
+
+## Quick adding of a Server Block
+
+```bash
+sudo mkdir -p /var/www/neomatcha.com/html
+sudo chown -R $USER:$USER /var/www/neomatcha.com/html
+sudo chmod -R 755 /var/www/neomatcha.com
+vim /var/www/neomatcha.com/html/index.html
+```
+```html
+<html>
+    <head>
+        <title>Welcome to neomatcha.com!</title>
+    </head>
+    <body>
+        <h1>Success!  The neomatcha.com server block is working!</h1>
+    </body>
+</html>
+```
+```bash
+sudo vim /etc/nginx/sites-available/neomatcha.com
+```
+```nginx
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/neomatcha.com/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name neomatcha.com www.neomatcha.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+```bash
+sudo ln -s /etc/nginx/sites-available/neomatcha.com /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+```
