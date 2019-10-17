@@ -212,3 +212,6 @@ server {
 sudo ln -s /etc/nginx/sites-available/neomatcha.com /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ```
+```
+sudo certbot --nginx -d neomatcha.com -d www.neomatcha.com
+```
