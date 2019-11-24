@@ -118,7 +118,7 @@ end
 _custom objects_
 
 ```Ruby
-class ClassName # class names are rather written in camelcase
+class ClassName # class names are rather written in PascalCase (It is similar to camelcase, but the first letter is capitalized)
   @@count = 0
   attr_reader :name # make it readable
   attr_writer :name # make it writable
@@ -165,7 +165,7 @@ end
 ## Modules
 
 ```Ruby
-module ModuleName # module names are rather written in camelcase
+module ModuleName # module names are rather written in PascalCase
   # variables in modules doesn't make much sence since modules do not change. Use constants.
 end
 
