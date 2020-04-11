@@ -81,7 +81,7 @@ my_hash.each_value { |v| print v, " " }
 ### Symbols
 
 ```Ruby
-:symbol # symbol is like an ID in html. :Symbols != "Strings"
+:symbol # symbol is like an ID in html. :Symbols != "Symbols"
 # Symbols are often used as Hash keys or referencing method names.
 # They can not be changed once created. They save memory (only one copy at a given time). Faster.
 :test.to_s # converts to "test"
