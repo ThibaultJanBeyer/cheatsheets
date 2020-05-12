@@ -47,7 +47,8 @@
 `rm <file-to-remove>`: removes a file or directory !permanently!  
 `rm -r <dir-to-remove>`: removes a dir and all its children !permanently!
 
-##Input & Output Redirects
+## Input & Output Redirects
+
 `echo "Hello" > world.txt`: **>** redirects the standard output (Hello) into something else (world.txt)  
 `cat file1.txt > file2.txt`: content of file1 is redirected into file2 which overrides the content of file2 by the content of file1  
 `cat file1.txt >> file2.txt`: **>>** appends the output of file1 to file2  
@@ -69,6 +70,8 @@
 `grep -Rl <keyword> <folder>`: searches all files in a directory and outputs only filenames with matched results  
 `sed 's/<keyword>/<replacement>' <filename>`: find in file and replace s = substitution. So sed 's/find/replace' in_this_file (only replace the first finding)  
 `sed 's/<keyword>/<replacement>/g' <filename>`: same as above but replaces all instances not only the first finding
+`sed 's/$/<addition>/' <filename>`: adds something at the end of each line (`$` matches the end of the string or line)
+`sed 's/^/<addition>/' <filename>`: adds something at the beginning of each line (`^` matches the beginning of the string or line)
 
 ## Environment
 
