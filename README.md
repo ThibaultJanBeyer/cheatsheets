@@ -13,6 +13,7 @@ So far:
 - - [Angular](/Angular-Cheatsheet.md)
 - [Ruby](/Ruby-Cheatsheet.md)
 - - [Rails](/Ruby-on-Rails-Cheatsheet.md)
+- [SQL](/sql.md)
 - [Command Line](/Command-Line-Cheatsheet.md)
 - - [Ubuntu](/ubuntu-cheatsheet.md)
 - - [Git](/Git-Cheatsheet.md)
