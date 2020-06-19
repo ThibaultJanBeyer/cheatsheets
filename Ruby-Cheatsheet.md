@@ -118,7 +118,7 @@ end
 _custom objects_
 
 ```Ruby
-class ClassName # class names are rather written in PascalCase (It is similar to camelcase, but the first letter is capitalized)
+class Person # class names are rather written in PascalCase (It is similar to camelcase, but the first letter is capitalized)
   @@count = 0
   attr_reader :name # make it readable
   attr_writer :name # make it writable
