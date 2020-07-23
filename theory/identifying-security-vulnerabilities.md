@@ -23,7 +23,7 @@ Data meets quality expectations, is consistent and accurate.
 
 User access to resources.
 
-- I.e. a DDOS Attacks is such a thread, a CDNM can mitigate that issue
+- I.e. a DDOS Attacks is such a thread, a CDN can mitigate that issue
 
 ## Thread Modeling
 
