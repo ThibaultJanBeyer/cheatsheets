@@ -35,6 +35,10 @@ So far:
 - - [.eslintrc](/meta-files/react/.eslintrc.json)
 - - [.prettierrc](/meta-files/react/.prettierrc)
 
+# Theory
+
+- [Identifying Security Vulnerabilities](/theory/identifying-security-vulnerabilities.md)
+
 ## Common
 
 ### OSX Bash script not executed "command not found".
