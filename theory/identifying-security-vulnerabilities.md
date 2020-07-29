@@ -174,6 +174,109 @@ i.e. signatures in JWTs
 - I.e. an attacker could re-use the same message authentication code as send previously.
 - A simple way to protect against replay attacks in this scenario is to add a message number on which the sender and receiver agree on to tag messages to make sure that no key can be re-used
 
+## OWASP Top 10 Proactive controls
+
+https://owasp.org/www-project-proactive-controls/
+
+- Controls and recommendations to apply during software development
+- Gives awareness of various things that might go wrong
+- Standards for testing security controls: OWASP ASVS
+- Additional activities during development: OWASP SAMM, BSIMM (survey on what other companies do for security)
+
+### 1. Define Security Requirements
+
+- Done at the beginning or whenever new changes are adeed.
+- Define what is required to secure
+
+### 2. Leverage Frameworks and Requirements
+
+- Use existing and proven frameworks to help getting up to speed quickly
+
+### 3. Secure Database Access
+
+- Don't trust any query done by the user
+- Harden the DB security settings (in general the DB comes unsecured)
+- Secure auth and communication
+
+### 4. Encode and Escape data
+
+- Prevent Injection and XSS
+
+### 5. Validate all inputs
+
+- Only properly formatted data can be processed
+- Data escaping & Query parametrization
+
+### 6. Implement a Digital Identity
+
+- Authentication (NIST-800-63b reading on levels (Password only, Multi Factor, Hardware crypto modules))
+- Who can access?
+
+### 7. Enforce access control
+
+- What can be accessed?
+- Principle of least privilege (allow only just enough access and privileges)
+
+### 8. Protect data everywhere
+
+- Classify data based on sensitivity
+- Encrypt data on rest and in transit
+- Keep app secrets secret (i.e. use a password vault)
+
+### 9. Implement security logging and monitoring
+
+- Just enough info: timestamp, user id
+- Forward logs to a central service
+
+### 10. Handle all errors and exceptions
+
+- Use displayed errors should not leak sensitive data
+- Log enough information to be able to debug
+
+## OWASP Top 10 Application security risk
+
+https://owasp.org/www-project-top-ten/
+
+
+**Week 2**
+
+## Injection Problems (SQL)
+
+- Untrusty data => command or query string => interpreter interprets the data as command
+- Leads to read/writes in the database
+
+Book: The Web Application Hackers Handbook
+
+### Principle of least privilege
+
+- Auto-role that can do no harm
+- I.e. web app users should never be able to become root users (keep them separate)
+
+### Prepared Statements
+
+- Input always treated as data, never as statement
+- Compiled before using
+- Generates a static query (never concatenate it)
+example: `password = ? AND username = ?` then `x.setString(0, $password) x.setString(1, $username)` instead of `password = $password AND username = $username`
+
+### Stored procedures
+
+
+
+### Query whitelisting
+
+
+
+
+## Cross-Site Scripting (XSS)
+
+- Inject JavaScript in a web-app that is interpreted by the browser
+- Leads to impersonation
+
+## Command Injection
+
+- OS command in command string
+- Can lead to system compromise
 
 ---
 [Spoofing, Tampering, Repuding, Replay Attacks]
