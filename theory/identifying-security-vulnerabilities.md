@@ -266,8 +266,8 @@ example: `password = ? AND username = ?` then `x.setString(0, $password) x.setSt
 
 ### Query whitelisting
 
-
-
+- Validating that user control data follows a known specification or is within a set of data that is acceptable
+i.e. instead of `ASC and DESC` use boolean types `true and false`
 
 ## Cross-Site Scripting (XSS)
 
