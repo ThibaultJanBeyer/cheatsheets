@@ -261,7 +261,8 @@ example: `password = ? AND username = ?` then `x.setString(0, $password) x.setSt
 
 ### Stored procedures
 
-
+- Query that is created and stored in the database, when it needs to run it's just called by the application
+- Make sure to only use static queries (with parameters)
 
 ### Query whitelisting
 
