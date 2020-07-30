@@ -43,6 +43,10 @@ WHERE name LIKE 'Se_en';
 
 ## CREATE
 
+```SQL
+CREATE TABLE <table_name> ( <column> <datatype>, <column> <datatype> );
+```
+
 ## INSERT
 
 ```SQL
@@ -107,3 +111,61 @@ CREATE TABLE <table_name> (
 - `UNIQUE` columns have a different value for every row. This is similar to PRIMARY KEY except a table can have many different UNIQUE columns.
 - `NOT NULL` columns must have a value. Attempts to insert a row without a value for a NOT NULL column will result in a constraint violation and the new row will not be inserted.
 - `DEFAULT` columns take an additional argument that will be the assumed value for an inserted row if the new row does not specify a value for that column.
+
+## DROP
+
+```SQL
+DROP TABLE <table_name>;
+```
+
+## MERGE
+
+```SQL
+MERGE <target_table> USING <source_table>
+ON <merge_condition>
+WHEN MATCHED
+    THEN <update_statement>
+WHEN NOT MATCHED BY TARGET
+    THEN <insert_statement>
+WHEN NOT MATCHED BY SOURCE
+    THEN DELETE;
+```
+
+Example:
+
+```SQL
+MERGE sales.category t 
+    USING sales.category_staging s
+ON (s.category_id = t.category_id)
+WHEN MATCHED
+    THEN UPDATE SET 
+        t.category_name = s.category_name,
+        t.amount = s.amount
+WHEN NOT MATCHED BY TARGET 
+    THEN INSERT (category_id, category_name, amount)
+         VALUES (s.category_id, s.category_name, s.amount)
+WHEN NOT MATCHED BY SOURCE 
+    THEN DELETE;
+```
+
+## UNION
+```SQL
+SELECT <field_1>, <field_2> FROM <table_1>
+UNION ALL
+SELECT <field_1>, <field_2> FROM <table_2>
+```
+
+- `UNION ALL` will keep duplicates, just `UNION` will ignore duplicated
+
+## JOIN
+
+```SQL
+SELECT <field_1>, <field_2>
+FROM <table_1>
+INNER JOIN <table_2> ON <table_1>.<field_1>=<table_2>.<field_2>;
+```
+
+- INNER JOIN: Returns records that have matching values in both tables
+- LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+- RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+- FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table

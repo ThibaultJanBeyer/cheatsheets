@@ -240,6 +240,9 @@ https://owasp.org/www-project-top-ten/
 
 **Week 2**
 
+- https://www.exploit-db.com/
+great resource for finding known exploits and learning how exploits are built
+
 ## Injection Problems (SQL)
 
 - Untrusty data => command or query string => interpreter interprets the data as command
