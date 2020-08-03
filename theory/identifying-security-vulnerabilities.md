@@ -252,7 +252,7 @@ Book: The Web Application Hackers Handbook
 
 ### Principle of least privilege
 
-- Auto-role that can do no harm
+- Default role that can do no harm
 - I.e. web app users should never be able to become root users (keep them separate)
 
 ### Prepared Statements
@@ -265,7 +265,7 @@ example: `password = ? AND username = ?` then `x.setString(0, $password) x.setSt
 ### Stored procedures
 
 - Query that is created and stored in the database, when it needs to run it's just called by the application
-- Make sure to only use static queries (with parameters)
+- Make sure to only use static queries (with parameters, similar to prepared statements)
 
 ### Query whitelisting
 
@@ -281,6 +281,12 @@ i.e. instead of `ASC and DESC` use boolean types `true and false`
 
 - OS command in command string
 - Can lead to system compromise
+
+## OWASP Vulnerability testing tools ("learn to hack")
+
+- [BURP](https://portswigger.net/burp) + [Webgoat](https://owasp.org/www-project-webgoat/)
+- Burp is a tool to exercise man-in-the-middle attacks
+- Webgoat is a website/software that you can run locally to train various attacks on 
 
 ---
 [Spoofing, Tampering, Repuding, Replay Attacks]
