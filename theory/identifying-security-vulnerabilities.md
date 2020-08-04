@@ -275,7 +275,37 @@ i.e. instead of `ASC and DESC` use boolean types `true and false`
 ## Cross-Site Scripting (XSS)
 
 - Inject JavaScript in a web-app that is interpreted by the browser
+- Modifying the DOM and including a user-defined parameter
 - Leads to impersonation
+
+### HTTP
+
+- Protocol to communicate from a client to a server
+- Human readable
+- Stateless. Current requests have no relationship to previous requests
+
+#### Cookies
+
+- Cookies add state to HTTP (and sessions)
+- JavaScript can read/write cookies
+- Server-side sets the cookie to HttpOnly, which makes it unavailable from JavaScript on the client
+- Cookie Scope: you can specify the domain and path that can access the cookie
+- Origin: Protocol, Domain and Port.
+- [Same origin policy](https://blog.thibaultjanbeyer.com/cors-cross-origin-web/).
+
+### Reflected Cross-Site Scripting
+
+- Malicious data is injected i.e. via URL params that are used to generate parts of the DOM.
+
+### Stored Cross-Site Scripting
+
+- Malicious data is injected via data i.e. POST data that is stored on a DB which is used to generate content on the page.
+
+### DOM-Based Cross-Site Scripting
+
+- Everything happens on the client side
+- DOM is modified and data injected via modification
+- Similar to the Reflected just that in the DOM-Based it never reaches the server but is directly executed on the DOM
 
 ## Command Injection
 
@@ -286,7 +316,7 @@ i.e. instead of `ASC and DESC` use boolean types `true and false`
 
 - [BURP](https://portswigger.net/burp) + [Webgoat](https://owasp.org/www-project-webgoat/)
 - Burp is a tool to exercise man-in-the-middle attacks
-- Webgoat is a website/software that you can run locally to train various attacks on 
+- Webgoat is a website/software that you can run locally to train various attacks on
 
 ---
 [Spoofing, Tampering, Repuding, Replay Attacks]
