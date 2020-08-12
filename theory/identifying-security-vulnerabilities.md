@@ -353,5 +353,50 @@ i.e. instead of `ASC and DESC` use boolean types `true and false`
 - Web-app uses user data as input into a command passed to the OS
 - I.e. for Java: `exec()`, `getParameter`, `ProcessBuilder.start()`, `setAttribute putValue getValue`, `java.net.Socket java.io`
 
+# HTTP & Sessions
+
+- Whenever a client communicates with server: first it makes a TCP/IP request and then sends over the HTTP data
+- Request: HTTP1 shows request in human readable form: Method Path Version Headers Body. HTTP2 however will require more work to be human readable
+- Response: Version Status-code Status-message Headers
+- HTTP is stateless. The state is added using cookies
+
+## Vulnerability
+
+- Without encryption, an attacker can sniff the session headers from the users HTTP calls and then re-use the same to authenticate
+- The new york times article explains [HTTP sniffing in details](https://www.nytimes.com/2011/02/17/technology/personaltech/17basics.html)
+
+## HSTS
+
+- HSTS: HTTP strict transport security
+- Tells the client to always use HTTPS to communicate
+
+## REST
+
+- Representational State Transfer
+- RESTful resource: Create Read Update Delete (GET, POST, DELETE)
+- Use web application frameworks to handle Auth & Session, don't build your own
+- Web frameworks should at least use HttpOnly on cookies, set path params correctly, Prevent session tokens from being included in URLs
+
+## Common types of sessions
+
+- Browser forgets about cookie on shutdown
+- Session ID is encrypted within cookie
+
+### Persistent sessions
+
+- Remember token (random string of digits)
+- Server stores remember token hash digest in DB
+- Send Remember token as cookie
+- Send encrypted user ID as cookie
+- Client sends both token to the server, the server then decrypt the userID and remember token, finds the user in the DB and checks if the remember token is the correct one
+
+### Generic Guidelines on Sessions
+
+- UserIDs should be unique and case sensitive
+- Passwords should have a good length, complexity and secure storage (never plaintext password)
+- Auth pages accessed using TLS (Transport Layer Security HTTPS)
+- Force users to re-auth accessing a sensitive feature (prevents session hijacking)
+- Rate-limit/Lock-out after several failed logins (prevent brute-force)
+
 ---
 [Spoofing, Tampering, Repuding, Replay Attacks]
