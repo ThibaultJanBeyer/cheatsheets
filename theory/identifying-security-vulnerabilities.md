@@ -318,5 +318,40 @@ i.e. instead of `ASC and DESC` use boolean types `true and false`
 - Burp is a tool to exercise man-in-the-middle attacks
 - Webgoat is a website/software that you can run locally to train various attacks on
 
+## OWASP Positive Prevention Model for Preventing Cross-Site Scripting Vulnerabilities
+
+- Idea: treat a HTML page like a template with slots where untrusty data can be put. Other places are not allowed.
+- Each slot has different security rules
+- Use secure encoding libraries (i.e. OWASP Java Encoder Project (for Java))
+- Never insert untrusted data except the allowed locations
+- Never in script tags, within a script, in an attribute name, in a tag name nor directly in CSS
+
+### RULEs
+
+- Escape before putting it into html element content
+- Escape before putting it into html common attributes
+- Escape inserting untrusted data into javascript (however, generally don't do that because some scripts can't be escaped)
+- First HTML Escape untrusted data then JavaScript Escape it. (i.e. °.innerHTML = lib.encodeJS(lib.encodeHTML(untrusted))))
+- JavaScript Escape before putting untrusted data into HTML attributes (i.e. °.setAttribute('v', °.encodeJS(untrusted)))
+- Avoid including untrusted data in your JavaScript
+- JavaScript Escape before putting untrusted data in CSS (i.e. °.backgroundImage = url(°.encodeJS(°.encodeURL(untrusted))))
+- Populate the DOM using safe functions or properties (i.e. °.textContent = untrusted)
+- Always use HTTP-Only cookies when you can
+
+### Controls
+
+- Define security requirements
+- Leverage security frameworks and libraries
+- Secure data access (DB secure configuration)
+- Don't trust DB queries that have user input inside
+- Encode and escape data
+- Validate all user inputs
+- Implement security logging and monitoring
+
+## Command injection problems
+
+- Web-app uses user data as input into a command passed to the OS
+- I.e. for Java: `exec()`, `getParameter`, `ProcessBuilder.start()`, `setAttribute putValue getValue`, `java.net.Socket java.io`
+
 ---
 [Spoofing, Tampering, Repuding, Replay Attacks]
