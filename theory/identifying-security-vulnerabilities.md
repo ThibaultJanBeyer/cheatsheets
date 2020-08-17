@@ -398,5 +398,89 @@ i.e. instead of `ASC and DESC` use boolean types `true and false`
 - Force users to re-auth accessing a sensitive feature (prevents session hijacking)
 - Rate-limit/Lock-out after several failed logins (prevent brute-force)
 
----
-[Spoofing, Tampering, Repuding, Replay Attacks]
+**Week 3**
+
+## Authentication
+
+### Handling error messages
+
+- Via error messages, an attacker could get hints on username/passwords
+- It might also be possible to guess incorrect passwords based on the time the server takes to respond
+- On Auth, make error messages as generic as possible (i.e. Login failed: Incorrect userID or incorrect password)
+- Log login failures + timestamp and username/account
+- Log account lockouts + timestamp and username/account
+
+### Session management
+
+- HTTP is stateless. Cookies are used to handle session state.
+- Session generation: is the token predictable?
+- Session handling: is the token data leaked?
+- Session termination: was the session removed completely?
+
+#### Preventions
+
+- Create strong tokens (that can't be brute-forced) and transport them only via HTTPs. Never as part of the URL.
+- Sessions should expire quickly (i.e. 15mins)
+- Prevent logins from more than one place
+- Set cookie scope as restrictive as possible (domain & path)
+- HTTP-Only Cookies
+- Clear out session information on log-out. If server receives an invalid request from a client, the server should force the client to re-auth
+
+#### Discretionary Access Control
+
+Where owners of resources grant access to other users to access their resources.
+If those owners of those resources don't explicitly grant access to those resources, access is automatically denied.
+(i.e. google-drive)
+
+#### Access Controls (Role Based)
+
+- Vertical attack: user escalates privileges from regular user to admin
+- Horizontal attack: access more resources than the user should
+- Design Phase: specify exactly who has access to what (i.e. employee, PUT, /emp1/resource.jpg):
+- - Principal: Who/What
+- - Access type: action on resource (think RESTful)
+- - Resource: file, page, endpoint
+- Define Role/Group: regular user, admin, guest,…
+
+##### Securing
+
+- Explicitly design your accesses (roles, groups)
+- Don't trust any user controlled data for access rights. Always validate it
+- Centralized component that handles access controls
+- Any request should be checked using that centralized module
+- Restrict special pages with an IP whitelist
+- For critical actions, re-auth the user
+
+#### Brute-Force
+
+- Session-IDs should be as random as possible as not too short
+- Session-IDs should have a bit length longer than 128 bits
+- Associate session IDs by TLS connections in a 1:1 relationship
+- See https://owasp.org/www-community/vulnerabilities/Insufficient_Session-ID_Length
+- https://betterexplained.com/articles/understanding-the-birthday-paradox/
+
+#### Session-Fixation
+
+- Attacker tries to trick client to use session id i.e. through phishing emails, specially crafted login page with a hidden field
+- If the web application on the server side is presented with a session token during login, that token should be canceled on the browser side, and the server side should force the browser to return to the start page
+- On successful login, a new session token should be given
+
+#### Logging
+
+##### Why?
+
+- Debugging
+- Prevent repudiation
+- Detecting attacks
+
+##### What?
+
+- Authentication successes & failures
+- Authorization successes & failures
+- Session management failures
+- Account lock-outs
+
+##### How?
+
+- Hold logs on the app for a short amount of time (1-2 days) (i.e. save to file)
+- Send logs to a central logging system over tls and retain for a longer time (1-2 years)
