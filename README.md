@@ -38,6 +38,7 @@ So far:
 # Theory
 
 - [Identifying Security Vulnerabilities](/theory/identifying-security-vulnerabilities.md)
+- [Entity Relationship Diagram (with cardinalities)](/theory/entity-relationship-diagram.md)
 
 ## Common
 
