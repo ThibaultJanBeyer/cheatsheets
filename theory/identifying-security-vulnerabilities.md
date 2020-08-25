@@ -451,9 +451,9 @@ If those owners of those resources don't explicitly grant access to those resour
 - Restrict special pages with an IP whitelist
 - For critical actions, re-auth the user
 
-#### Brute-Force
+#### Secure session-ids against brute-force
 
-- Session-IDs should be as random as possible as not too short
+- Session-IDs should be as random as possible not too short
 - Session-IDs should have a bit length longer than 128 bits
 - Associate session IDs by TLS connections in a 1:1 relationship
 - See https://owasp.org/www-community/vulnerabilities/Insufficient_Session-ID_Length
@@ -462,7 +462,8 @@ If those owners of those resources don't explicitly grant access to those resour
 #### Session-Fixation
 
 - Attacker tries to trick client to use session id i.e. through phishing emails, specially crafted login page with a hidden field
-- If the web application on the server side is presented with a session token during login, that token should be canceled on the browser side, and the server side should force the browser to return to the start page
+- The client passes the session token when logging in, the server accepts it as valid, the attacker can now use the session token himself
+- The server-side should invalidate a token if it's given by the browser on login
 - On successful login, a new session token should be given
 
 #### Logging
@@ -484,3 +485,76 @@ If those owners of those resources don't explicitly grant access to those resour
 
 - Hold logs on the app for a short amount of time (1-2 days) (i.e. save to file)
 - Send logs to a central logging system over tls and retain for a longer time (1-2 years)
+
+**Week 4**
+
+## Data Exposures
+
+Happen when data is not protected enough:
+- i.e. the Cryptography on the passwords is too weak (or no encryption at all)
+- When personal identifiable information is used to compose the session ID
+- Improperly storing password
+- Using HTTP instead of HTTPs
+
+## OWASP Mitigation Strategies
+
+- Know your data (Requirements list)
+- Build security in your softwares requirements
+- Be aware of caches and how to disable them
+- Understand Cryptography
+- Do not store sensitive data unless needed
+
+## Issue 1: Using PII to Compose Session IDs
+
+- May be found in application logs
+- Might not be encrypted enough
+- Attackers could determine the pattern and make up IDs for users
+
+Solution:
+
+- Generate hard to guess token
+- Use random generators
+- Do not use any user identification data
+
+## Issue 2: Not Encrypting Sensitive Information
+
+- Data in transit. (i.e when attacker has access to http, they could easily steal the info)
+- Data at rest. (an attacker gains access to the DB he can easily steal sensitive data)
+
+Solution:
+
+- Know your data (i.e. Categorize our data based on their sensitivity levels)
+- Don't store date you don't have to (i.e. credit-card numbers)
+- Use standard cryptographic measures (i.e. AES block ciphers in CBC mode with random IV)
+
+## Issue 3: Improperly Storing Passwords
+
+Solution:
+
+- Do not store the actual plaintext password but rather a hash output that can't be reverted
+- Salting and Hashing of passwords
+- Using stronger encryption to slow down brute-force (i.e. PBKDF2, bcrypt)
+- Use 2FA Auth
+- Use generic error messages (i.e. "Invalid username or password entered")
+
+### Salting and Hashing
+
+- If you use the same hash function for each user, you might end up with 2 or more hashes in your database that are identical. Which is a hint for attackers to have it easier to brute-force.
+- This is where salting comes into play. "Salt" is a fixed length, randomly generated string that is concatenated with the plain text password before performing the hash calculation.
+- Generate the salt using a CSPRNG (Cryptographically Secure Pseudo-Random Number Generator)
+- Salt length need to be at least the same length as the output of the hash function (i.e. 256 bits is you use SHA256)
+- Generate a new one-time salt for each user (do not re-use the same salt)
+
+### Storing a password for a new user
+
+1. Generate a salt using CSPRNG
+2. Concatenate the salt and the plaintext password
+3. Hash the result of step 2 using a slow hashing function (i.e. PBKDF2 or bcrypt). To make brute-force too slow to be useful 
+4. Store the hash and the salt in the DB along with the username
+
+### Authenticate the user
+
+1. Get the salt Associated with the username
+2. Concatenate the salt and the plaintext password
+3. Hash the result of step 2 again using the same hash function as when generating
+4. Compare the result of step 3 with what's in the DB
