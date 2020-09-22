@@ -23,9 +23,9 @@ Data meets quality expectations, is consistent and accurate.
 
 User access to resources.
 
-- I.e. a DDOS Attacks is such a thread, a CDN can mitigate that issue
+- I.e. a DDOS Attacks is such a threat, a CDN can mitigate that issue
 
-## Thread Modeling
+## Threat Modeling
 
 Book suggestion: Threat Modeling, Designing for Security by Adam Shostack
 
@@ -35,8 +35,8 @@ Data flow diagram to
 
 - Determine trust boundaries
 - Understand the system
-- Find potential threads
-- Prioritize and fix threads
+- Find potential threats
+- Prioritize and fix threats
 
 ### Trust Boundaries Diagram
 
@@ -57,7 +57,7 @@ After the data flow diagram use:
 
 ### STRIDE
 
-A tool used to brainstorm potential threads
+A tool used to brainstorm potential threats
 
 - S – Spoofing (pretending to be someone else) (i.e. unauthorized users have to login and access level is in token)
 - T – Tampering (modify system data) (i.e. encryption can prevent tampering between data flow, also need encryption at rest (when saved))
@@ -230,7 +230,7 @@ https://owasp.org/www-project-proactive-controls/
 
 ### 10. Handle all errors and exceptions
 
-- Use displayed errors should not leak sensitive data
+- User displayed errors should not leak sensitive data
 - Log enough information to be able to debug
 
 ## OWASP Top 10 Application security risk
