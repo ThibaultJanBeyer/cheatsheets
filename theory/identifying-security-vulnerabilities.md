@@ -64,7 +64,7 @@ A tool used to brainstorm potential threats
 - R – Repudiation (lie about changes) (i.e. logging mechanisms for requests)
 - I – Info Leak (get without allowance) (i.e. encryption as for tampering)
 - D – Denial of Service (i.e. requires further testing to ensure data is available and load balancer could be used)
-- E – Elevation of Privilege (i.e. login to get token, tamper resistent token mechanisms)
+- E – Elevation of Privilege (i.e. login to get token, tamper resistant token mechanisms)
 
 Goals: Determine what should be protected, then define user roles, privileges and the attack surface of systems
 
@@ -75,7 +75,7 @@ Goals: Determine what should be protected, then define user roles, privileges an
 - Repudiation: i.e. logging mechanisms for requests
 - Info Leak: i.e. encryption as for tampering
 - Denial of Service: i.e. requires further testing to ensure data is available and load balancer could be used
-- Elevation of Privilege: i.e. login to get token, tamper resistent token mechanisms
+- Elevation of Privilege: i.e. login to get token, tamper resistant token mechanisms
 
 In this example, based on stride we know that we need encryption, authorization, logging, code reviews.
 
