@@ -10,6 +10,8 @@
 - [Actions](#syncvars)
 - [Server Authority](#server-authority)
 - [Network Transform](#network-transform)
+- [Spawning](#spawning)
+- [Useful](#useful)
 
 ## NetworkManager
 Example:
@@ -138,8 +140,42 @@ tbd
 
 - Use a component called `NetworkTransform` if you want to sync the transform attributes of that object across all clients.
 - It will automatically transpolate smoothly between the positions.
-- 
 
+## Spawning
+
+```c#
+// IPointerClickHandler is an interface. You can use it to have something happening when the user clicks the object it is attached to
+public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
+{
+    [SerializeField] private GameObject unitPrefab = null;
+    [SerializeField] private Transform unitSpawnPoint = null;
+
+
+    #region Server
+
+    [Command]
+    private void CmdSpawnUnit()
+    {
+        GameObject unitInstance = Instantiate(unitPrefab, unitSpawnPoint.position, unitSpawnPoint.rotation);
+        // Spawn takes 2 arguments: 1st: the object instance, 2nd: the owner of the object (if empty, the server will be the owner)
+        // connectionToClient is the connection that owns the object that called the command
+        NetworkServer.Spawn(unitInstance, connectionToClient);
+    }
+
+    #endregion
+
+    #region Client
+
+    // this comes from IPointerClickHandler Interface
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button != PointerEventData.InputButton.Left || !hasAuthority) return;
+        CmdSpawnUnit();
+    }
+
+    #endregion
+}
+```
 
 ## Useful
 
