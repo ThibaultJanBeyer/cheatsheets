@@ -145,7 +145,7 @@ tbd
 
 ```c#
 // IPointerClickHandler is an interface. You can use it to have something happening when the user clicks the object it is attached to
-// This is usually used for UI but we can also use it for game objects. You'll need to add an EventSystem to your Game
+// This is usually used for UI but we can also use it for game objects. You'll need to add an EventSystem to your Game and add a PhysicsRaycaster to your camera
 public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 {
     [SerializeField] private GameObject unitPrefab = null;
