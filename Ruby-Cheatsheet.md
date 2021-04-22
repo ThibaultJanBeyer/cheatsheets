@@ -436,7 +436,7 @@ array.sort! # = [1,2,3,4,5] – works with text and other as well.
 array.sort! { |a, b| b <=> a } # to sort from Z to A instead of A to Z
 ```
 
-## Usefull Methods
+## Useful Methods
 
 ```Ruby
 1.is_a? Integer # returns true
