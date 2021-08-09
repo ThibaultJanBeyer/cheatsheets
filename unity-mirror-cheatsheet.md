@@ -118,7 +118,18 @@ CleintRpc (server calling a method on all clients):
 
 TargetRpc (server calling a method on a specific client (only owner if nothing is specified)):
 ```c#
-tbd
+[Command]
+private void CmdSetDisplayName(string newDisplayName) // executed on the server
+{
+    SetDisplayName(newDisplayName);
+    TargetRpcLogName(newDisplayName); // method call, implicitly passes in the connection that made the CMD call
+}
+
+[TargetRpc]
+private void TargetRpcLogName(string name) // this method will be called on a specific client (since none is specified, it will implicitly be called on the client that initiated the CMD call)
+{
+    Debug.Log($"The new name is: {name}"); // will only be logged on the client that called the command
+}
 ```
 
 ## Server Authority
