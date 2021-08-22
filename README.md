@@ -21,7 +21,7 @@ So far:
 - - [Django](/django-cheatsheet.md)
 - [Firebase](/firebase-cheatsheet.md)
 - [Unity Mirror](/unity-mirror-cheatsheet.md)
-- [Solidity](/solidity-cheatsheet.md)
+- [Solidity](/Solidity-Cheatsheet.md)
 
 # Helpers
 
