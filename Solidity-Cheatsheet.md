@@ -7,12 +7,21 @@ Based on a [Udemy course](https://klarna.udemy.com/course/blockchain-developer/)
 ## Table of Contents
 
 - [Basics](#basics)
+- - [Developing](#developing)
 - - [Fungible vs Non-Fungible Tokens](#fungible-vs-non-fungible-tokens)
 - - [Crypto Hashing](#crypto-hashing)
 - - - [Keccak256](#keccak256)
 - - [Hello World](#hello-world)
 - - [Typecasting](#typecasting)
 - - [Addresses](#addresses)
+- [Global Units](#global-units)
+- - [Wei](#wei)
+- - [Time Units](#time-units)
+- - [Address](#address)
+- [Global Properties](#global-properties)
+- - [Address](#address)
+- - [Encoding](#encoding)
+- - [Block Properties](#block-properties)
 - [State Variables](#state-variables)
 - [Math operators](#math-operators)
 - [Structs](#structs)
@@ -27,6 +36,16 @@ Based on a [Udemy course](https://klarna.udemy.com/course/blockchain-developer/)
 - - [Interacting with other contracts](#interacting-with-other-contracts)
 
 ## Basics
+
+### Developing
+
+Workspaces:
+
+- http://remix.ethereum.org/
+Interactive dev env. in the browser. Under Deploy and Run you can chose JavaScript VMs with fake accounts.
+
+- https://www.trufflesuite.com/ganache
+Development environment that runs locally on your machine
 
 ### Fungible vs Non-Fungible Tokens
 
@@ -113,6 +132,63 @@ function whatIsMyNumber() public view returns (uint) {
 }
 ```
 
+
+
+## Global Units
+
+### Wei
+
+- A literal number can take a suffix of wei, finney, szabo or ether to specify a subdenomination of ether.
+- 1 wei == 1
+- 1 szabo == 1e12
+- 1 finney == 1e15
+- 1 ether == 1e18
+
+### Time Units
+
+- seconds, minutes, hours, days, weeks
+- 1 == 1 seconds
+- 1 minutes == 60 seconds
+- 1 hours == 60 minutes
+- 1 days == 24 hours
+- 1 week == 7 days
+
+## Global Properties
+
+### Address
+- address: Holds a 20 byte value (size of an ethereum wallet)
+- address payable: Same but you can send money to it. i.e. address payable x = address(0x123);
+- <address>.balance (uint256): balance of the Address in Wei
+- <address payable>.transfer(uint256 amount): send given amount of Wei to Address, reverts on failure, forwards 2300 gas stipend, not adjustable
+- <address payable>.send(uint256 amount) returns (bool): send given amount of Wei to Address, returns false on failure, forwards 2300 gas stipend, not adjustable
+- <address>.call(<address>.call(bytes memory) returns (bool, bytes memory): issue low-level CALL with the given payload, returns success condition and return data, forwards all available gas, adjustable
+- <address>.delegatecall(bytes memory) returns (bool, bytes memory): issue low-level DELEGATECALL with the given payload, returns success condition and return data, forwards all available gas, adjustable
+- <address>.staticcall(bytes memory) returns (bool, bytes memory): issue low-level STATICCALL with the given payload, returns success condition and return data, forwards all available gas, adjustable
+
+### Encoding
+
+- abi.decode(bytes memory encodedData, (...)) returns (...): ABI-decodes the given data, while the types are given in parentheses as second argument. Example: (uint a, uint[2] memory b, bytes memory c) = abi.decode(data, (uint, uint[2], bytes))
+- abi.encode(...) returns (bytes memory): ABI-encodes the given arguments
+- abi.encodePacked(...) returns (bytes memory): Performs packed encoding of the given arguments. Note that packed encoding can be ambiguous!
+- abi.encodeWithSelector(bytes4 selector, ...) returns (bytes memory): ABI-encodes the given arguments starting from the second and prepends the given four-byte selector
+- abi.encodeWithSignature(string memory signature, ...) returns (bytes memory): Equivalent to abi.encodeWithSelector(bytes4(keccak256
+
+### Block Properties
+
+- blockhash(uint blockNumber) returns (bytes32): hash of the given block - only works for 256 most recent, excluding current, blocks
+- block.coinbase (address payable): current block miner’s address
+- block.difficulty (uint): current block difficulty
+- block.gaslimit (uint): current block gaslimit
+- block.number (uint): current block number
+- block.timestamp (uint): current block timestamp as seconds since unix epoch
+- gasleft() returns (uint256): remaining gas
+- msg.data (bytes calldata): complete calldata
+- msg.sender (address payable): sender of the message (current call)
+- msg.sig (bytes4): first four bytes of the calldata (i.e. function identifier)
+- msg.value (uint): number of wei sent with the message
+- now (uint): current block timestamp (alias for block.timestamp)
+- tx.gasprice (uint): gas price of the transaction
+- tx.origin (address payable): sender of the tr
 
 ## State Variables
 
