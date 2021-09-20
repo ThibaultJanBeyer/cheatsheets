@@ -2,7 +2,7 @@
 
 # Solidity Cheatsheet
 
-Based on a [Udemy course](https://klarna.udemy.com/course/blockchain-developer/) and [Cryptozombies](https://cryptozombies.io/en/course/)
+Based on a [Udemy course](https://klarna.udemy.com/course/blockchain-developer/) and [Cryptozombies](https://cryptozombies.io/en/course/) and [solidity docs](https://docs.soliditylang.org)
 
 ## Table of Contents
 
@@ -14,10 +14,12 @@ Based on a [Udemy course](https://klarna.udemy.com/course/blockchain-developer/)
 - - [Hello World](#hello-world)
 - - [Typecasting](#typecasting)
 - - [Addresses](#addresses)
+- - [Operators](#operators)
 - [Global Units](#global-units)
-- - [Wei](#wei)
+- - [Monetary](#monetary)
 - - [Time Units](#time-units)
 - - [Address](#address)
+- - [block & msg](#block-&-msg)
 - [Global Properties](#global-properties)
 - - [Address](#address)
 - - [Encoding](#encoding)
@@ -132,11 +134,17 @@ function whatIsMyNumber() public view returns (uint) {
 }
 ```
 
+### Operators
 
+- Comparisons: <=, <, ==, !=, >=, > (evaluate to bool)
+- Bit operaBit operators: &, |, ^ (bitwise exclusive or), ~ (bitwise negation)
+- Shift operators: << (left shift), >> (right shift)
+- Arithmetic operators: +, -, unary -, *, /, % (modulo), ** 
+(exponentiation)
 
 ## Global Units
 
-### Wei
+### Monetary
 
 - A literal number can take a suffix of wei, finney, szabo or ether to specify a subdenomination of ether.
 - 1 wei == 1
@@ -152,6 +160,10 @@ function whatIsMyNumber() public view returns (uint) {
 - 1 hours == 60 minutes
 - 1 days == 24 hours
 - 1 week == 7 days
+
+### block & msg
+
+[See docs](https://docs.soliditylang.org/en/develop/units-and-global-variables.html?highlight=special%20variables%20and%20functions#block-and-transaction-properties)
 
 ## Global Properties
 
