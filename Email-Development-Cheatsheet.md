@@ -2,12 +2,24 @@
 
 # HTML Email Development Cheatsheet
 
+## Sources:
+- https://frontendmasters.com/courses/html-email-v2/background-images/
+- https://github.com/rodriguezcommaj/frontendmasters
+- https://codepen.io/collection/21b7ddd5c58aafc450c35c46e7cba9b5?grid_type=list
+
 ## Table of Contents  
 - [Basics](#basics)  
 - - [Basic HTML Email](#basic-html-email)
 - - [CSS Resets](#css-resets)
 - - [Email friendly HTML](#email-friendly-html)
 - - [Email friendly CSS](#email-friendly-css)
+- [Links & Buttons](#links-&-buttons)
+- [Images](#images)
+- - [Responsive Images](#responsive-images)
+- - [Background Images](#background-images)
+- [Accessibility](#accessibility)
+- [Layouts](#layouts)
+- [Mobile Emails](#mobile-emails)
 
 ## Basics
 
@@ -109,3 +121,175 @@ Taken from [Rodrigues Commajs example](https://github.com/rodriguezcommaj/fronte
 - Make sure to search online to see what CSS properties are supported in what email client.
 - Use pixel sizing `px` instead of relative units etc.
 - You can use shorthands. i,e, `margin: 40px 0;` or `margin: 0 auto` to center the content
+
+## Links & Buttons
+
+- Don't use images for buttons
+- Use descriptive links (not this "click here", use "read the article" for example)
+- Embrace link conventions (i.e. blue and underlined text for links)
+- Don't just rely on color. Don't underline things that are not links (might frustrate the user into thinking it's a link)
+
+### Bulletproof buttons
+
+- from https://buttons.cm/ (most reliable):
+```html
+<div><!--[if mso]>
+  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#1e3650" fill="t">
+    <v:fill type="tile" src="https://i.imgur.com/0xPEf.gif" color="#556270" />
+    <w:anchorlock/>
+    <center style="color:#ffffff;font-family:sans-serif;font-size:13px;font-weight:bold;">Show me the button!</center>
+  </v:roundrect>
+<![endif]--><a href="http://"
+style="background-color:#556270;background-image:url(https://i.imgur.com/0xPEf.gif);border:1px solid #1e3650;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Show me the button!</a></div>
+```
+
+- Padding based:
+```html
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td align="center" style="padding: 60px;">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td brcolor="#229efd" style="padding: 12px 18px 12px 18px; border-radius: 3px" align="center">
+                        <a href="…" target="_blank" style="font-size: 18px; text-decoration: none; display: inline-block;">Button</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+```
+
+- Border based
+```html
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td align="center" style="padding: 60px;">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <a href="…" target="_blank" style="font-size: 18px; text-decoration: none; display: inline-block; color: #ffffff; background-color: #229efd; border-top: 12px solid #229efd; border-bottom: 12px solid #229efd; border-right: 18px solid #229efd;border-left: 18px solid #229efd;">Button</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+```
+
+## Images
+
+- Make them responsive by default
+- Use alt text describing the image
+- Stick to standards: jpg, png, gif
+
+### Responsive Images
+
+- Set a fixed width for outlook `<img … width="600" border="0" … >`
+- `display: block; max-width: 100%; min-width: 100px; width: 100%;` to make them adjust across screen sizes
+
+i.e.
+```html
+<img width="600" border="0" style="display: block; max-width: 100%; min-width: 100px; width: 100%" src="img/image.jpg" alt="puppy licking ice-cream">
+```
+
+### Background Images
+
+- Most reliable on table cells (td)
+- Use both: HTML attributes and inline CSS
+
+i.e.
+```html
+<td background="image/bg.jpg" bgcolor="#229efd" style="background: #229efd url('image/bg.jpg')">
+``` 
+
+## Accessibility
+
+- Left align longer text (center align only short text/headings etc.)
+- Keep color contrast high
+- Create a strong visual hierarchy
+- Focus on readability
+- Keep layouts simple and usable
+- Use real text instead of images
+- Keep tables quiet using `role="presentation"`
+- Include text alternatives for images
+- Include the language of an email `lang="de"`
+
+### Testing
+
+- Close your eyes and use a real screen reader: NVDA, VoiceOver, JAWS, Browser Extensions (NoCoffeee Vision Simulator, silktide, toadly, lighthouse), Litmus accessibility checker.
+
+## Layouts
+
+- Think in modules
+- Use `role="presentation"` on any table
+- Don't use table headers, body, footer
+- Each component lives in their own rows/tables
+- Override defaults using HTML attributes
+- Most styles should be included in table tags
+
+Boilerplate: 
+```html
+<!-- Outer Fluid Container Table -->
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+    <tr>
+        <td>
+            <!-- Inner Fixed Container Table -->
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="600">
+                <!-- Each TR is it's own email "module", i.e. logo, headline, hero image, etc. -->
+                <tr>
+                    <td>
+                        <!-- logo -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- headline -->
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+```
+
+- Basic structure is: Fluid table => Fixed table => Fluid table => Fixed table
+
+## Mobile Emails
+
+- For emails it makes sense to design in desktop first because otherwise you'd get the mobile version on the desktop as the queries don't always work.
+- You can use media queries
+- Still work with tables but make those responsive
+
+i.e.
+```css
+@media screen and (max-width: 600px) {
+    .mobile { width: 100% !important }
+    .block { display: block !important; width: 100% !important; }
+}
+```
+
+And add them to the tables i.e. to make them stack.
+
+### Hybrid/Spongy Coding
+
+- Fluid by default
+- max-width
+
+
+- MSO ghost tables:
+```
+<!--[if (gte mso 9)|(IE)]>
+<table cellspacing="0" cellpadding="0" border="0" width="600" align="center" role="presentation"><tr><td>
+<![endif]>
+
+…content here…
+
+<!--[if (gte mso 9)|(IE)]>
+</td></tr></table>
+<![endif]>
+```
+- This will wrap the whole content in tables for Outlook
+- `gte` = greater than or equal, `gt` = greater than, `lte` = less than equal to, `lt` = less than.
+- `9` = Outlook 2000, `10` = 2002, …, `15` = Outlook 2013
