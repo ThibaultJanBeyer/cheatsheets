@@ -36,6 +36,7 @@ Based on a [Udemy course](https://klarna.udemy.com/course/blockchain-developer/)
 - [Mappings](#mappings)
 - [Contracts, Inheritance & Import](#contracts-inheritance-&-import)
 - - [Interacting with other contracts](#interacting-with-other-contracts)
+- [Ownership](#ownershio)
 
 ## Basics
 
@@ -202,6 +203,10 @@ function whatIsMyNumber() public view returns (uint) {
 - tx.gasprice (uint): gas price of the transaction
 - tx.origin (address payable): sender of the tr
 
+### selfdestruct
+
+- `selfdestruct(msg.sender);` destroys the smart contract and withdraws all the funds to the sender
+
 ## State Variables
 
 ```Solidity
@@ -349,6 +354,14 @@ function eat() internal {
 - `internal`: same as private, except that it's also accessible to contracts that inherit from this contract.
 - `external`: similar to public, except that these functions can ONLY be called outside the contract.
 
+```Solidity
+function eat() payable {
+  
+}
+```
+
+- `payable`: makes it possible to send money to a function
+
 ### Multiple Return Values
 
 ```Solidity
@@ -444,6 +457,16 @@ import "./someothercontract.sol";
 contract newContract is SomeOtherContract {}
 ```
 
+### Constructor
+
+```Solidity
+contract Doge {
+  constructor() {}
+}
+```
+
+The constructor is called only once during contract deployment
+
 ### Interacting with other contracts
 
 To interact with other contracts we need to define an `interface`.
@@ -493,3 +516,27 @@ contract MyContract {
 
 In this way, your contract can interact with any other contract on the Ethereum blockchain, as long they expose those functions as public or external.
 
+## Ownership
+
+All smart contracts are publicly available on the blockchain (note: everything is, also the information in the variables within the smart contract, even the private ones). You'd have to use your own network if you want privacy or external resources. There is no concept of ownership. However we can use a little trick:
+
+```Solidity
+contract OwnershipExample {
+  address owner;
+
+  constructor() public {
+    owner = msg.sender;
+  }
+
+  function ownerDoSomething() {
+    require(msg.sender === owner, "You are not the owner");
+    // do something as the owner
+    // i.e. destroying the smart contract :O
+    selfdestruct(msg.sender);
+  }
+}
+```
+
+- `Constructor` is only called once when deploying. `msg.sender` is the address that is creating the action to deploy the smart contract.
+- `require` will roll back whatever happened before (the transaction) if the first argument is false. The second message is the error message.
+- `selfdestruct(msg.sender);` destroys the smart contract and withdraws all the funds to the sender. It will not delete the contract, just "stop" it. Because that is impossible (since you'd have to undo the transaction).
