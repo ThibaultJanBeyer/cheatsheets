@@ -22,6 +22,7 @@ So far:
 - [Firebase](/firebase-cheatsheet.md)
 - [Unity Mirror](/unity-mirror-cheatsheet.md)
 - [Solidity](/Solidity-Cheatsheet.md)
+- [Email Development](/Email-Development-Cheatsheet.md)
 
 # Helpers
 
