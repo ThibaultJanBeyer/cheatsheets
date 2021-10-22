@@ -24,6 +24,11 @@ So far:
 - [Solidity](/Solidity-Cheatsheet.md)
 - [Email Development](/Email-Development-Cheatsheet.md)
 
+# Theory
+
+- [Identifying Security Vulnerabilities](/theory/identifying-security-vulnerabilities.md)
+- [Entity Relationship Diagram (with cardinalities)](/theory/entity-relationship-diagram.md)
+
 # Helpers
 
 ## Meta Files
@@ -37,11 +42,6 @@ So far:
     Adds `NODE_PATH=src/js/` to be able to cross-import files.
 - - [.eslintrc](/meta-files/react/.eslintrc.json)
 - - [.prettierrc](/meta-files/react/.prettierrc)
-
-# Theory
-
-- [Identifying Security Vulnerabilities](/theory/identifying-security-vulnerabilities.md)
-- [Entity Relationship Diagram (with cardinalities)](/theory/entity-relationship-diagram.md)
 
 ## Common
 
