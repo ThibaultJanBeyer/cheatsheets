@@ -20,11 +20,16 @@
 - [Accessibility](#accessibility)
 - [Layouts](#layouts)
 - [Mobile Emails](#mobile-emails)
+- [Interactivity](#interactivity)
 
 ## Basics
 
 - Marketing emails should have unsubscribe links
 - Use email testing tools like [email on acid](https://www.emailonacid.com/) or [litmus](https://www.litmus.com/extension/)
+- Use [Putsmail](https://putsmail.com) to enter html and it will send it out as an email
+- Use [Can I Email](https://caniemail.com) or [Campaign Monitor](https://campaignmonitor.com) or [Fresh Inbox](https://freshinbox.com) to see what's supported in which email clients. just like `caniuse.com`.
+- You can use tools to help you build emails like `Litmus builder`, `mjml.io`, `Inky` (from foundation.zurb), `Maizzle` to help you.
+- Support channels: `email.geeks.chat`, `litmus.com/community`, `thebetter.email`
 
 ### Basic HTML Email
 
@@ -293,3 +298,31 @@ And add them to the tables i.e. to make them stack.
 - This will wrap the whole content in tables for Outlook
 - `gte` = greater than or equal, `gt` = greater than, `lte` = less than equal to, `lt` = less than.
 - `9` = Outlook 2000, `10` = 2002, …, `15` = Outlook 2013
+
+## Interactivity
+
+- `:hover` pseudo selector works (only when included in the header)
+- gifs
+- movableink (using images that are generated when requested via GET requests. i.e. countdown timer etc.)
+- “The checkbox hack” to create state (by using input labels to toggle checkboxes that changes display with sibling selectors to create interactivity):
+
+```html
+<input type="radio" class="slide-input" name="slides" id="slide1" checked>
+<input type="radio" class="slide-input" name="slides" id="slide2">
+<input type="radio" class="slide-input" name="slides" id="slide3">
+<label for="slide1" class="slide-label">Slide 1</label>
+<label for="slide2" class="slide-label">Slide 2</label>
+<label for="slide3" class="slide-label">Slide 3</label>
+<div class="slide-content" id="content1">Content 1</div>
+<div class="slide-content" id="content2">Content 2</div>
+<div class="slide-content" id="content3">Content 3</div>
+```
+
+```css
+.slide-input { display: 'none' }
+.slide-label { cursor: 'pointer' }
+.slide-input ~ .slide-content { display: 'none' }
+#slide1:checked ~ #content1 { display: 'block' }
+#slide2:checked ~ #content2 { display: 'block' }
+#slide3:checked ~ #content3 { display: 'block' }
+```
