@@ -229,7 +229,7 @@ multiply = lambda { |x| x * 3 }
 y = [1, 2].collect(&multiply) # 3 , 6
 ```
 
-Diff between plocs and lambdas:
+Diff between procs and lambdas:
 
 - a lambda checks the number of arguments passed to it, while a proc does not (This means that a lambda will throw an error if you pass it the wrong number of arguments, whereas a proc will ignore unexpected arguments and assign nil to any that are missing.)
 - when a lambda returns, it passes control back to the calling method; when a proc returns, it does so immediately, without going back to the calling method.
@@ -248,7 +248,7 @@ Diff between plocs and lambdas:
 - `"A " << "B"` => `"A B"` but `"A " + "B"` would work as well but `"A " + 4 + " B"` not. So rather use string interpolation (`#{4}`)
 - `"A #{4} B"` => `"A 4 B"`
 
-## Comment
+## Commenting
 
 ```Ruby
 =begin
@@ -263,7 +263,7 @@ Multyline comment
 
 ## Conditions
 
-### IF
+### If
 
 ```Ruby
 if 1 < 2
@@ -278,7 +278,7 @@ puts "be printed" if true
 puts 3 > 4 ? "if true" : "else" # else will be putted
 ```
 
-### unless
+### Unless
 
 ```Ruby
 unless false # unless checks if the statement is false (opposite to if).
@@ -290,7 +290,7 @@ end
 puts "not printed" unless true
 ```
 
-### case
+### Case
 
 ```Ruby
 case my_var
@@ -348,7 +348,7 @@ gets.chomp # removes extra line created after gets (usually used like this)
 
 ## Loops
 
-### While loop:
+### While loop
 
 ```Ruby
 i = 1
@@ -358,7 +358,7 @@ while i < 11
 end
 ```
 
-### Until loop:
+### Until loop
 
 ```Ruby
 i = 0
