@@ -19,7 +19,7 @@ Looking for [Rails](../master/Ruby-on-Rails-Cheatsheet.md)?
 - [User Input](#user-input)  
 - [Loops](#loops)
 - [Sorting & Comparing](#sorting--comparing)  
-- [Usefull Methods](#usefull-methods)
+- [Useful Methods](#useful-methods)
 
 ## Basics
 
@@ -81,7 +81,7 @@ my_hash.each_value { |v| print v, " " }
 ### Symbols
 
 ```Ruby
-:symbol # symbol is like an ID in html. :Symbols != "Symbols"
+:symbol # symbol is like an ID in html. :symbol != "symbol"
 # Symbols are often used as Hash keys or referencing method names.
 # They can not be changed once created. They save memory (only one copy at a given time). Faster.
 :test.to_s # converts to "test"
@@ -94,7 +94,7 @@ my_hash = { key: "value", key2: "value" } # is equal to { :key => "value", :key2
 #### Functions to create Arrays
 
 ```Ruby
-"bla,bla".split(“,”) # takes sting and returns an array (here  ["bla","bla"])
+"bla,bla".split(“,”) # takes string and returns an array (here  ["bla","bla"])
 ```
 
 ## Methods
@@ -102,14 +102,14 @@ my_hash = { key: "value", key2: "value" } # is equal to { :key => "value", :key2
 **Methods**
 
 ```Ruby
-def greeting(hello, *names) # *name is a splat argument, takes several parameters passed in an array
+def greeting(hello, *names) # *names is a split argument, takes several parameters passed in an array 
   return "#{hello}, #{names}"
 end
 
 start = greeting("Hi", "Justin", "Maria", "Herbert") # call a method by name
 
 def name(variable=default)
-  ### The last line in here get's returned by default
+  ### The last line in here gets returned by default
 end
 ```
 
@@ -118,7 +118,7 @@ end
 _custom objects_
 
 ```Ruby
-class Person # class names are rather written in PascalCase (It is similar to camelcase, but the first letter is capitalized)
+class Person # class names are rather written in PascalCase (It is similar to camelCase, but the first letter is capitalized)
   @@count = 0
   attr_reader :name # make it readable
   attr_writer :name # make it writable
@@ -146,7 +146,7 @@ matz = Person.new("Yukihiro")
 matz.show_name # Yukihiro
 ```
 
-### inheritance
+### Inheritance
 
 ```Ruby
 class DerivedClass < BaseClass; end # if you want to end a Ruby statement without going to a new line, you can just type a semicolon.
@@ -199,7 +199,7 @@ Rabbit.jump # extend
 
 ### Code Blocks
 
-_Blocks are not objects_ A block is just a bit of code between do..end or {}. It's not an object on its own, but it can be passed to methods like .each or .select.
+_Blocks are not objects._ A block is just a bit of code between do..end or {}. It's not an object on its own, but it can be passed to methods like .each or .select.
 
 ```Ruby
 def yield_name(name)
@@ -213,7 +213,7 @@ yield_name("Peter") { |n| print "My name is #{n}. " } # My name is Kim. My name 
 
 ### Proc
 
-_saves blocks and are objects_ A proc is a saved block we can use over and over.
+_Saves blocks and are objects._ A proc is a saved block we can use over and over.
 
 ```Ruby
 cube = Proc.new { |x| x ** 3 }
@@ -229,7 +229,7 @@ multiply = lambda { |x| x * 3 }
 y = [1, 2].collect(&multiply) # 3 , 6
 ```
 
-Diff between blocs and lambdas:
+Diff between procs and lambdas:
 
 - a lambda checks the number of arguments passed to it, while a proc does not (This means that a lambda will throw an error if you pass it the wrong number of arguments, whereas a proc will ignore unexpected arguments and assign nil to any that are missing.)
 - when a lambda returns, it passes control back to the calling method; when a proc returns, it does so immediately, without going back to the calling method.
@@ -248,7 +248,7 @@ Diff between blocs and lambdas:
 - `"A " << "B"` => `"A B"` but `"A " + "B"` would work as well but `"A " + 4 + " B"` not. So rather use string interpolation (`#{4}`)
 - `"A #{4} B"` => `"A 4 B"`
 
-## Comment
+## Commenting
 
 ```Ruby
 =begin
@@ -263,7 +263,7 @@ Multyline comment
 
 ## Conditions
 
-### IF
+### If
 
 ```Ruby
 if 1 < 2
@@ -278,7 +278,7 @@ puts "be printed" if true
 puts 3 > 4 ? "if true" : "else" # else will be putted
 ```
 
-### unless
+### Unless
 
 ```Ruby
 unless false # unless checks if the statement is false (opposite to if).
@@ -290,7 +290,7 @@ end
 puts "not printed" unless true
 ```
 
-### case
+### Case
 
 ```Ruby
 case my_var
@@ -348,7 +348,7 @@ gets.chomp # removes extra line created after gets (usually used like this)
 
 ## Loops
 
-### While loop:
+### While loop
 
 ```Ruby
 i = 1
@@ -358,7 +358,7 @@ while i < 11
 end
 ```
 
-### Until loop:
+### Until loop
 
 ```Ruby
 i = 0
