@@ -31,17 +31,9 @@ So far:
 
 # Helpers
 
-## Meta Files
+## Boilerplates
 
-### React
-
-- [root](/meta-files/react/)
-- - [vscode settings](/meta-files/react/.vscode)
-    Sets every `.js` file to be read as `reactjs`.
-- - [.env](/meta-files/react/.env)
-    Adds `NODE_PATH=src/js/` to be able to cross-import files.
-- - [.eslintrc](/meta-files/react/.eslintrc.json)
-- - [.prettierrc](/meta-files/react/.prettierrc)
+Find them in my [boilerplate project](https://github.com/ThibaultJanBeyer/tasks-starter-project).
 
 ## Common
 
