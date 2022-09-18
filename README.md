@@ -23,6 +23,7 @@ So far:
 - [Unity Mirror](/unity-mirror-cheatsheet.md)
 - [Solidity](/Solidity-Cheatsheet.md)
 - [Email Development](/Email-Development-Cheatsheet.md)
+- [Algorithms & Data Structures](/Algorithms-Data-Structures-Cheatsheet.md)
 
 # Theory
 
