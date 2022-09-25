@@ -1,5 +1,7 @@
 [back to overwiev](/../..)
 
+If you have a stock-chart, what would be the best day to invest in
+
 # Algorithms & Data Structures CheatSheet
 in JavaScript / TypeScript
 
@@ -17,9 +19,13 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - [Crystal Balls Exercise](#crystal-balls-exercise)
 - [Sorting](#sorting)
 - - [Bubble sort](#bubble-sort)
+- - [Divide and Conquer](#divide-and-conquer)
+- - [Quick sort](#quick-sort)
+- - [Merge sort](#merge-sort)
 - [Linked Lists](#linked-lists)
 - - [Queue](#queue)
 - - [Stack](#stack)
+- - [Double Linked Lists](#double-linked-lists)
 - [Recursion](#recursion)
 - - [Examples](#examples)
 - - - [Maze Solver](#maze-solver)
@@ -192,6 +198,103 @@ export default function bubble_sort(arr: number[]): void {
       }
 }
 ```
+### Divide and Conquer
+
+- Split the input into sub-sets, go over the sub-sets to solve it faster.
+- An array of 1 element is always sorted
+
+### Quick Sort
+
+```
+           [0, 31]
+           /  16  \
+      [0, 15]   [17, 31]
+      /  8  \    / 24  \
+       ………………etc………………
+    /\/\/\/\/\/\/\/\/\/\/\
+all of the last pieces will be sorted
+```
+
+- Runtime O(logN) – O(n^2) (depending on the input, i.e. a reverse sorted array [5,4,3,2,1])
+
+Simple implementation (runtime O(n) - O(n^2)):
+```TypeScript
+export default function quick_sort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr
+
+  const pivot = arr[arr.length - 1]
+  const leftArr: number[] = []
+  const rightArr: number[] = []
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] < pivot) leftArr.push(arr[i])
+    else rightArr.push(arr[i])
+  }
+
+  return [...quick_sort(leftArr), pivot, ...quick_sort(rightArr)]
+}
+```
+
+In-Place replacement implementation (runtime O(logN) - O(n^2)):
+```TypeScript
+function qs(arr: number[], lo: number, hi: number): void {
+  if (lo >= hi) return
+
+  const pivotIndex = partition(arr, lo, hi) // does the weak sort, put it in the spot, returns index
+  qs(arr, lo, pivotIndex - 1)
+  qs(arr, pivotIndex + 1, hi)
+}
+
+function partition(arr: number[], lo: number, hi: number): number {
+  const pivot = arr[hi]
+  let index = lo - 1
+
+  console.log(pivot)
+  for (let i = lo; i < hi; i++) {
+    if (arr[i] <= pivot) {
+      index++
+      const tmp = arr[i]
+      console.log(tmp)
+      arr[i] = arr[index]
+      arr[index] = tmp
+    }
+  }
+
+  ++index
+  arr[hi] = arr[index]
+  arr[index] = pivot
+
+  return index
+}
+
+export default function quick_sort(arr: number[]): void {
+  qs(arr, 0, arr.length - 1)
+}
+```
+
+### Merge Sort
+
+```TypeScript
+const sortArrays = (a: number[], b: number[]): number[] => {
+  const c: number[] = []
+
+  while (a.length && b.length)
+    if (a[0] < b[0]) c.push(a.shift()) else c.push(b.shift())
+
+  return [...c, ...a, ...b]
+}
+
+export default function mergeSort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr
+
+  const middle = Math.floor(arr.length / 2)
+  const leftArr = arr.slice(0, middle)
+  const rightArr = arr.slice(middle)
+
+  return sortArrays(mergeSort(leftArr), mergeSort(rightArr))
+}
+```
+
+- Complexity O(n^log(n))
 
 ## Linked Lists
 
@@ -314,6 +417,113 @@ export default class Stack<T> {
 }
 ```
 
+### Double Linked Lists
+
+```TypeScript
+type Node<T> = {
+  value: T
+  prev?: Node<T>
+  next?: Node<T>
+}
+
+export default class DoublyLinkedList<T> {
+  public length: number
+  private head?: Node<T>
+  private tail?: Node<T>
+
+  constructor() {
+    this.length = 0
+    this.head = this.tail = undefined
+  }
+
+  prepend(item: T): void {
+    const node = { value: item } as Node<T>
+    ++this.length
+    if (!this.head) {
+      this.head = this.tail = node
+      return
+    }
+
+    node.next = this.head
+    this.head.prev = node
+    this.head = node
+  }
+
+  insertAt(item: T, idx: number): void {
+    if (idx > this.length) throw new Error("Oops")
+    if (idx === this.length) this.append(item)
+    if (idx === 0) this.prepend(item)
+    else {
+      const curr = this.getAt(idx)
+      const node = { value: item } as Node<T>
+      node.next = curr
+      node.prev = curr?.prev
+      if (node.prev) node.prev.next = node
+      if (curr) curr.prev = node
+
+      ++this.length
+    }
+  }
+
+  append(item: T): void {
+    ++this.length
+    const node = { value: item } as Node<T>
+    if (!this.tail) {
+      this.head = this.tail = node
+      return
+    }
+
+    node.prev = this.tail
+    this.tail.next = node
+    this.tail = node
+  }
+
+  remove(item: T): T | undefined {
+    let curr = this.head
+    for (
+      let index = 0;
+      curr && curr.value !== item && index < this.length;
+      index++
+    )
+      curr = curr.next
+    return this.removeNode(curr)
+  }
+
+  get(idx: number): T | undefined {
+    return this.getAt(idx)?.value
+  }
+
+  getAt(idx: number): Node<T> | undefined {
+    let current = this.head
+    for (let i = 0; i < idx && current; i++) current = current.next
+    return current
+  }
+
+  removeAt(idx: number): T | undefined {
+    const curr = this.getAt(idx)
+    return this.removeNode(curr)
+  }
+
+  removeNode(node?: Node<T>): T | undefined {
+    if (!node) return
+
+    --this.length
+    if (this.length === 0) {
+      const out = this.head?.value
+      this.head = this.tail = undefined
+      return out
+    }
+    if (node.prev) node.prev.next = node.next
+    if (node.next) node.next.prev = node.prev
+    if (node === this.head) this.head = node.next
+    if (node === this.tail) this.tail = node.prev
+    node.prev = node.next = undefined
+
+    return node.value
+  }
+}
+```
+
 ## Recursion
 
 Basic example:
@@ -338,6 +548,8 @@ A Recursion can always be broken down in 3 steps:
 - Pre (what can be done before)
 - Recurse (calling of the function)
 - Post (doing something else after recursion)
+
+- Complexity O(N)
 
 ### Examples
 #### Maze solver
