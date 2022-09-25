@@ -30,6 +30,21 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - [Examples](#examples)
 - - - [Maze Solver](#maze-solver)
 - - - [Green houses](#green-houses)
+- [Trees](#trees)
+- - [Tree Traversal](#tree-traversal)
+- - - [Depth First Search](#depth-first-search)
+- - - - [Pre-Order](#pre-order)
+- - - - [In-Order](#in-order)
+- - - - [Post-Order](#post-order)
+- - - - [Compare Trees](#compare-trees)
+- - - - [Lowest Common Ancestor](#lowest-common-ancestor)
+- - - - [Binary Search Tree](#binary-search-tree)
+- - - [Breath First Search](#breath-first-search)
+- - - - [BFS Loop](#bfs-loop)
+- - - - [BFS Recurse](#bfs-recursive)
+- - - - [BFS Level by Level](#bfs-level-by-level)
+- [Heap / Priority Queue](#heap--priority-queue)
+- [Trie / Prefix Tree / Digital Tree](#trie--prefix-tree--digital-tree)
 
 ## Arrays
 
@@ -713,3 +728,437 @@ console.log(solution([4, 2, 7], 4, 100)) // 12
 console.log(solution([2, 2, 1, 2, 2], 2, 3)) // 8
 console.log(solution([4, 1, 5, 3], 5, 2)) // 4
 ```
+
+## Trees
+
+- For example the DOM
+- `Root` is the top most node
+- `Height` is the longest path from the Root to the furthest away node
+- `Leaf` is a node with no children
+- Binary Tree is a tree that only has two nodes (left/right)
+- Balanced Tree when the children have all the same height
+
+### Tree Traversal
+
+- Visit Node
+- Recurse
+- Pre-Order: Root at the beginning
+- In-Order: Root in the middle
+- Post-Order: Root in the end
+
+#### Depth first search
+
+- Complexity O(N)
+- Calling functions as/like a stack
+- Will go as deep into the tree as possible on the left
+- Preserves the shape of the tree!
+- Post order:
+
+```
+      7
+  23      3
+5   4   18  21
+Start at 7 => [7]
+Add left child => [23]
+                  [7]
+Add left child => [5]
+                  [23]
+                  [7]
+No more left, no more right =>    => (5)
+                              [23]
+                               [7]
+Add right child => [4] => (5)
+                  [23]
+                   [7]
+No more left, no more right => [] => (5,4)
+                              [23]
+                              [7]
+No more left, no more right => [] => (5,4,23)
+                              [7]
+Add right child => [3] => (5,4,23)
+                   [7]
+Add left child => [18] => (5,4,23)
+                   [3]
+                   [7]
+No more left, no more right => [] => (5,4,23,18)
+                              [3]
+                              [7]
+Add right child => [21] => (5,4,23,18)
+                    [3]
+                    [7]
+No more left, no more right => [] => (5,4,23,18,21)
+                              [3]
+                              [7]
+No more left, no more right => [] => (5,4,23,18,21,3)
+                              [7]
+No more left, no more right => [] => (5,4,23,18,21,3,7)
+```
+
+##### Pre Order
+
+```
+      7
+  23      3
+5   4   18  21
+=> [7, 23, 5, 4, 3, 18, 21]
+```
+
+```TypeScript
+const traversal = (node: BinaryNode<number> | null, visited: number[]): number[] => {
+  // base-case
+  if (!node) return visited
+  // pre
+  visited.push(node.value)
+  // recurse
+  traversal(node.left, visited)
+  traversal(node.right, visited)
+  // post
+  return visited
+}
+
+export default (head: BinaryNode<number>): number[] => traversal(head, [])
+```
+##### In Order
+
+```
+      7
+  23      3
+5   4   18  21
+=> [5, 23, 4, 7, 18, 3, 21]
+```
+
+```TypeScript
+const traversal = (node: BinaryNode<number> | null, visited: number[]): number[] => {
+  // base-case
+  if (!node) return visited
+  // pre
+  // recurse
+  traversal(node.left, visited)
+  visited.push(node.value)
+  traversal(node.right, visited)
+  // post
+  return visited
+}
+
+export default (head: BinaryNode<number>): number[] => traversal(head, [])
+```
+
+##### Post Order
+
+```
+      7
+  23      3
+5   4   18  21
+=> [5, 4, 23, 18, 21, 3, 7]
+```
+
+```TypeScript
+const traversal = (node: BinaryNode<number> | null, visited: number[]): number[] => {
+  // base-case
+  if (!node) return visited
+  // pre
+  // recurse
+  traversal(node.left, visited)
+  traversal(node.right, visited)
+  // post
+  visited.push(node.value)
+  return visited
+}
+
+export default (head: BinaryNode<number>): number[] => traversal(head, [])
+```
+
+##### Compare Trees
+
+- Compare whether two trees are equal in values and shape
+
+```TypeScript
+const traversal = (
+  a: BinaryNode<number> | null | undefined,
+  b: BinaryNode<number> | null | undefined,
+): boolean => {
+  // base-case
+  if (a?.value !== b?.value) return false
+  if (!a?.left && !b?.left) return true
+  // recurse
+  return traversal(a?.left, b?.left) && traversal(a?.right, b?.right)
+}
+
+export default (
+  a: BinaryNode<number> | null,
+  b: BinaryNode<number> | null,
+): boolean => traversal(a, b)
+```
+
+##### Lowest Common Ancestor
+
+```TypeScript
+const common = (head: BinaryNode<number>, x: number, y: number): number => {
+  let lca: BinaryNode<number> = head
+
+  const walk = (
+    node: BinaryNode<number> | null,
+    x: number,
+    y: number,
+  ): boolean => {
+    // base-case
+    const val = node?.value
+    if (!val) return false
+    // recurse
+    const hasLeft = walk(node.left, x, y)
+    const hasRight = walk(node.right, x, y)
+    const current = val === x || val === y
+    // post
+    if (val === x && val === y) lca = node
+    if (Number(hasLeft) + Number(hasRight) + Number(current) >= 2) lca = node
+    return hasLeft || hasRight || current
+  }
+
+  walk(head, x, y)
+  return lca.value
+}
+
+/**
+ *          20
+ *     10          50
+ *   5    15     30    100
+ *     7        29  45
+ */
+console.log(common(tree, 7, 15)) // 10
+```
+
+##### Binary Search Tree
+
+- Given a binary tree whose left children are always smaller or equal to the parent and the right children always greater:
+
+```TypeScript
+const traversal = (
+  node: BinaryNode<number> | null,
+  needle: number,
+): boolean => {
+  // base-case
+  if (!node) return false
+  if (node.value === needle) return true
+  // recurse
+  if (needle < node.value) return traversal(node.left, needle)
+  else return traversal(node.right, needle)
+}
+
+export default function dfs(head: BinaryNode<number>, needle: number): boolean {
+  return traversal(head, needle)
+}
+```
+
+#### Breath first search
+
+- Complexity theoretically O(N) but with JavaScript Arrays `[]` it’s O(N^2) because of shift/unshift
+- Calling functions as/like a queue
+- If children, add children to the queue
+- If no children, de queue
+- Will go level by level of the tree
+
+```
+      7
+  23      8
+5   4   21  15
+Start at 7 => 7
+Add children => 7->23->8
+Dequeue => 23->8 => (7)
+Visit 23 => 23->8 => (7)
+Add children => 23->8->5->4 => (7)
+Dequeue => 8->5->4 => (7,23)
+Visit 8 => 8->5->4 => (7,23)
+Add children => 8->5->4->21->15 => (7,23)
+Visit & Dequeue => 5->4->21->15 => (7,23,8)
+Visit & Dequeue => 4->21->15 => (7,23,8,5)
+Visit & Dequeue => 21->15 => (7,23,8,5,4)
+Visit & Dequeue => 15 => (7,23,8,5,4,21)
+Visit & Dequeue => => (7,23,8,5,4,21,15)
+```
+
+##### BFS Loop
+
+```TypeScript
+const loop = (head: BinaryNode<number>): number[] => {
+  const queue = [head]
+  const path = []
+  while (queue.length) {
+    const curr = queue.shift()
+    if (!curr?.value) continue
+    path.push(curr.value)
+    if (curr?.left) queue.push(curr.left)
+    if (curr?.right) queue.push(curr.right)
+  }
+  return path
+}
+
+export default (head: BinaryNode<number>): number[] => loop(head)
+```
+
+##### BFS Recursive
+
+```TypeScript
+const recursive = (queue: BinaryNode<number>[], path: number[] = []): number[] => {
+  const curr: BinaryNode<number> | undefined = queue.shift()
+  // base-case
+  if (!curr?.value) return path
+  // pre
+  path.push(curr.value)
+  // recursion
+  if (curr?.left) queue.push(curr.left)
+  if (curr?.right) queue.push(curr.right)
+  return recursive(queue, path)
+}
+
+export default (head: BinaryNode<number>): number[] => recursive([head])
+```
+
+##### BFS Level by Level
+
+```JavaScript
+/**
+ *          20
+ *     10          50
+ *   5    15     30    100
+ * => [[20],[10,50],[5,15,30,100]]
+ */
+const loopN = (head: BinaryNode<number>): number[][] => {
+  const queue = [head]
+  const levels: { [k:string]: number[] } = {}
+  let level = 0
+  while (queue.length) {
+    let store = []
+    for (let i = 0, il = queue.length; i < il; i++) {
+      const curr = queue.shift()
+      if (curr?.left) queue.push(curr.left)
+      if (curr?.right) queue.push(curr.right)
+      if (curr?.value) store.push(curr.value)
+    }
+    levels[level] = store
+    level++
+  }
+  return Object.values(levels)
+}
+```
+
+## Heap / Priority Queue
+
+- It is a binary tree where every child and grand child is smaller (MaxHeap) or larger (MinHeap) than the current node.
+- Whenever a node is added, we must adjust the tree
+- Whenever a node is deleted, we must adjust the tree
+- There is no traversing the tree
+- Maintains a weak ordering
+- The heap is always complete at each level (there is no gaps on one side)
+- Self balancing
+- Can be used for priority
+
+```
+                50 (0)
+            /           \
+     71 (1)               100 (2)
+     /    \               /     \
+  101 (3)  80 (4)     200 (5)    101 (6)
+  /
+200 (7)
+
+- [50,71,100,101,80,200,101,200]
+- Left hand child: 2*i+1
+- Right hand child: 2*i+2
+- Parent: Math.floor((i-1)/2)
+
+      | (i-1)/2
+      0
+    /   \
+2*i+1   2*i+2
+```
+
+// how to get the medium? (= using two heaps)
+
+- MinHeap: means that the root node must be the smallest
+- MaxHeap: Means that the root node must be the largest
+
+```TypeScript
+export default class MinHeap {
+  public length: number
+  private data: number[]
+
+  constructor() {
+    this.data = []
+    this.length = 0
+  }
+
+  insert(value: number): void {
+    this.data[this.length] = value
+    this.heapifyUp(this.length)
+    this.length++
+  }
+  // also some times called `poll` or `pop`
+  delete(): number {
+    if (this.length === 0) return -1
+    const out = this.data[0]
+    this.length--
+
+    if (this.length === 0) {
+      this.data = []
+      return out
+    }
+    this.data[0] = this.data[this.length]
+    this.heapifyDown(0)
+    return out
+  }
+
+  private heapifyDown(idx: number): void {
+    if (idx >= this.length) return
+    const leftChild = this.leftChild(idx)
+    const rightChild = this.rightChild(idx)
+    if (leftChild >= this.length || rightChild >= this.length) return
+
+    const lV = this.data[leftChild]
+    const rV = this.data[rightChild]
+    const value = this.data[idx]
+
+    if (rV > lV && value > lV) {
+      this.swap(idx, leftChild)
+      this.heapifyDown(leftChild)
+    } else if (lV > rV && value > rV) {
+      this.swap(idx, rightChild)
+      this.heapifyDown(rightChild)
+    }
+  }
+
+  private heapifyUp(idx: number): void {
+    if (idx === 0) return
+    const parent = this.parent(idx)
+    const parentValue = this.data[parent]
+    const value = this.data[idx]
+
+    if (parentValue > value) {
+      this.swap(idx, parent)
+      this.heapifyUp(parent)
+    }
+  }
+
+  private swap(a: number, b: number) {
+    const tmp = this.data[a]
+    this.data[a] = this.data[b]
+    this.data[b] = tmp
+  }
+
+  private parent(idx: number): number {
+    return Math.floor((idx - 1) / 2)
+  }
+  private leftChild(idx: number): number {
+    return 2 * idx + 1
+  }
+  private rightChild(idx: number): number {
+    return 2 * idx + 2
+  }
+}
+```
+
+- Runtime O(logN) (add/delete)
+
+## Trie / Prefix Tree / Digital Tree
+
+- Autocomplete problems
+- Cashing problems
