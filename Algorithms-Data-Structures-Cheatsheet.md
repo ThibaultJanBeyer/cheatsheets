@@ -45,6 +45,10 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - - - [BFS Level by Level](#bfs-level-by-level)
 - [Heap / Priority Queue](#heap--priority-queue)
 - [Trie / Prefix Tree / Digital Tree](#trie--prefix-tree--digital-tree)
+- [Graphs](#graphs)
+- - [Adjacency List](#adjacency-list)
+- - [Adjacency Matrix](#adjacency-matrix)
+- - [Searching the Graph](#searching-the-graph)
 
 ## Arrays
 
@@ -748,6 +752,7 @@ console.log(solution([4, 1, 5, 3], 5, 2)) // 4
 
 #### Depth first search
 
+- Like a `stack`
 - Complexity O(N)
 - Calling functions as/like a stack
 - Will go as deep into the tree as possible on the left
@@ -951,6 +956,7 @@ export default function dfs(head: BinaryNode<number>, needle: number): boolean {
 
 #### Breath first search
 
+- Like a `queue`
 - Complexity theoretically O(N) but with JavaScript Arrays `[]` it’s O(N^2) because of shift/unshift
 - Calling functions as/like a queue
 - If children, add children to the queue
@@ -1162,3 +1168,123 @@ export default class MinHeap {
 
 - Autocomplete problems
 - Cashing problems
+
+```TypeScript
+// To be done
+```
+
+## Graphs
+
+- Anything with 3 nodes is a graph (it needs a cycle)
+- A connected graph is where each node can reach each other node
+- Nodes are called Point or `Vertex`
+- Big O is commonly stated in terms of V: vertices and E: edges
+- i.e. O(V*E) = on every vertex we check every edge
+- Breath First Search and Depth First Searches can be used, one just needs to store the already seen nodes
+
+### Adjacency List
+
+A way to represent a graph is to write an `Adjacency List`:
+
+```
+0 - > 1
+^ \   ^
+|  _\||
+3 < - 2
+```
+
+Can be represented as a list of edges (Adjacency List (what am I adjacent to? > Edge)):
+```
+[
+  [{to: 1, weight: 10}, {to: 2, weight: 5}],
+  [],
+  [{to: 1, weight: …}, {to: 2, weight: …}],
+  [{to: 0, weight: …}]
+]
+```
+
+### Adjacency Matrix
+
+```
+0 - > 1
+^ \   ^
+|  _\||
+3 < - 2
+```
+
+Can be represented in an `Adjacency Matrix` (memory intensive O(V^2), not used in maps):
+```
+[
+    0, 1, 2, 3
+0, [0,10, 5, 0]
+1, [0, 0, 0, 0]
+2, [0, …, 0, …]
+3, […, 0, 0, …]
+]
+```
+
+The numbers in the matrix represent `0` for no connection or the weight if there is a connection.
+
+### Searching the Graph
+
+- DFS and BFS both work, one just needs a seen array (and to share a path also a previous array starting at -1)
+- Seen: [f,…]
+- Prev: [-1,…]
+- Queue: [0,…]
+
+```TypeScript
+/**
+ * Example:
+    >(1)<--->(4) ---->(5)
+   /          |       /|
+(0)     ------|------- |
+   \   v      v        v
+    >(2) --> (3) <----(6)
+export const matrix2: WeightedAdjacencyMatrix = [
+    [0, 3, 1,  0, 0, 0, 0], // 0
+    [0, 0, 0,  0, 1, 0, 0],
+    [0, 0, 7,  0, 0, 0, 0],
+    [0, 0, 0,  0, 0, 0, 0],
+    [0, 1, 0,  5, 0, 2, 0],
+    [0, 0, 18, 0, 0, 0, 1],
+    [0, 0, 0,  1, 0, 0, 1],
+];
+ */
+export default function bfs(
+  graph: WeightedAdjacencyMatrix,
+  source: number,
+  needle: number,
+): number[] | null {
+  const queue: number[] = [source]
+  const seen: boolean[] = Array(graph.length).fill(false)
+  const prev: number[] = Array(graph.length).fill(-1)
+  seen[source] = true
+
+  while (queue.length) {
+    const curr = queue.shift() as number
+    if (!curr && curr !== 0) continue
+    if (curr === needle) break
+
+    const adjs = graph[curr]
+    for (let index = 0; index < adjs.length; index++) {
+      const element = adjs[index]
+      if (element === 0 || seen[index]) continue
+      seen[index] = true
+      prev[index] = curr
+      queue.push(index)
+    }
+  }
+
+  if (prev[needle] === -1) return null
+
+  let curr = needle
+  const out: number[] = []
+  while (prev[curr] !== -1) {
+    out.push(curr)
+    curr = prev[curr]
+  }
+
+  out.push(source)
+  return out.reverse()
+}
+```
