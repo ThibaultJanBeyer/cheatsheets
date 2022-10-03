@@ -30,6 +30,7 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - [Examples](#examples)
 - - - [Maze Solver](#maze-solver)
 - - - [Green houses](#green-houses)
+- - - [Count the Islands](#count-the-islands)
 - [Trees](#trees)
 - - [Tree Traversal](#tree-traversal)
 - - - [Depth First Search](#depth-first-search)
@@ -52,6 +53,8 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - - [Breath First Search Matrix](#breath-first-search-matrix)
 - - - [Depth First Search List](#depth-first-search-list)
 - - - [Dijkstra Shortest Path in Graph](#dijkstra-shortest-path-in-graph)
+- [Maps](#maps)
+- [Least Recently Used Cache (LRU)](#least-recently-used-lru-cache)
 
 ## Arrays
 
@@ -736,6 +739,66 @@ console.log(solution([2, 2, 1, 2, 2], 2, 3)) // 8
 console.log(solution([4, 1, 5, 3], 5, 2)) // 4
 ```
 
+#### Count the Islands
+
+```TypeScript
+/**
+ * I have an array with 0 and 1s
+ *
+ * [
+ *  [0, 1, 0, 0, 1],
+ *  [0, 0, 0, 1, 1],
+ *  [0, 0, 0, 0, 1],
+ *  [0, 0, 0, 0, 0],
+ * ]
+ *
+ * How many islands are there on?
+ *
+ * - An island is any 1 that is not connected in any direction to another 1
+ */
+
+const directions = [
+  [-1, 0], // top
+  [1, 0], // bottom
+  [0, -1], // left
+  [0, 1], // right
+]
+
+const walk = (map: number[][], y: number, x: number) => {
+  // seen? => false
+  // is not a 1 => false
+  if (!map[y] || !map[y][x] || map[y][x] === 0) return
+  // is a 1 => mark as seen
+  map[y][x] = 0
+  // left, right, top, down, as long as there is a 1 connected => recurse
+  for (let index = 0; index < directions.length; index++)
+    walk(map, y - directions[index][0], x - directions[index][1])
+}
+
+const question = (map: number[][]) => {
+  let islands = 0
+
+  for (let y = 0; y < map.length; y++) {
+    for (let x = 0; x < map[y].length; x++) {
+      if (map[y][x] !== 1) continue
+      walk(map, y, x)
+      ++islands
+    }
+  }
+
+  return islands
+}
+
+console.log( // 3
+  question([
+    [0, 1, 0, 0, 1],
+    [0, 0, 0, 1, 1],
+    [0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0],
+  ]),
+)
+```
+
 ## Trees
 
 - For example the DOM
@@ -1408,5 +1471,112 @@ export default function dijkstra_list(
 
   out.push(source)
   return out.reverse()
+}
+```
+
+## Maps
+
+- Load factor: amount of data points vs storage (data.length / storage.capacity) (7/10 => load factor .7)
+- Key: value used to lookup data
+- Value: value associated with the key
+- Collision: when 2 keys map to the same cell
+
+## Least Recently Used (LRU) Cache
+
+- Combination of the linked list and a map
+- Complexity of O(1) because the doubly linked list elements are mapped
+
+```
+(V2) <-> (V0) <-> (V1) <-> (/) <-> (V3) <-> …
+ ^                          |
+ |__________________________|
+
+- If any element gets looked up (like V2 in this example) it’s placed at the front of the list
+- Hashmap<K,(V)> in order to avoid O(n) retrieval
+```
+
+```TypeScript
+type Node<T> = {
+  value: T
+  next?: Node<T>
+  prev?: Node<T>
+}
+
+function createNode<V>(value: V): Node<V> {
+  return { value } as Node<V>
+}
+
+export default class LRU<K, V> {
+  private length: number
+  private head?: Node<V>
+  private tail?: Node<V>
+
+  private lookup: Map<K, Node<V>>
+  private reverseLookup: Map<Node<V>, K>
+
+  constructor(public capacity: number = 10) {
+    this.length = 0
+    this.head = this.tail = undefined
+    this.lookup = new Map<K, Node<V>>()
+    this.reverseLookup = new Map<Node<V>, K>()
+  }
+
+  update(key: K, value: V): void {
+    let node = this.lookup.get(key)
+    if (!node) {
+      node = createNode(value)
+      this.length++
+      this.prepend(node)
+      this.trimCache()
+
+      this.lookup.set(key, node)
+      this.reverseLookup.set(node, key)
+    } else {
+      this.detach(node)
+      this.prepend(node)
+      node.value = value
+    }
+  }
+
+  get(key: K): V | undefined {
+    const node = this.lookup.get(key)
+    if (!node) return
+    
+    this.detach(node)
+    this.prepend(node)
+
+    return node.value
+  }
+
+  private detach(node: Node<V>) {
+    if (node.prev) node.prev.next = node.next
+    if (node.next) node.next.prev = node.prev
+
+    if (this.head === node) this.head = this.head.next
+    if (this.tail === node) this.tail = this.tail.prev
+
+    node.next = undefined
+    node.prev = undefined
+  }
+
+  private prepend(node: Node<V>): Node<V> {
+    if (!this.head) return (this.head = this.tail = node)
+
+    node.next = this.head
+    this.head.prev = node
+
+    return (this.head = node)
+  }
+
+  private trimCache() {
+    if (this.length <= this.capacity) return
+
+    const tail = this.tail as Node<V>
+    this.detach(this.tail as Node<V>)
+    const key = this.reverseLookup.get(tail) as K
+    this.lookup.delete(key)
+    this.reverseLookup.delete(tail)
+    this.length--
+  }
 }
 ```
