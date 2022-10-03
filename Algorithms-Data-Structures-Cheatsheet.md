@@ -49,6 +49,8 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - [Adjacency List](#adjacency-list)
 - - [Adjacency Matrix](#adjacency-matrix)
 - - [Searching the Graph](#searching-the-graph)
+- - - [Breath First Search Matrix](#breath-first-search-matrix)
+- - - [Depth First Search List](#depth-first-search-list)
 
 ## Arrays
 
@@ -1232,6 +1234,7 @@ The numbers in the matrix represent `0` for no connection or the weight if there
 - Prev: [-1,…]
 - Queue: [0,…]
 
+#### Breath First Search Matrix
 ```TypeScript
 /**
  * Example:
@@ -1286,5 +1289,63 @@ export default function bfs(
 
   out.push(source)
   return out.reverse()
+}
+```
+
+#### Depth First Search List
+```TypeScript
+/**
+ * Example:
+     >(1)<--->(4) ---->(5)
+    /          |       /|
+ (0)     ------|------- |
+    \   v      v        v
+     >(2) --> (3) <----(6)
+export const list2: WeightedAdjacencyList = [[
+  [{to: 1, weight: 3}, {to: 2, weight: 1}],
+  [{to: 4, weight: 1}],
+  [{to: 2, weight: 7}],
+  [],
+  [{to: 1, weight: 1}, {to: 3, weight: 5}, {to: 5, weight: 2}],
+  [{to: 2, weight: 18}, {to: 6, weight: 1}],
+  [{to: 3, weight: 1}, {to: 6, weight: 1}],
+]
+ */
+
+console.log(dfs(list2, 0, 6)) // 0, 1, 4, 5, 6
+
+function recursion(
+  graph: WeightedAdjacencyList,
+  curr: number,
+  needle: number,
+  seen: boolean[],
+  path: number[],
+): boolean {
+  if (seen[curr] || (!curr && curr !== 0)) return false
+  seen[curr] = true
+
+  path.push(curr)
+  if (curr === needle) return true
+
+  for (let index = 0; index < graph[curr].length; index++) {
+    const element = graph[curr][index]
+    if (recursion(graph, element.to, needle, seen, path)) return true
+  }
+
+  path.pop()
+
+  return false
+}
+
+export default function dfs(
+  graph: WeightedAdjacencyList,
+  source: number,
+  needle: number,
+): number[] | null {
+  if (needle === source) return null
+  const path: number[] = []
+  const seen = new Array(graph.length).fill(false)
+  if (recursion(graph, source, needle, seen, path)) return path
+  return null
 }
 ```
