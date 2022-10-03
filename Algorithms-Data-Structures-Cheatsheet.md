@@ -51,6 +51,7 @@ It is based on a [Frontent Masters course](https://frontendmasters.com/courses/a
 - - [Searching the Graph](#searching-the-graph)
 - - - [Breath First Search Matrix](#breath-first-search-matrix)
 - - - [Depth First Search List](#depth-first-search-list)
+- - - [Dijkstra Shortest Path in Graph](#dijkstra-shortest-path-in-graph)
 
 ## Arrays
 
@@ -1233,6 +1234,7 @@ The numbers in the matrix represent `0` for no connection or the weight if there
 - Seen: [f,…]
 - Prev: [-1,…]
 - Queue: [0,…]
+- The Complexity is `O(V+E)` (vertices + edges) since worst case each of them they will be checked once
 
 #### Breath First Search Matrix
 ```TypeScript
@@ -1347,5 +1349,64 @@ export default function dfs(
   const seen = new Array(graph.length).fill(false)
   if (recursion(graph, source, needle, seen, path)) return path
   return null
+}
+```
+
+### Dijkstra Shortest Path in Graph
+
+```TypeScript
+const hasUnvisited = (seen: boolean[], dists: number[]): boolean =>
+  seen.some((bool, index) => !bool && dists[index] < Infinity)
+
+const getLowestUnvisited = (seen: boolean[], dists: number[]): number => {
+  let idx = -1
+  let lowestDistance = Infinity
+
+  for (let index = 0; index < seen.length; index++) {
+    if (seen[index]) continue
+    if (lowestDistance > dists[index]) {
+      lowestDistance = dists[index]
+      idx = index
+    }
+  }
+  return idx
+}
+
+export default function dijkstra_list(
+  source: number,
+  sink: number,
+  arr: WeightedAdjacencyList,
+): number[] {
+  const seen = new Array(arr.length).fill(false)
+  const prev = new Array(arr.length).fill(-1)
+  const dists = new Array(arr.length).fill(Infinity)
+  dists[source] = 0
+
+  // could be replaced by min-heap
+  while (hasUnvisited(seen, dists)) {
+    const curr = getLowestUnvisited(seen, dists)
+    seen[curr] = true
+
+    const adjs = arr[curr]
+    for (let index = 0; index < adjs.length; index++) {
+      const edge = adjs[index]
+      if (seen[edge.to]) continue
+      const dist = dists[curr] + edge.weight
+      if (dist < dists[edge.to]) {
+        dists[edge.to] = dist
+        prev[edge.to] = curr
+      }
+    }
+  }
+
+  const out: number[] = []
+  let curr = sink
+  while (prev[curr] !== -1) {
+    out.push(curr)
+    curr = prev[curr]
+  }
+
+  out.push(source)
+  return out.reverse()
 }
 ```
