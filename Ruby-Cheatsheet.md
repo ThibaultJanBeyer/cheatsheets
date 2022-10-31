@@ -13,7 +13,7 @@ Looking for [Rails](../master/Ruby-on-Rails-Cheatsheet.md)?
 - [Blocks & Procs](#blocks--procs)  
 - [Lambdas](#lambdas)
 - [Calculation](#calculation)  
-- [Comment](#comment)  
+- [Commenting](#commenting)  
 - [Conditions](#conditions)  
 - [Printing & Putting](#printing--putting)  
 - [User Input](#user-input)  
@@ -37,7 +37,7 @@ Looking for [Rails](../master/Ruby-on-Rails-Cheatsheet.md)?
 - - `@@`: class variable
 - `1_000_000`: 1000000 –– just easier to read\*
 
-## Vars, Contants, Arrays, Hashes & Symbols
+## Vars, Constants, Arrays, Hashes & Symbols
 
 ```Ruby
 my_variable = “Hello”
