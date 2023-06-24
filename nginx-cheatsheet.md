@@ -53,7 +53,7 @@ sudo nginx -t
 server {
     listen 80;
     listen [::]:80;
-    server_name your-domain-name.com;
+    server_name example.com www.example.com;
     location / {
         proxy_pass http://127.0.0.1:2368;
     }
@@ -75,7 +75,7 @@ sudo chown -R $USER:$USER /var/www/example.com/html
 sudo chmod -R 755 /var/www/example.com
 ```
 
-Add a website to serve
+Add a website to serve (or skip it and add a proxy)
 
 ```
 vim /var/www/example.com/html/index.html
@@ -83,16 +83,16 @@ vim /var/www/example.com/html/index.html
 
 ```html
 <html>
-    <head>
-        <title>Welcome to Example.com!</title>
-    </head>
-    <body>
-        <h1>Success!  The example.com server block is working!</h1>
-    </body>
+  <head>
+    <title>Welcome to Example.com!</title>
+  </head>
+  <body>
+    <h1>Success! The example.com server block is working!</h1>
+  </body>
 </html>
 ```
 
-Create a new configuration for this host:
+Create a new configuration for this host (or a proxy):
 
 ```
 sudo vim /etc/nginx/sites-available/example.com
@@ -144,11 +144,12 @@ sudo systemctl restart nginx
 
 ## HTTPS
 
-We will use Let’s Encrypt to setup HTTPs routes
+We will use Let’s Encrypt to setup HTTPs routes (https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal)
 
 ```
-sudo add-apt-repository ppa:certbot/certbot
-sudo apt install python-certbot-nginx -y
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
 - For the Certbot to work you need to have the correct nginx block setup, especially the part with `server_name example.com www.example.com;` as we added before.
@@ -171,7 +172,6 @@ sudo certbot renew --dry-run
 
 If no errors ari seyou’re all set.
 
-
 ## Quick adding of a Server Block
 
 ```bash
@@ -180,19 +180,22 @@ sudo chown -R $USER:$USER /var/www/neomatcha.com/html
 sudo chmod -R 755 /var/www/neomatcha.com
 vim /var/www/neomatcha.com/html/index.html
 ```
+
 ```html
 <html>
-    <head>
-        <title>Welcome to neomatcha.com!</title>
-    </head>
-    <body>
-        <h1>Success!  The neomatcha.com server block is working!</h1>
-    </body>
+  <head>
+    <title>Welcome to neomatcha.com!</title>
+  </head>
+  <body>
+    <h1>Success! The neomatcha.com server block is working!</h1>
+  </body>
 </html>
 ```
+
 ```bash
 sudo vim /etc/nginx/sites-available/neomatcha.com
 ```
+
 ```nginx
 server {
         listen 80;
@@ -208,10 +211,12 @@ server {
         }
 }
 ```
+
 ```bash
 sudo ln -s /etc/nginx/sites-available/neomatcha.com /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ```
+
 ```
 sudo certbot --nginx -d neomatcha.com -d www.neomatcha.com
 ```

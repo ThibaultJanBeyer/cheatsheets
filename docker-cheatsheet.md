@@ -98,12 +98,13 @@ docker run hello-world
 `hello-world` here is the name of a docker image.
 
 ```
-docker run -d --name web -p 80:8080 foo/bar
+docker run -d --name web -p 80:8080 --restart unless-stopped foo/bar
 ```
 
 `-d`: run in background  
 `--name web`: give it a friendly unique name  
 `-p 80:8080`: map a port inside the container (here 8080) to a port on the machine (here 80)  
+`--restart unless-stopped`: will restart the instance (even after restarting docker itself) unless stopped
 `foo/bar`: get the image named `bar` from user `foo`
 
 ```
@@ -746,12 +747,12 @@ vim docker-compose.yml
 ```
 
 ```yml
-version: '3'
+version: "3"
 services:
   registry:
     image: registry:2
     ports:
-    - "5000:5000"
+      - "5000:5000"
     environment:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
     volumes:
@@ -826,10 +827,9 @@ Now edit the `docker-compose.yml`:
 edit `docker-compose.yml`
 
 ```yml
-...
-  registry:
-    restart: always
-...
+---
+registry:
+  restart: always
 ```
 
 ```
@@ -875,7 +875,7 @@ curl -X GET https://example.com/v2/ubuntu/tags/list
 
 https://medium.com/better-programming/cleanup-your-docker-registry-ef0527673e3a
 
-Remove the files locally (stored in the `/data` folder). 
+Remove the files locally (stored in the `/data` folder).
 Then run:
 
 ```bash
@@ -887,16 +887,17 @@ docker exec registry bin/registry garbage-collect --dry-run /etc/docker/registry
 ### Permission denied
 
 If you get following error:
+
 ```bash
 docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.26/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
 See 'docker run --help'.
 ```
 
 You’ll have to add your user to the `docker` group:
+
 ```bash
 sudo usermod -a -G docker <user>
 ```
 
 Replace `<user>` with your user account. (You can find your user account name by typing `whoami` in the console)  
 And then restart your console (or open a new one) for the changes to take effect.
-

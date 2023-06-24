@@ -10,6 +10,9 @@
 [Input & Output Redirects](#input--output-redirects)  
 [Sorting & Filtering](#sorting--filtering)  
 [Environment](#environmen)
+[Misc](#misc)  
+[File management](#file-management)  
+[Server](#server)
 
 ## Basics
 
@@ -81,3 +84,75 @@
 `(within bash_profile) export PS1=">> "`: to change the command prompt from $ to >>
 `source ~/.bash_profile`: makes changes available without the fuzz to open a new console.
 `env`: return a list of environment variables
+
+## Misc
+
+### Kill open port in OSX
+
+```bash
+lsof -i :<port>
+kill -9 <port PID>
+```
+
+## File management
+
+### OSX Bash script not executed "command not found".
+
+```bash
+sudo chmod a+x ./app/build.sh
+```
+
+## Server
+
+### Install nodejs on ubuntu
+
+https://github.com/nodesource/distributions/blob/master/README.md#debinstall
+
+```bash
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+### SSH
+
+- Generate
+
+```bash
+ssh-keygen -R
+```
+
+- Copy
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+### Connect to a server
+
+```bash
+ssh root@<IP>
+```
+
+### Transfer files
+
+```bash
+scp <source> <destination>
+```
+
+To copy remotely
+
+```bash
+scp /path/to/file username@a:/path/to/destination
+```
+
+To copy from remote
+
+```bash
+scp username@b:/path/to/file /path/to/destination
+```
+
+To copy a folder use `-r`
+
+```bash
+scp -r /path/to/file username@a:/path/to/destination
+```

@@ -35,27 +35,3 @@ So far:
 ## Boilerplates
 
 Find them in my [boilerplate project](https://github.com/ThibaultJanBeyer/tasks-starter-project).
-
-## Common
-
-### OSX Bash script not executed "command not found".
-
-```
-sudo chmod a+x ./app/build.sh
-```
-
-### Install nodejs on ubuntu
-
-https://github.com/nodesource/distributions/blob/master/README.md#debinstall
-
-```bash
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-### Kill open port in OSX
-
-```bash
-sudo lsof -i :<port>
-sudo kill -9 <port PID>
-```
