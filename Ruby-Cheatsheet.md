@@ -42,13 +42,15 @@ Looking for [Rails](../master/Ruby-on-Rails-Cheatsheet.md)?
 ```Ruby
 my_variable = “Hello”
 my_variable.capitalize! # ! changes the value of the var same as my_name = my_name.capitalize
-my_variable ||= "Hi" # ||= is a conditional assignment only set the variable if it was not set before.
+my_variable ||= "Hi" # ||= is a conditional assignment that only sets the variable if it was not set before.
 ```
 
 ### Constants
 
 ```Ruby
 MY_CONSTANT = # something
+
+# NOTE: Ruby doesn't stop you from changing constant values, it gives you a warning, treating these as truly constant is preferred.
 ```
 
 ### Arrays
@@ -70,7 +72,7 @@ my_hash = Hash.new # same as my_hash = {} – set a new key like so: pets["Stevi
 pets["key1"] # value1
 pets["Stevie"] # cat
 my_hash = Hash.new("default value")
-hash.select{ |key, value| value > 3 } # selects all keys in hash that have a value greater than 3
+hash.select{ |key, value| value > 3 } # selects all keys in a hash that have a value greater than 3
 hash.each_key { |k| print k, " " } # ==> key1 key2
 hash.each_value { |v| print v } # ==> value1value2
 
@@ -81,7 +83,7 @@ my_hash.each_value { |v| print v, " " }
 ### Symbols
 
 ```Ruby
-:symbol # symbol is like an ID in html. :symbol != "symbol"
+:symbol # symbol is like an ID in HTML. :symbol != "symbol"
 # Symbols are often used as Hash keys or referencing method names.
 # They can not be changed once created. They save memory (only one copy at a given time). Faster.
 :test.to_s # converts to "test"
@@ -96,6 +98,13 @@ my_hash = { key: "value", key2: "value" } # is equal to { :key => "value", :key2
 ```Ruby
 "bla,bla".split(“,”) # takes string and returns an array (here  ["bla","bla"])
 ```
+
+#### Functions to create String From Array
+
+```Ruby
+["bla","bla"].join(“,”) # takes array and returns a string (here  "bla,bla")
+```
+
 
 ## Methods
 
