@@ -99,6 +99,13 @@ my_hash = { key: "value", key2: "value" } # is equal to { :key => "value", :key2
 "bla,bla".split(“,”) # takes string and returns an array (here  ["bla","bla"])
 ```
 
+#### Functions to create String From Array
+
+```Ruby
+["bla","bla"].join(“,”) # takes array and returns a string (here  "bla,bla")
+```
+
+
 ## Methods
 
 **Methods**
